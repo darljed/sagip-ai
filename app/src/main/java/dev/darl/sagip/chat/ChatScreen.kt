@@ -59,7 +59,7 @@ fun ChatScreen(state: ChatState, onSend: (String) -> Unit) {
 
     Box(Modifier.fillMaxSize().background(SagipColors.CanvasGradient)) {
         Column(Modifier.fillMaxSize().padding(top = 52.dp, bottom = 16.dp)) {
-            Header()
+            Header(state)
 
             Box(Modifier.weight(1f).fillMaxWidth()) {
                 if (state.messages.isEmpty()) {
@@ -93,7 +93,13 @@ fun ChatScreen(state: ChatState, onSend: (String) -> Unit) {
 }
 
 @Composable
-private fun Header() {
+private fun Header(state: ChatState) {
+    val (dotColor, label) = when (state.modelStatus) {
+        ModelStatus.READY -> SagipColors.Ok to "Offline · ${state.modelName}"
+        ModelStatus.LOADING -> SagipColors.SeverityCaution to "Loading ${state.modelName}…"
+        ModelStatus.MOCK -> SagipColors.SeverityInfo to "Offline · demo mode"
+        ModelStatus.ERROR -> SagipColors.SeverityUrgent to "Offline · ${state.modelName}"
+    }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
@@ -102,9 +108,9 @@ private fun Header() {
         Spacer(Modifier.width(10.dp))
         Text("SAGIP", color = SagipColors.Text, fontSize = 17.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
         Spacer(Modifier.weight(1f))
-        Box(Modifier.size(8.dp).clip(CircleShape).background(SagipColors.Ok))
+        Box(Modifier.size(8.dp).clip(CircleShape).background(dotColor))
         Spacer(Modifier.width(6.dp))
-        Text("Offline · Ready", color = SagipColors.TextDim, fontSize = 12.sp)
+        Text(label, color = SagipColors.TextDim, fontSize = 12.sp)
     }
 }
 

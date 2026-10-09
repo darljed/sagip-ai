@@ -3,21 +3,22 @@ package dev.darl.sagip.llm
 import java.io.File
 
 /**
- * Central model registry so the H1:30 "model gate" in PLAN.md is a one-line flip,
- * not a code change scattered across files.
+ * Central model registry so the model choice is a one-line flip, not scattered code.
  *
- * Strategy:
- *  - [PRIMARY] = Gemma 4 E2B (best Tagalog, newest). [FALLBACK] = Gemma 3 1B INT4
- *    (proven, smaller). [resolve] auto-picks whichever .task is actually on the
- *    device, preferring PRIMARY — so dropping a Gemma 4 file onto the phone
- *    switches the app with no rebuild.
+ * Device reality (this build): Gemma 4 E2B (2.6GB) OOMs on the 8GB S23 Ultra —
+ * only ~2.7GB RAM is free, and the model needs more to load. So **Gemma 3 1B INT4
+ * (~584MB) is the preferred model here** for demo stability. Gemma 4 E2B stays
+ * defined (and tried as a secondary) so a higher-RAM device would still use it, and
+ * so the upgrade is a pure preference-order change.
  */
 enum class ModelConfig(
     val displayName: String,
     val fileName: String,
+    /** Rough RAM headroom (GB) the load needs; used to warn, not hard-gate. */
+    val minFreeGb: Int,
 ) {
-    GEMMA4_E2B("Gemma 4 E2B", "gemma-4-e2b-it-int4.task"),
-    GEMMA3_1B("Gemma 3 1B INT4", "gemma3-1b-it-int4.task");
+    GEMMA3_1B("Gemma 3 1B", "gemma3-1b-it-int4.litertlm", minFreeGb = 2),
+    GEMMA4_E2B("Gemma 4 E2B", "gemma-4-e2b-it-int4.litertlm", minFreeGb = 5);
 
     val path: String get() = "$LLM_DIR/$fileName"
 
@@ -26,8 +27,8 @@ enum class ModelConfig(
     companion object {
         const val LLM_DIR = "/data/local/tmp/llm"
 
-        /** Preference order for the gate: try Gemma 4 first, fall back to Gemma 3. */
-        val PREFERENCE = listOf(GEMMA4_E2B, GEMMA3_1B)
+        /** Preference order: Gemma 3 1B first (demo-stable on 8GB), E2B as secondary. */
+        val PREFERENCE = listOf(GEMMA3_1B, GEMMA4_E2B)
 
         /** The model to actually load: first preferred variant present on device, or null. */
         fun resolve(): ModelConfig? = PREFERENCE.firstOrNull { it.exists() }

@@ -1,6 +1,7 @@
 package dev.darl.sagip
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -14,11 +15,14 @@ import dev.darl.sagip.chat.ChatViewModel
 import dev.darl.sagip.data.KeywordRetriever
 import dev.darl.sagip.data.PackRepository
 import dev.darl.sagip.data.UserProfile
-import dev.darl.sagip.llm.LlmEngine
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Keep the screen on: model load/inference is memory-sensitive and screen-off
+        // perturbs Android memory/power management. Also correct for an emergency app
+        // — it shouldn't sleep mid-crisis.
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         enableEdgeToEdge()
         setContent { SagipApp() }
     }
@@ -26,28 +30,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun SagipApp() {
-    val context = LocalContext.current
+    val context = LocalContext.current.applicationContext
 
-    // Build the model-independent pipeline now. Profile = DEMO until onboarding ships.
+    // Build only the lightweight, main-thread-safe pieces here. The LLM engine
+    // (multi-GB model load) is created ASYNC inside the ViewModel — never on the
+    // composition/main thread, which would ANR/crash.
     val vm = remember {
         val repo = PackRepository.fromAssets(context)
         val retriever = KeywordRetriever(repo)
         val profile = UserProfile.DEMO
-        val modelReady = LlmEngine.modelExists()
-
-        // Real streaming generator if the model is on device; otherwise the mock
-        // that composes from retrieved chunks so the full UI works pre-model.
-        val generate: suspend (String, (String, Boolean) -> Unit) -> Unit =
-            if (modelReady) {
-                val engine = LlmEngine.create(context)
-                val fn: suspend (String, (String, Boolean) -> Unit) -> Unit =
-                    { prompt, onPartial -> engine.generateAsync(prompt, onPartial) }
-                fn
-            } else {
-                ChatViewModel.mockGenerator(retriever, profile)
-            }
-
-        ChatViewModel(retriever, profile, generate, modelReady)
+        ChatViewModel(context, retriever, profile).also { it.initEngine() }
     }
 
     val state by vm.state.collectAsState()

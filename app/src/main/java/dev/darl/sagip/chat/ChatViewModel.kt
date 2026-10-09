@@ -1,14 +1,14 @@
 package dev.darl.sagip.chat
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.darl.sagip.data.Chunk
-import dev.darl.sagip.data.Lang
 import dev.darl.sagip.data.PromptBuilder
 import dev.darl.sagip.data.Retriever
 import dev.darl.sagip.data.Severity
 import dev.darl.sagip.data.UserProfile
 import dev.darl.sagip.llm.LlmEngine
+import dev.darl.sagip.llm.ModelConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,59 +18,76 @@ import kotlinx.coroutines.withContext
 
 enum class Role { USER, ASSISTANT }
 
-/**
- * One chat message. Assistant messages carry the trust metadata the UI renders:
- * severity banner, source citations, and whether to show the emergency-call line.
- */
+enum class ModelStatus { LOADING, READY, MOCK, ERROR }
+
 data class Message(
     val role: Role,
     val text: String,
     val severity: Severity? = null,
     val sources: List<String> = emptyList(),
-    val callContact: String? = null,  // e.g. "Call Maria at +639171234567"
+    val callContact: String? = null,
     val streaming: Boolean = false,
 )
 
 data class ChatState(
     val messages: List<Message> = emptyList(),
     val busy: Boolean = false,
-    val modelReady: Boolean = false,
+    val modelStatus: ModelStatus = ModelStatus.LOADING,
+    val modelName: String = "",
 )
 
 /**
- * Drives a chat turn: retrieve -> build prompt -> generate.
+ * Drives chat: retrieve -> build prompt -> generate.
  *
- * The LLM is injected as a nullable [generate] function. When the model is on the
- * device we pass a real streaming generator; until then (or in previews/tests) we
- * pass a MOCK that composes an answer from the retrieved chunks — so the entire UI
- * and pipeline are exercisable before the .task lands. Swapping to the real model
- * is a single call-site change.
+ * The LLM engine is loaded ASYNCHRONOUSLY ([initEngine]) off the main thread — a
+ * multi-GB model load on the UI thread ANRs/crashes the app. Until it's ready the
+ * UI is still usable: queries use the mock generator; once the real engine loads,
+ * generation switches to it transparently. If no model is present or load fails,
+ * we stay on the mock (status MOCK/ERROR) rather than crashing.
  */
 class ChatViewModel(
+    private val appContext: Context,
     private val retriever: Retriever,
     private val profile: UserProfile,
-    private val generate: suspend (prompt: String, onPartial: (String, Boolean) -> Unit) -> Unit,
-    modelReady: Boolean,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(ChatState(modelReady = modelReady))
+    private val _state = MutableStateFlow(ChatState())
     val state: StateFlow<ChatState> = _state.asStateFlow()
+
+    @Volatile private var engine: LlmEngine? = null
+
+    /** Kick off async model load. Safe to call once from composition. */
+    fun initEngine() {
+        val resolved = ModelConfig.resolve()
+        if (resolved == null) {
+            _state.value = _state.value.copy(modelStatus = ModelStatus.MOCK, modelName = "mock")
+            return
+        }
+        _state.value = _state.value.copy(modelStatus = ModelStatus.LOADING, modelName = resolved.displayName)
+        viewModelScope.launch {
+            try {
+                val eng = withContext(Dispatchers.IO) { LlmEngine.create(appContext) }
+                engine = eng
+                _state.value = _state.value.copy(modelStatus = ModelStatus.READY, modelName = resolved.displayName)
+            } catch (t: Throwable) {
+                // Fall back to mock — demo stays alive even if the native load fails.
+                _state.value = _state.value.copy(modelStatus = ModelStatus.ERROR, modelName = "mock (${t.message?.take(40)})")
+            }
+        }
+    }
 
     fun send(userText: String) {
         if (userText.isBlank() || _state.value.busy) return
         val lang = profile.preferredLanguage
 
-        // 1. Append the user message.
         _state.value = _state.value.copy(
             messages = _state.value.messages + Message(Role.USER, userText),
             busy = true,
         )
 
-        // 2. Retrieve grounding chunks.
         val chunks = retriever.retrieve(userText, lang, k = 3)
         val prompt = PromptBuilder.build(userText, profile, chunks)
 
-        // 3. Seed a streaming assistant message with trust metadata from the chunks.
         val severity = chunks.maxByOrNull { it.severity.ordinal }?.severity
         val sources = chunks.map { it.title + " — " + it.source }.distinct()
         val callContact = if (chunks.any { it.callEmergency } && profile.hasEmergencyContact)
@@ -84,17 +101,45 @@ class ChatViewModel(
             )
         )
 
-        // 4. Generate (real or mock), streaming partials into the assistant message.
         viewModelScope.launch {
             val sb = StringBuilder()
-            withContext(Dispatchers.IO) {
-                generate(prompt) { partial, done ->
-                    sb.append(partial)
-                    updateAssistant(assistantIndex, sb.toString(), streaming = !done)
-                    if (done) setBusy(false)
+            val eng = engine
+            try {
+                if (eng != null) {
+                    withContext(Dispatchers.IO) {
+                        eng.generateAsync(prompt) { partial, done ->
+                            sb.append(partial)
+                            val snap = sb.toString()
+                            viewModelScope.launch(Dispatchers.Main) {
+                                updateAssistant(assistantIndex, snap, streaming = !done)
+                                if (done) setBusy(false)
+                            }
+                        }
+                    }
+                } else {
+                    // Mock: compose from retrieved guidance so the UI/pipeline works pre-model.
+                    val canned = buildMock(prompt)
+                    for (word in canned.split(" ")) {
+                        sb.append(word).append(' ')
+                        updateAssistant(assistantIndex, sb.toString(), streaming = true)
+                        kotlinx.coroutines.delay(10)
+                    }
+                    updateAssistant(assistantIndex, sb.toString(), streaming = false)
+                    setBusy(false)
                 }
+            } catch (t: Throwable) {
+                updateAssistant(assistantIndex, "⚠ Generation error: ${t.message}", streaming = false)
+                setBusy(false)
             }
         }
+    }
+
+    private fun buildMock(prompt: String): String {
+        val guidance = prompt.substringAfter("GUIDANCE", "").take(600)
+        val steps = guidance.lineSequence()
+            .filter { it.trim().matches(Regex("^\\d+\\..*")) }
+            .take(5).joinToString("\n")
+        return "[mock — model not loaded]\nBased on trusted guidance:\n$steps"
     }
 
     private fun updateAssistant(index: Int, text: String, streaming: Boolean) {
@@ -105,33 +150,10 @@ class ChatViewModel(
         }
     }
 
-    private fun setBusy(b: Boolean) {
-        _state.value = _state.value.copy(busy = b)
-    }
+    private fun setBusy(b: Boolean) { _state.value = _state.value.copy(busy = b) }
 
-    companion object {
-        /**
-         * MOCK generator for pre-model development: streams back a readable answer
-         * built from the chunks already selected by retrieval. Lets us prove the
-         * whole UI + pipeline without the .task file. ponytail: the mock reuses the
-         * real retrieval output, so what you see now is structurally what ships.
-         */
-        fun mockGenerator(
-            retriever: Retriever,
-            profile: UserProfile,
-        ): suspend (String, (String, Boolean) -> Unit) -> Unit = { prompt, onPartial ->
-            // The prompt already contains the GUIDANCE block; echo a tidy summary of it.
-            val guidance = prompt.substringAfter("GUIDANCE", "").take(500)
-            val canned = "[mock answer — model not loaded]\n" +
-                "Based on trusted guidance:\n" +
-                guidance.lineSequence()
-                    .filter { it.trim().matches(Regex("^\\d+\\..*")) }
-                    .take(5).joinToString("\n")
-            // Stream it word by word to exercise the streaming UI.
-            for (word in canned.split(" ")) {
-                onPartial("$word ", false)
-            }
-            onPartial("", true)
-        }
+    override fun onCleared() {
+        engine?.close()
+        engine = null
     }
 }
