@@ -71,6 +71,7 @@ fun ChatScreen(
     onSend: () -> Unit,
     listening: Boolean,
     voiceHint: String? = null,
+    onVoiceHintClick: (() -> Unit)? = null,
     onMic: () -> Unit,
 ) {
     val listState = rememberLazyListState()
@@ -114,7 +115,10 @@ fun ChatScreen(
             voiceHint?.let {
                 Text(
                     it, color = SagipColors.SeverityUrgent, fontSize = 12.sp,
-                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 2.dp),
+                    fontWeight = if (onVoiceHintClick != null) FontWeight.SemiBold else FontWeight.Normal,
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp, vertical = 2.dp)
+                        .then(if (onVoiceHintClick != null) Modifier.clickable { onVoiceHintClick() } else Modifier),
                 )
             }
             InputBar(

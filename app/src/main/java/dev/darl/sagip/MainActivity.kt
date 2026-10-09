@@ -94,6 +94,22 @@ class MainActivity : ComponentActivity() {
 
     fun stopVoiceInput() = voice.stop()
 
+    /**
+     * Opens the system voice-input / offline-languages settings so the user can
+     * download the on-device speech pack (e.g. Filipino). Tries the most specific
+     * screen first, then falls back to general input settings.
+     */
+    fun openVoiceDownloadSettings() {
+        val candidates = listOf(
+            Intent("com.android.settings.action.INPUT_METHOD_SETTINGS"),
+            Intent(android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS),
+            Intent(android.provider.Settings.ACTION_SETTINGS),
+        )
+        for (intent in candidates) {
+            if (runCatching { startActivity(intent); true }.getOrDefault(false)) return
+        }
+    }
+
     @Suppress("MissingPermission")
     private fun resolveLocation() {
         runCatching {
@@ -191,26 +207,36 @@ private fun ChatApp(profile: UserProfile, activity: MainActivity) {
     var input by remember { mutableStateOf("") }
     var listening by remember { mutableStateOf(false) }
     var voiceHint by remember { mutableStateOf<String?>(null) }
+    var voiceNeedsPack by remember { mutableStateOf(false) }
     val langTag = if (profile.preferredLanguage == dev.darl.sagip.data.Lang.TL) "fil-PH" else "en-PH"
 
     ChatScreen(
         state = state,
         input = input,
-        onInputChange = { input = it; voiceHint = null },
+        onInputChange = { input = it; voiceHint = null; voiceNeedsPack = false },
         onSend = { if (input.isNotBlank()) { vm.send(input); input = ""; voiceHint = null } },
         listening = listening,
         voiceHint = voiceHint,
+        onVoiceHintClick = if (voiceNeedsPack) ({ activity.openVoiceDownloadSettings() }) else null,
         onMic = {
             if (listening) {
                 activity.stopVoiceInput(); listening = false
             } else {
-                voiceHint = null
+                voiceHint = null; voiceNeedsPack = false
                 activity.startVoiceInput(
                     languageTag = langTag,
                     onPartial = { input = it },
                     onFinal = { input = it; listening = false },
                     onState = { listening = it },
-                    onError = { listening = false; voiceHint = it },
+                    onError = {
+                        listening = false
+                        if (it == "NEEDS_PACK") {
+                            voiceNeedsPack = true
+                            voiceHint = "Voice needs a language pack — tap to download"
+                        } else {
+                            voiceHint = it
+                        }
+                    },
                 )
             }
         },

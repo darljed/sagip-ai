@@ -55,16 +55,20 @@ class VoiceInput(private val context: Context) {
             override fun onEndOfSpeech() = onState(false)
             override fun onError(error: Int) {
                 onState(false)
-                // The device often lacks the fil-PH / offline pack. Fall back once to
-                // en-US with online allowed, which is installed on virtually all devices.
-                val packOrNet = error == SpeechRecognizer.ERROR_NETWORK ||
+                // Device often lacks fil-PH / an offline pack. Fall back once to en-US
+                // with online allowed. Codes: 11=LANGUAGE_UNAVAILABLE, 12=pack error,
+                // 13=another pack error, plus network/unsupported.
+                val packOrNet = error in intArrayOf(11, 12, 13) ||
+                    error == SpeechRecognizer.ERROR_NETWORK ||
                     error == SpeechRecognizer.ERROR_NETWORK_TIMEOUT ||
-                    error == 12 /* LANGUAGE_PACK_ERROR surfaces as a client error */ ||
                     error == SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE ||
                     error == SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED
                 if (allowFallback && packOrNet) {
                     startInternal("en-US", preferOffline = false, allowFallback = false,
                         onPartial, onFinal, onState, onError)
+                } else if (packOrNet) {
+                    // Even en-US failed — the device needs a voice pack downloaded.
+                    onError("NEEDS_PACK")
                 } else {
                     onError(errorText(error))
                 }
