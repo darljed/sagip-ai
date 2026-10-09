@@ -1,0 +1,26 @@
+# Gradle / Android
+.gradle/
+build/
+app/build/
+local.properties
+*.apk
+*.aab
+captures/
+.cxx/
+
+# Models — too large for git; pushed to device directly
+*.task
+*.bin
+*.tflite
+*.litertlm
+models/
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Playwright reference captures (keep the design ref image, ignore run logs)
+.playwright-mcp/
+
+# Keep: PLAN.md, docs/, app/src, knowledge packs

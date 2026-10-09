@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      SAGIP is offline-by-design. We intentionally do NOT request the INTERNET
+      permission. The app cannot phone home even if it wanted to — the core
+      "when the internet dies, your AI doesn't" guarantee, enforced by the
+      manifest. ponytail: this is the cheapest, strongest proof of offline.
+    -->
+
+    <application
+        android:allowBackup="true"
+        android:label="SAGIP"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SAGIP">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SAGIP">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
