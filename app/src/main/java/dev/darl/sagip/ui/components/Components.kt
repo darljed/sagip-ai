@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -185,7 +186,8 @@ fun CategoryCard(category: Category, count: Int, coverPath: String?, imageHeight
         Modifier.fillMaxWidth().clip(CardShape).background(SagipColors.Card)
             .border(1.dp, SagipColors.Line, CardShape).clickable(onClick = onClick),
     ) {
-        ImageSlot(coverPath, category.tint, category.icon, Modifier.fillMaxWidth().height(imageHeight.dp))
+        // Art is square: show it whole (1:1) instead of cropping; placeholders keep the staggered heights.
+        ImageSlot(coverPath, category.tint, category.icon, Modifier.fillMaxWidth().then(if (coverPath != null) Modifier.aspectRatio(1f) else Modifier.height(imageHeight.dp)))
         Column(Modifier.padding(Space.lg.dp)) {
             Text(category.title(lang), style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Spacer(Modifier.height(Space.xs.dp))
@@ -207,7 +209,7 @@ fun TopicCard(topic: Topic, category: Category, heroPath: String?, imageHeight: 
         // Only a few guides will ever get art, so no empty image boxes: guides without a hero
         // get a compact icon badge instead and the grid stays dense.
         if (heroPath != null) {
-            ImageSlot(heroPath, category.tint, category.icon, Modifier.fillMaxWidth().height(imageHeight.dp))
+            ImageSlot(heroPath, category.tint, category.icon, Modifier.fillMaxWidth().aspectRatio(1f))
         }
         Column(Modifier.padding(Space.lg.dp), verticalArrangement = Arrangement.spacedBy(Space.sm.dp)) {
             if (heroPath == null) {

@@ -1,0 +1,28 @@
+{
+  "_note": "Maps art to the UI. covers: category id -> topic whose hero is used as the category cover. steps: topic -> { extra-image slot -> step number it illustrates }. Files are topics/<topic>.<slot>.png. Unmapped extras appear in a 'Reference images' row.",
+  "covers": {
+    "first_aid": "severe_bleeding",
+    "fire": "house_fire",
+    "home": "elderly_fall_home",
+    "vehicle": "tire_blowout",
+    "public": "crowd_crush",
+    "workplace": "office_earthquake",
+    "typhoon_flood": "flood_entering_home",
+    "earthquake": "during_earthquake",
+    "volcano": "ashfall",
+    "survival": "survival_priorities",
+    "wilderness": "lost_on_trail",
+    "sea": "boat_capsize",
+    "wildlife": "snake_encounter"
+  },
+  "steps": {
+    "burns": { "cooling": 1 },
+    "choking_infant": { "hold": 2 },
+    "cpr_adult": { "hands": 2 },
+    "cpr_child": { "hands": 2 },
+    "cpr_infant": { "fingers": 2 },
+    "drowning": { "reach": 1 },
+    "during_earthquake": { "windows": 4, "bed": 5 },
+    "severe_bleeding": { "pressure": 1 }
+  }
+}

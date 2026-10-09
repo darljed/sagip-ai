@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -190,14 +191,16 @@ fun CategoryScreen(
         item(span = StaggeredGridItemSpan.FullLine) {
             Column(verticalArrangement = Arrangement.spacedBy(Space.lg.dp)) {
                 BackRow(onBack)
-                ImageSlot(
-                    illus.categoryPath(category.id), category.tint, category.icon,
-                    Modifier.fillMaxWidth().height(200.dp).clip(RoundedCornerShape(24.dp)),
-                )
-                Column(verticalArrangement = Arrangement.spacedBy(Space.xs.dp)) {
-                    Text(category.title(lang), style = MaterialTheme.typography.headlineLarge)
-                    if (category.blurb(lang).isNotBlank()) Text(category.blurb(lang), style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted)
-                    Text(tr(lang, "${topics.size} guides", "${topics.size} gabay"), style = MaterialTheme.typography.labelMedium, color = SagipColors.Muted)
+                Row(horizontalArrangement = Arrangement.spacedBy(Space.lg.dp), verticalAlignment = Alignment.CenterVertically) {
+                    ImageSlot(
+                        illus.categoryPath(category.id), category.tint, category.icon,
+                        Modifier.size(112.dp).clip(RoundedCornerShape(24.dp)),
+                    )
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(Space.xs.dp)) {
+                        Text(category.title(lang), style = MaterialTheme.typography.headlineMedium)
+                        if (category.blurb(lang).isNotBlank()) Text(category.blurb(lang), style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted)
+                        Text(tr(lang, "${topics.size} guides", "${topics.size} gabay"), style = MaterialTheme.typography.labelMedium, color = SagipColors.Muted)
+                    }
                 }
                 Spacer(Modifier.height(Space.xs.dp))
             }
@@ -223,10 +226,8 @@ fun TopicScreen(
     val steps = topic.steps(lang)
     val extras = remember(topic) { illus.extraPaths(topic.key) }
     // "<topic>.step3.png" belongs under step 3; every other extra is a reference image.
-    val stepImg = extras.mapNotNull { p ->
-        Regex("\\.step(\\d+)\\.").find(p)?.groupValues?.get(1)?.toIntOrNull()?.let { it to p }
-    }.toMap()
-    val refs = extras.filter { p -> !Regex("\\.step\\d+\\.").containsMatchIn(p) }
+    val stepImg = remember(topic) { illus.stepPaths(topic.key) }
+    val refs = extras
 
     LazyColumn(
         Modifier.fillMaxSize(),
@@ -239,7 +240,7 @@ fun TopicScreen(
             item {
                 ImageSlot(
                     hero, cat.tint, cat.icon,
-                    Modifier.padding(horizontal = G).fillMaxWidth().height(240.dp).clip(RoundedCornerShape(26.dp)),
+                    Modifier.padding(horizontal = G).fillMaxWidth().aspectRatio(1f).clip(RoundedCornerShape(26.dp)),
                 )
             }
         }
@@ -319,7 +320,7 @@ private fun StepCard(n: Int, text: String, imagePath: String?, cat: Category) {
             .border(1.dp, SagipColors.Line, RoundedCornerShape(22.dp)),
     ) {
         if (imagePath != null) {
-            ImageSlot(imagePath, cat.tint, cat.icon, Modifier.fillMaxWidth().height(180.dp))
+            ImageSlot(imagePath, cat.tint, cat.icon, Modifier.fillMaxWidth().aspectRatio(4f / 3f))
         }
         Row(Modifier.padding(Space.lg.dp), horizontalArrangement = Arrangement.spacedBy(Space.md.dp)) {
             Box(
