@@ -15,6 +15,9 @@ captures/
 *.litertlm
 models/
 
+# Secrets — HF access token (never commit)
+huggingface
+
 # IDE
 .idea/
 *.iml

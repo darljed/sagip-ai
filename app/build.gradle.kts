@@ -36,6 +36,10 @@ android {
     buildFeatures {
         compose = true
     }
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        unitTests.isReturnDefaultValues = true
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -55,5 +59,16 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material3:material3")
 
+    // On-device LLM inference (Gemma 3 1B INT4 / Gemma 4 E2B) — LiteRT-LM runtime.
+    // API optimized for Samsung S23+ per Google's docs.
+    implementation("com.google.mediapipe:tasks-genai:0.10.27")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+
     debugImplementation("androidx.compose.ui:ui-tooling")
+
+    // Unit tests run on the JVM (no device). org.json is stubbed in Android unit
+    // tests, so provide a real impl for parsePack tests.
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.json:json:20240303")
 }
