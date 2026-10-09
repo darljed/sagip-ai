@@ -7,6 +7,7 @@ import com.google.mediapipe.tasks.genai.llminference.LlmInferenceSession
 import com.google.mediapipe.tasks.genai.llminference.LlmInferenceSession.LlmInferenceSessionOptions
 import com.google.mediapipe.tasks.genai.llminference.ProgressListener
 import java.io.File
+// ModelConfig is in the same package (dev.darl.sagip.llm) — no import needed.
 
 /**
  * Thin wrapper over MediaPipe's on-device LLM Inference API (tasks-genai 0.10.27).
@@ -66,25 +67,33 @@ class LlmEngine private constructor(
     companion object {
         const val DEFAULT_MODEL_PATH = "/data/local/tmp/llm/gemma3-1b-it-int4.task"
 
-        fun modelExists(path: String = DEFAULT_MODEL_PATH): Boolean = File(path).exists()
+        /** True if ANY configured model variant is present on the device. */
+        fun modelExists(path: String? = null): Boolean =
+            if (path != null) File(path).exists() else ModelConfig.resolve() != null
+
+        /** The model that will actually load (preferred present variant), or null. */
+        fun resolvedModel(): ModelConfig? = ModelConfig.resolve()
 
         /**
-         * Create an engine for the model at [modelPath].
-         * @throws IllegalStateException if the model file is missing (clear,
-         *         demo-safe failure rather than a native crash).
+         * Create an engine. If [modelPath] is null, auto-resolves the preferred
+         * on-device variant (Gemma 4 E2B > Gemma 3 1B) via [ModelConfig].
+         * @throws IllegalStateException if no model file is present.
          */
         fun create(
             context: Context,
-            modelPath: String = DEFAULT_MODEL_PATH,
+            modelPath: String? = null,
             maxTokens: Int = 1024,
             topK: Int = 64,
             temperature: Float = 0.6f,
         ): LlmEngine {
-            check(modelExists(modelPath)) {
-                "Model not found at $modelPath. Push it with: adb push <file> $modelPath"
+            val resolvedPath = modelPath
+                ?: ModelConfig.resolve()?.path
+                ?: error("No model found in ${ModelConfig.LLM_DIR}. Push a .task with adb.")
+            check(File(resolvedPath).exists()) {
+                "Model not found at $resolvedPath. Push it with: adb push <file> $resolvedPath"
             }
             val engineOptions = LlmInferenceOptions.builder()
-                .setModelPath(modelPath)
+                .setModelPath(resolvedPath)
                 .setMaxTokens(maxTokens)
                 .setMaxTopK(topK)
                 .build()
