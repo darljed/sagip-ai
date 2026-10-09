@@ -1,129 +1,47 @@
 # SAGIP — Design System
 
-Adapted from the unslop.site "AI Chat" reference (Mobile Apps / Everyday Utilities).
-We study its hierarchy, type, color, spacing, density, borders, and interaction
-vocabulary — and adapt to SAGIP's emergency-assistant content. We do **not** copy
-its brand ("Aria") or wording. Values below are the exact computed CSS from the
-reference, remapped to SAGIP semantics.
+Direction: **"Photo Journal"** from [unslop.site](https://unslop.site) (Mobile Apps / Core Apps) — studied
+for hierarchy, typography, spacing, density and interaction, then adapted to an emergency product. We do not
+copy its brand or wording. The earlier dark "AI Chat" direction was replaced; the app now ships a **light and a
+dark theme** (System / Light / Dark in Settings → Appearance).
 
----
+*Last updated: 2026-10-10.*
 
-## 1. Principles borrowed from the reference
-- **Dark, calm canvas**; content floats as cards. Reads well in low light / emergencies.
-- **Soft-white text** (not pure white) to reduce glare.
-- **One expressive accent** (the AI "orb" gradient) used sparingly for the live/voice moment.
-- **Asymmetric chat bubbles**; user = solid accent, assistant = translucent card.
-- **Tiny meta labels** with `·` separators carry status + provenance.
-- **Pill input** with mic + send; voice is a first-class, central gesture.
-- **Structured answer blocks** (the itinerary list → our numbered steps) with action chips.
+## Principles
+- **Calm and legible under stress:** generous spacing, large text, one typeface, icon-only secondary actions.
+- **Paper + ink:** warm off-white paper with near-black ink; dark theme flips them. One loud colour (coral) is
+  reserved for SOS and critical states.
+- **Photography/illustration first:** guide art leads cards, the inline chat image and guide headers.
+- **Trust cues on every answer:** severity tag, named source, related guides.
 
-## 2. Color tokens (remapped to SAGIP)
+## Typography
+One family — **Geist** (variable font, `res/font/geist.ttf`) — merged from the reference's three fonts.
+Text colour is never baked into the type scale; it comes from `LocalContentColor`.
 
-| Token | Value | Role |
-|---|---|---|
-| `canvas` | deep indigo→black gradient `#0B0A1A → #050410` | app background |
-| `surface` | `rgba(255,255,255,0.06)` | assistant card / raised surfaces |
-| `surface-strong` | `rgba(255,255,255,0.08)` | input bar, chips |
-| `text` | `rgb(232,234,255)` `#E8EAFF` | primary text (soft lavender-white) |
-| `text-dim` | `rgba(232,234,255,0.5)` | meta labels, timestamps, source line |
-| `accent` | `#7C5CFF` (rgb 124,92,255) | user bubble, send button, primary |
-| `accent-2` | `#4CC8FF` (rgb 76,200,255) | gradient partner for the orb |
-| `accent-soft` | `rgba(124,92,255,0.18)` | chip bg, selected states |
-| `ok` | `#7BE3A8` (rgb 123,227,168) | **"Offline · Ready" status dot** (was "Online") |
+## Colour tokens (`ui/theme/Color.kt`)
+| Token | Light | Dark | Role |
+|---|---|---|---|
+| `paper` | `#F4F3EE` | `#11110F` | app background |
+| `card` | `#FFFFFF` | `#1C1C19` | cards, assistant bubble |
+| `ink` | `#151513` | `#F4F3EE` | text, primary pills |
+| `muted` | `#6D6D66` | `#A3A29A` | secondary text |
+| `line` | `#D7D6CF` | `#34342F` | hairline borders |
+| `acid` | `#D6FF3F` | `#D6FF3F` | active-tab accent |
+| `blue` | `#3458F4` | `#8CA0FF` | links, acronym highlights |
+| `coral` | `#FF5E6C` | `#FF5E6C` | SOS, emergency actions |
+| `ok` | `#1F9D63` | `#3DD68C` | "Offline mode" dot, GPS source |
 
-### Severity palette (SAGIP-specific, NOT in reference — our safety layer)
-| Severity | Color | Use |
-|---|---|---|
-| `info` | `#8AA0C0` grey-blue | general tips |
-| `caution` | `#F2C94C` amber | preparedness |
-| `urgent` | `#F2994A` orange | act soon |
-| `critical` | `#EB5757` red | life-threatening banner |
+Severity (safety layer, not from the reference): caution `#B7791F`/`#E0A23A`, urgent `#E8590C`/`#FF8A4C`,
+critical `#D92D3A`/`#FF5C66` (light/dark).
 
-## 3. Typography
-- Family: system stack `-apple-system, "SF Pro", system-ui, sans-serif`
-  → Android: **Roboto / system default** (the Compose equivalent).
-- Body message: **15px**, line-height ~1.4.
-- Meta label: **~11–12px**, `text-dim`, letter-spacing slight, `·` separators.
-- Header title: ~15px semibold.
-- Numbered steps: 15px, bold step number, regular body (mirror the "Day 1 · …" treatment).
+## Components (`ui/components/Components.kt`)
+`ImageSlot`, `IconPill`, `PillChip`, `SeverityTag`, `CategoryCard`, `TopicCard`, `SosPill`, `CallRow`
+(with "Sample" badge), `TypingBubble`. Navigation: top bar (logo, SAGIP, settings, SOS) + bottom tabs
+(Home / Search / Ask / Contacts).
 
-## 4. Shape & spacing
-- **User bubble radius:** `20px 20px 6px 20px` (tail bottom-right).
-- **Assistant card radius:** `20px 20px 20px 6px` (tail bottom-left).
-- **Bubble padding:** `12px 16px`. **Max width:** `78%`.
-- **Input pill radius:** `22px`, padding `10px 14px`.
-- **Chips:** radius `999px`, `accent-soft` bg.
-- **Orb / FAB:** circle, radius `50%`; glow shadow (see below).
-- Base spacing unit: 8px grid; message vertical gap ~16px.
+## Brand
+Wordmark **SAGIP** (uppercase). Launcher icon and in-app logo come from `images/icon/SAGIP.jpg`; the loading
+screen shows the logo, the name and its meaning (**S**mart **A**id & **G**uidance for **I**mmediate
+**P**reparedness).
 
-## 5. Elevation / glow
-- Assistant card shadow: `rgba(0,0,0,0.18) 0px 22px 70px`.
-- Orb glow: `rgba(124,92,255,0.6) 0 0 60px, rgba(76,200,255,0.3) 0 0 100px`.
-- Status dot glow: `rgb(123,227,168) 0 0 8px`.
-
-## 6. Interaction vocabulary (adapted)
-- **Reference "Listening · tap orb to stop"** → SAGIP voice input orb with the same
-  center-stage treatment (ties to our voice onboarding/input feature).
-- **Reference "drafted in 1.4s"** meta → SAGIP **"from Philippine Red Cross"** provenance
-  line under the assistant label (our trust/citation feature).
-- **Reference "Online" green dot** → SAGIP **"Offline · Ready"** green dot — reframes the
-  SAME visual as our core differentiator (works with no signal).
-- **Reference action chips ("+ Add to itinerary", "Refine")** → SAGIP **quick-action
-  chips** ("Call [contact]", "Next step", "Show in Tagalog").
-- **Reference structured list** → SAGIP **numbered emergency steps** + severity banner.
-
-## 7. SAGIP-specific additions the reference lacks
-- **Severity banner** above critical answers (red, bold, "⚠ Life-threatening").
-- **Source citation line** on every assistant message.
-- **Language toggle** EN/TL in header.
-- **Quick-action emergency tiles** on the home/empty state (CPR, Choking, Bleeding, Flood, Earthquake).
-
----
-
-*Study the reference, keep SAGIP's voice. Accessible (contrast ≥ 4.5:1 for body text
-on canvas — verify E8EAFF on #0B0A1A passes), responsive, production-ready.*
-
----
-
-## UPDATE 2026-10-09 — "Photo Journal" direction (supersedes the dark AI-Chat palette above)
-
-The app now follows unslop.site **Photo Journal** (Mobile Apps / Core Apps): warm paper canvas,
-white photo cards with hairline borders, ink pills, one loud accent. Implemented in
-`ui/theme/{Color,Type,Theme}.kt` and `ui/components/Components.kt`.
-
-| Token | Value | Role |
-|---|---|---|
-| Paper | `#F4F3EE` | app background |
-| Card | `#FFFFFF` | cards, inputs |
-| Ink | `#151513` | text, selected pills, primary buttons |
-| Muted | `#6D6D66` | secondary text |
-| Line | `#D7D6CF` | 1dp card/input borders |
-| Acid | `#D6FF3F` | step badges, active-tab icon, send arrow |
-| Coral | `#FF5E6C` | **SOS only** (the single loud action) |
-| Blue | `#3458F4` | links ("Open guide →"), info severity |
-
-* **One font: Geist** (variable, bundled in `res/font/geist.ttf`, offline). Replaces the reference's
-  Geist + Geist Mono + Instrument Serif; editorial feel comes from weight + tight tracking.
-* Larger scale than the reference: body 17sp, chat body 18sp, min label 13sp; gutters 20dp,
-  section gaps 24dp, touch targets ≥ 44dp (inputs 52–56dp).
-* Layout: staggered 2-column image-card grid (Home categories, Category topics), pill chips,
-  translucent bottom tab bar (Home / Search / Ask / Contacts), SOS pill always in the top bar.
-* Images: every card/header is an `ImageSlot` — real art from `assets/illustrations/` when present,
-  tinted placeholder otherwise. See `docs/IMAGE-MANIFEST.md`.
-* Chat: ink user bubble, white assistant card, animated 3-dot typing bubble, related-guide cards,
-  chat-level contact chips. 911 is **not** repeated per message.
-
----
-
-## UPDATE 2026-10-10 (b) — brand, theming, settings
-
-* **Brand:** launcher icon = `images/icon/SAGIP.jpg` (adaptive: navy background + lifebuoy-robot logo); in-app logo
-  `res/drawable-nodpi/sagip_logo.png`; mascot `sagip_mascot.png` (background removed). Wordmark is uppercase **SAGIP**.
-  Loading screen explains the name: **S**mart **A**id & **G**uidance for **I**mmediate **P**reparedness.
-* **Themes:** System / Light / Dark (Settings → Appearance). `SagipColors` getters read a Compose-state palette, so
-  switching recomposes everything. Content on ink fills uses `OnInk` / `InkAccent`; default text colour comes from
-  `LocalContentColor` (Typography bakes no colour).
-* **Settings:** language, theme, profile details (name, birthday, blood type, allergies/conditions/meds, home, household,
-  emergency contact), *Reset chats & sessions* (clears conversations + history only; profile/settings/guides stay), About.
-* **Contacts:** defaults to the GPS area, with a source indicator (GPS / saved address / searched place), a search box for
-  other areas, and offline GPS resolution via area centre + radius in `contacts.json` (no network geocoder needed).
+Screenshots of the result: [`docs/screenshots/`](screenshots/).

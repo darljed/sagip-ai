@@ -170,6 +170,12 @@ class ChatViewModel(
                 if (withContext.isNotEmpty()) chunks = withContext
             }
         }
+        // A question about the person's OWN allergies should surface the allergy guide, not whatever else
+        // shares a word like "avoid".
+        if (ALLERGY_Q.containsMatchIn(text)) {
+            val allergy = retriever.retrieve("allergy anaphylaxis allergic reaction", lang, k = 1)
+            chunks = (allergy + chunks.filter { c -> allergy.any { it.pack == c.pack } }).distinctBy { it.id }.take(3).ifEmpty { chunks }
+        }
         val history = previous.chunked(2).takeLast(2).mapNotNull { pair ->
             val u = pair.firstOrNull { it.role == Role.USER }?.text
             val a = pair.firstOrNull { it.role == Role.ASSISTANT }?.text
@@ -384,6 +390,8 @@ class ChatViewModel(
     }
 
     companion object {
+        private val ALLERGY_Q = Regex("allerg|alerhi|alerji", RegexOption.IGNORE_CASE)
+
         /** Contacts the answer actually mentions (by name or by number) — those get a tap-to-call chip. */
         fun mentionedContacts(answer: String, candidates: List<ContactChip>): List<ContactChip> {
             val digits = answer.filter { it.isDigit() }

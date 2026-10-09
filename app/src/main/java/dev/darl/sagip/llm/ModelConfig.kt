@@ -5,11 +5,10 @@ import java.io.File
 /**
  * Central model registry so the model choice is a one-line flip, not scattered code.
  *
- * Device reality (this build): Gemma 4 E2B (2.6GB) OOMs on the 8GB S23 Ultra —
- * only ~2.7GB RAM is free, and the model needs more to load. So **Gemma 3 1B INT4
- * (~584MB) is the preferred model here** for demo stability. Gemma 4 E2B stays
- * defined (and tried as a secondary) so a higher-RAM device would still use it, and
- * so the upgrade is a pure preference-order change.
+ * Primary: **Gemma 4 E2B** (`gemma-4-e2b-it.litertlm`, ~2.4 GiB) running on the phone GPU through
+ * LiteRT-LM — first token in ~1 s on a Galaxy S23 Ultra. Fallbacks (used only if the file is not
+ * on the device): Gemma 3n E2B, then Gemma 3 1B INT4 (~560 MB) for low-RAM phones.
+ * The file is too large for git; push it with `scripts/push-model.sh` (see README).
  */
 enum class ModelConfig(
     val displayName: String,
@@ -28,9 +27,7 @@ enum class ModelConfig(
     companion object {
         const val LLM_DIR = "/data/local/tmp/llm"
 
-        /** Preference order: Gemma 3n E2B first (needs mediapipe genai >= 0.10.35 to
-         *  parse its audio-adapter .litertlm; 0.10.27 aborted with "Unknown model type:
-         *  tf_lite_audio_adapter"). Falls back to the stable 1B if E2B isn't present. */
+        /** Preference order: best model first; the first one present on the device wins. */
         val PREFERENCE = listOf(GEMMA4_E2B, GEMMA3N_E2B, GEMMA3_1B)
 
         /** The model to actually load: first preferred variant present on device, or null. */

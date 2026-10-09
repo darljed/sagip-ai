@@ -10,7 +10,7 @@ fun git(vararg args: String): String = try {
 } catch (e: Exception) { "" }
 val baseVersion = "0.9.0"
 val gitHash = git("rev-parse", "--short", "HEAD").ifEmpty { "nogit" }
-val gitDirty = if (git("status", "--porcelain", "--untracked-files=no").isNotEmpty()) ".dirty" else ""
+val gitDirty = if (git("status", "--porcelain", "--untracked-files=no", "--", "app", "build.gradle.kts", "settings.gradle.kts", "gradle.properties").isNotEmpty()) ".dirty" else ""
 val gitCount = git("rev-list", "--count", "HEAD").toIntOrNull() ?: 1
 
 android {

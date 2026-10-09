@@ -234,3 +234,15 @@ Entire app except inference, test-backed:
 * Contacts: area-based (`contacts.json` → `areas[]`), current area = GPS/saved home, only entries with numbers shown,
   `sample:true` entries badged. Samples exist for Makati and San Pablo. Replace with official numbers.
 * Debug: `adb shell am broadcast -a dev.darl.sagip.DEBUG_ASK --es q "<question>" -p dev.darl.sagip` (and `--es to home|ask|contacts|sos|category:<id>|topic:<pack:topic>`), logs tag `SagipTest`/`SagipGen`.
+
+## Final state (2026-10-10, submission)
+
+* **Shipped:** native Android app, Gemma 4 E2B on the phone GPU via LiteRT-LM 0.14.0, 13 packs / 112 topics / 224 chunks (EN+TL),
+  illustrated guides, profile-aware grounded chat with follow-up memory, direct "call my wife", GPS-aware contacts,
+  light/dark themes, full app reset, 109 unit tests.
+* **Differences from the plan above:** the 12-hour phase plan and the Gemma 3 1B / "verbatim steps only" design were
+  superseded — the model now writes the answer from the retrieved guides (verbatim steps remain only as the stall/loop
+  fallback). Persistence is `SharedPreferences` JSON (no DataStore). The mascot was dropped from the UI.
+* **Not done / known limits:** voice input only verified for plumbing (no real-speech test); Makati and San Pablo
+  contact numbers are samples; some AI-generated illustrations have imperfect lettering (`docs/IMAGE-MANIFEST.md`).
+* Submission material: `README.md`, `docs/SUBMISSION.md`, `docs/JUDGE-BRIEFING.md`, `docs/screenshots/`.
