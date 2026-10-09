@@ -64,7 +64,7 @@ dependencies {
 
     // On-device LLM inference (Gemma 3 1B INT4 / Gemma 4 E2B) — LiteRT-LM runtime.
     // API optimized for Samsung S23+ per Google's docs.
-    implementation("com.google.mediapipe:tasks-genai:0.10.35")
+    implementation("com.google.ai.edge.litertlm:litertlm-android:0.14.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
