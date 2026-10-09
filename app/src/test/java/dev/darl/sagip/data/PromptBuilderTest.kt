@@ -64,8 +64,12 @@ class PromptBuilderTest {
     }
 
     @Test fun criticalAddsEmergencyLeadInstruction() {
-        val p = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(bleedingCritical))
-        assertTrue(p.contains("this is an emergency"))
+        // DEMO is TL -> lead-in asks for a Tagalog warning line.
+        val tl = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(bleedingCritical))
+        assertTrue(tl.contains("life-threatening emergency"))
+        // EN profile -> English lead-in.
+        val en = PromptBuilder.build("bleeding", UserProfile.DEMO.copy(preferredLanguage = Lang.EN), listOf(bleedingCritical))
+        assertTrue(en.contains("this is an emergency"))
     }
 
     @Test fun groundingPresent_butTerse() {

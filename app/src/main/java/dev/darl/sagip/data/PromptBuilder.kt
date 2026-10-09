@@ -47,7 +47,11 @@ object PromptBuilder {
         // 4. Output shape — tell it exactly what to produce. Minimal, concrete.
         sb.appendLine("Write the answer as short numbered steps the person can follow right now.")
         if (hasCritical) {
-            sb.appendLine("Start with one short line: this is an emergency, get help fast.")
+            val leadIn = if (lang == Lang.TL)
+                "Start with one short line warning that this is a life-threatening emergency (write that line in Tagalog too)."
+            else
+                "Start with one short line: this is an emergency, get help fast."
+            sb.appendLine(leadIn)
         }
         sb.appendLine("Use only the steps above. If something is not covered, say you don't have that info.")
 
