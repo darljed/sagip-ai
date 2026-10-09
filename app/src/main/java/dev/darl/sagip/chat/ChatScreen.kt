@@ -1,19 +1,24 @@
 package dev.darl.sagip.chat
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,6 +27,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,14 +45,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import dev.darl.sagip.data.Severity
 import dev.darl.sagip.ui.theme.SagipColors
 
-/** Quick-action emergency tiles shown on the empty state. */
 private val QUICK_ACTIONS = listOf(
     "Severe bleeding", "CPR", "Choking",
     "Flood coming in", "Earthquake", "Snakebite",
@@ -58,7 +70,13 @@ fun ChatScreen(state: ChatState, onSend: (String) -> Unit) {
     }
 
     Box(Modifier.fillMaxSize().background(SagipColors.CanvasGradient)) {
-        Column(Modifier.fillMaxSize().padding(top = 52.dp, bottom = 16.dp)) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .statusBarsPadding()        // header clears the status bar / notch
+                .navigationBarsPadding()    // input clears the Android nav bar
+                .imePadding()               // input rises above the keyboard
+        ) {
             Header(state)
 
             Box(Modifier.weight(1f).fillMaxWidth()) {
@@ -76,6 +94,7 @@ fun ChatScreen(state: ChatState, onSend: (String) -> Unit) {
                                 Role.ASSISTANT -> AssistantBubble(m)
                             }
                         }
+                        item { Spacer(Modifier.height(4.dp)) }
                     }
                 }
             }
@@ -84,9 +103,7 @@ fun ChatScreen(state: ChatState, onSend: (String) -> Unit) {
                 value = input,
                 onValueChange = { input = it },
                 enabled = !state.busy,
-                onSend = {
-                    if (input.isNotBlank()) { onSend(input); input = "" }
-                },
+                onSend = { if (input.isNotBlank()) { onSend(input); input = "" } },
             )
         }
     }
@@ -102,7 +119,7 @@ private fun Header(state: ChatState) {
     }
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp),
     ) {
         Box(Modifier.size(26.dp).clip(CircleShape).background(SagipColors.OrbGradient))
         Spacer(Modifier.width(10.dp))
@@ -134,14 +151,9 @@ private fun EmptyState(onPick: (String) -> Unit) {
         ) {
             QUICK_ACTIONS.forEach { label ->
                 Box(
-                    Modifier
-                        .clip(RoundedCornerShape(999.dp))
-                        .background(SagipColors.AccentSoft)
-                        .clickable { onPick(label) }
-                        .padding(horizontal = 16.dp, vertical = 10.dp)
-                ) {
-                    Text(label, color = SagipColors.Text, fontSize = 14.sp)
-                }
+                    Modifier.clip(RoundedCornerShape(999.dp)).background(SagipColors.AccentSoft)
+                        .clickable { onPick(label) }.padding(horizontal = 16.dp, vertical = 10.dp)
+                ) { Text(label, color = SagipColors.Text, fontSize = 14.sp) }
             }
         }
     }
@@ -151,28 +163,22 @@ private fun EmptyState(onPick: (String) -> Unit) {
 private fun UserBubble(m: Message) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
         Box(
-            Modifier
-                .widthIn(max = 300.dp)
+            Modifier.widthIn(max = 300.dp)
                 .clip(RoundedCornerShape(20.dp, 20.dp, 6.dp, 20.dp))
-                .background(SagipColors.Accent)
-                .padding(horizontal = 16.dp, vertical = 12.dp)
-        ) {
-            Text(m.text, color = Color.White, fontSize = 15.sp)
-        }
+                .background(SagipColors.Accent).padding(horizontal = 16.dp, vertical = 12.dp)
+        ) { Text(m.text, color = Color.White, fontSize = 15.sp) }
     }
 }
 
 @Composable
 private fun AssistantBubble(m: Message) {
+    val context = LocalContext.current
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
         Column(
-            Modifier
-                .widthIn(max = 320.dp)
+            Modifier.widthIn(max = 340.dp)
                 .clip(RoundedCornerShape(20.dp, 20.dp, 20.dp, 6.dp))
-                .background(SagipColors.Surface)
-                .padding(14.dp)
+                .background(SagipColors.Surface).padding(14.dp)
         ) {
-            // Label row
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.size(16.dp).clip(CircleShape).background(SagipColors.OrbGradient))
                 Spacer(Modifier.width(6.dp))
@@ -182,24 +188,43 @@ private fun AssistantBubble(m: Message) {
                 }
             }
 
-            // Severity banner (critical/urgent)
             m.severity?.let { sev ->
                 if (sev == Severity.CRITICAL || sev == Severity.URGENT) {
-                    Spacer(Modifier.height(8.dp))
-                    SeverityBanner(sev)
+                    Spacer(Modifier.height(8.dp)); SeverityBanner(sev)
                 }
             }
 
             Spacer(Modifier.height(8.dp))
-            Text(m.text.ifEmpty { "…" }, color = SagipColors.Text, fontSize = 15.sp)
+            // Render markdown (bold) instead of showing literal ** asterisks.
+            Text(
+                text = if (m.text.isEmpty()) androidx.compose.ui.text.AnnotatedString("…")
+                       else renderInlineMarkdown(m.text),
+                color = SagipColors.Text, fontSize = 15.sp,
+            )
 
-            // Emergency-call line
-            m.callContact?.let {
-                Spacer(Modifier.height(10.dp))
-                Text("📞 $it — or 911 when signal returns", color = SagipColors.SeverityUrgent, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+            // Real "Call" button — dials the emergency contact (ACTION_DIAL).
+            m.callContact?.let { label ->
+                m.callNumber?.let { number ->
+                    Spacer(Modifier.height(12.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.clip(RoundedCornerShape(999.dp))
+                            .background(SagipColors.SeverityUrgent)
+                            .clickable {
+                                val intent = Intent(Intent.ACTION_DIAL, "tel:$number".toUri())
+                                context.startActivity(intent)
+                            }
+                            .padding(horizontal = 16.dp, vertical = 10.dp)
+                    ) {
+                        Icon(Icons.Filled.Phone, contentDescription = "Call", tint = Color.White, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text(label, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                    }
+                    Spacer(Modifier.height(2.dp))
+                    Text("or 911 when signal returns", color = SagipColors.TextDim, fontSize = 11.sp)
+                }
             }
 
-            // Citation line
             if (m.sources.isNotEmpty() && !m.streaming) {
                 Spacer(Modifier.height(10.dp))
                 Text("Source: " + m.sources.joinToString("; "), color = SagipColors.TextDim, fontSize = 11.sp)
@@ -211,14 +236,17 @@ private fun AssistantBubble(m: Message) {
 @Composable
 private fun SeverityBanner(sev: Severity) {
     val (color, label) = when (sev) {
-        Severity.CRITICAL -> SagipColors.SeverityCritical to "⚠ LIFE-THREATENING — act now"
-        Severity.URGENT -> SagipColors.SeverityUrgent to "⚠ Urgent — act quickly"
+        Severity.CRITICAL -> SagipColors.SeverityCritical to "LIFE-THREATENING — act now"
+        Severity.URGENT -> SagipColors.SeverityUrgent to "Urgent — act quickly"
         else -> SagipColors.SeverityInfo to "Info"
     }
-    Box(
-        Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp))
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp))
             .background(color.copy(alpha = 0.18f)).padding(horizontal = 10.dp, vertical = 6.dp)
     ) {
+        Icon(Icons.Filled.Warning, contentDescription = null, tint = color, modifier = Modifier.size(15.dp))
+        Spacer(Modifier.width(6.dp))
         Text(label, color = color, fontSize = 12.sp, fontWeight = FontWeight.Bold)
     }
 }
@@ -227,7 +255,7 @@ private fun SeverityBanner(sev: Severity) {
 private fun InputBar(value: String, onValueChange: (String) -> Unit, enabled: Boolean, onSend: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 10.dp)
             .clip(RoundedCornerShape(22.dp)).background(SagipColors.SurfaceStrong)
             .padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
@@ -240,13 +268,15 @@ private fun InputBar(value: String, onValueChange: (String) -> Unit, enabled: Bo
             )
         }
         Spacer(Modifier.width(10.dp))
-        Text("🎙", fontSize = 18.sp)
+        Icon(Icons.Filled.Mic, contentDescription = "Voice input", tint = SagipColors.TextDim, modifier = Modifier.size(22.dp))
         Spacer(Modifier.width(10.dp))
         Box(
             Modifier.size(36.dp).clip(CircleShape)
                 .background(if (enabled) SagipColors.Accent else SagipColors.AccentSoft)
                 .clickable(enabled = enabled, onClick = onSend),
             contentAlignment = Alignment.Center,
-        ) { Text("↑", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold) }
+        ) {
+            Icon(Icons.Filled.ArrowUpward, contentDescription = "Send", tint = Color.White, modifier = Modifier.size(20.dp))
+        }
     }
 }

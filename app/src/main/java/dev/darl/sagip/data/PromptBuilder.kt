@@ -54,6 +54,7 @@ object PromptBuilder {
             sb.appendLine(leadIn)
         }
         sb.appendLine("Use only the steps above. If something is not covered, say you don't have that info.")
+        sb.appendLine("Keep it under 8 steps. Do not repeat a step. Stop when the steps are done.")
 
         // 5. Language instruction LAST (recency) — strongest placement for a 1B model.
         sb.appendLine()

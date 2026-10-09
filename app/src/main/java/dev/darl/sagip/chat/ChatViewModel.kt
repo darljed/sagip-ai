@@ -9,6 +9,8 @@ import dev.darl.sagip.data.Severity
 import dev.darl.sagip.data.UserProfile
 import dev.darl.sagip.llm.LlmEngine
 import dev.darl.sagip.llm.ModelConfig
+import dev.darl.sagip.llm.looksRepetitive
+import dev.darl.sagip.llm.trimRepetitionTail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,6 +28,7 @@ data class Message(
     val severity: Severity? = null,
     val sources: List<String> = emptyList(),
     val callContact: String? = null,
+    val callNumber: String? = null,
     val streaming: Boolean = false,
 )
 
@@ -90,14 +93,16 @@ class ChatViewModel(
 
         val severity = chunks.maxByOrNull { it.severity.ordinal }?.severity
         val sources = chunks.map { it.title + " — " + it.source }.distinct()
-        val callContact = if (chunks.any { it.callEmergency } && profile.hasEmergencyContact)
-            "Call ${profile.emergencyContactName} at ${profile.emergencyContactNumber}" else null
+        val hasCall = chunks.any { it.callEmergency } && profile.hasEmergencyContact
+        val callContact = if (hasCall) "Call ${profile.emergencyContactName}" else null
+        val callNumber = if (hasCall) profile.emergencyContactNumber else null
 
         val assistantIndex = _state.value.messages.size
         _state.value = _state.value.copy(
             messages = _state.value.messages + Message(
                 role = Role.ASSISTANT, text = "", severity = severity,
-                sources = sources, callContact = callContact, streaming = true,
+                sources = sources, callContact = callContact, callNumber = callNumber,
+                streaming = true,
             )
         )
 
@@ -106,12 +111,24 @@ class ChatViewModel(
             val eng = engine
             try {
                 if (eng != null) {
+                    var stopped = false
                     withContext(Dispatchers.IO) {
                         eng.generateAsync(prompt) { partial, done ->
+                            if (stopped) return@generateAsync
                             sb.append(partial)
-                            val snap = sb.toString()
+                            val raw = sb.toString()
+                            if (!done && looksRepetitive(raw)) {
+                                // Repetition collapse — show the cleaned prefix and finish.
+                                stopped = true
+                                val cleaned = trimRepetitionTail(raw)
+                                viewModelScope.launch(Dispatchers.Main) {
+                                    updateAssistant(assistantIndex, cleaned, streaming = false)
+                                    setBusy(false)
+                                }
+                                return@generateAsync
+                            }
                             viewModelScope.launch(Dispatchers.Main) {
-                                updateAssistant(assistantIndex, snap, streaming = !done)
+                                updateAssistant(assistantIndex, raw, streaming = !done)
                                 if (done) setBusy(false)
                             }
                         }

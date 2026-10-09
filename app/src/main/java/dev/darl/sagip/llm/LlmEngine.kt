@@ -29,6 +29,7 @@ class LlmEngine private constructor(
     private val engine: LlmInference,
     private val temperature: Float,
     private val topK: Int,
+    private val topP: Float,
 ) {
 
     /** Blocking single-shot generation (creates a one-off session). */
@@ -42,14 +43,15 @@ class LlmEngine private constructor(
     /**
      * Streaming generation. [onPartial] receives each incremental chunk; the
      * second arg is `done`. Runs on MediaPipe's worker; callers should marshal
-     * UI updates back to the main thread.
+     * UI updates back to the main thread. Repetition-collapse handling lives in
+     * the caller (ViewModel), which owns the accumulated text.
      */
     fun generateAsync(prompt: String, onPartial: (String, Boolean) -> Unit) {
         val session = newSession()
         session.addQueryChunk(prompt)
         val listener = ProgressListener<String> { partial, done ->
             onPartial(partial, done)
-            if (done) session.close()
+            if (done) runCatching { session.close() }
         }
         session.generateResponseAsync(listener)
     }
@@ -58,6 +60,7 @@ class LlmEngine private constructor(
         val opts = LlmInferenceSessionOptions.builder()
             .setTemperature(temperature)
             .setTopK(topK)
+            .setTopP(topP)
             .build()
         return LlmInferenceSession.createFromOptions(engine, opts)
     }
@@ -76,15 +79,22 @@ class LlmEngine private constructor(
 
         /**
          * Create an engine. If [modelPath] is null, auto-resolves the preferred
-         * on-device variant (Gemma 4 E2B > Gemma 3 1B) via [ModelConfig].
+         * on-device variant via [ModelConfig].
+         *
+         * Sampling tuned for a 1B model to reduce repetition collapse:
+         *  - [topP] nucleus sampling + modest [temperature] break deterministic loops,
+         *  - the ViewModel's repetition guard stops any residual loop and trims it.
+         * maxTokens=1024 (input+output): 512 was too tight — a 2-chunk prompt (~330
+         * input tokens) left too little output budget and produced empty answers.
          * @throws IllegalStateException if no model file is present.
          */
         fun create(
             context: Context,
             modelPath: String? = null,
             maxTokens: Int = 1024,
-            topK: Int = 64,
-            temperature: Float = 0.6f,
+            topK: Int = 40,
+            topP: Float = 0.9f,
+            temperature: Float = 0.7f,
         ): LlmEngine {
             val resolvedPath = modelPath
                 ?: ModelConfig.resolve()?.path
@@ -98,7 +108,7 @@ class LlmEngine private constructor(
                 .setMaxTopK(topK)
                 .build()
             val engine = LlmInference.createFromOptions(context, engineOptions)
-            return LlmEngine(engine, temperature, topK)
+            return LlmEngine(engine, temperature, topK, topP)
         }
     }
 }
