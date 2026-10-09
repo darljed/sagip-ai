@@ -170,8 +170,53 @@ each one committed and demoable before the next. Never be one overrun away from 
 
 ## 9. Pre-clock work (highest leverage, done BEFORE H0)
 - [x] Finalized plan (this doc)
-- [ ] 3 knowledge packs (EN + TL), pre-chunked JSON, with sources + severity tags
-- [ ] Chunk schema + personalization-injection design
+- [x] 3 knowledge packs (EN + TL), pre-chunked JSON, with sources + severity tags
+- [x] Chunk schema + personalization-injection design
+
+---
+
+## 10. Build progress log
+
+### Phase 0 — toolchain & hello-phone ✅
+Kotlin/Compose project builds via Gradle CLI (no Android Studio needed), installs +
+launches on S23 Ultra. SAGIP design system (dark canvas, orb, Offline-Ready dot)
+rendering. Offline-by-design: no INTERNET permission in the manifest.
+
+### Phase 2–5 (built during a model-download block) ✅
+Entire app except inference, test-backed:
+- Data layer + pack ingestion (`PackRepository`), 7 tests.
+- CAG retrieval (`KeywordRetriever`, RAG-ready `Retriever` seam) + relevance gate, 10 tests.
+- Personalization prompt builder (`PromptBuilder`), 12 tests.
+- Real chat UI (bubbles, severity banner, citations, call line, quick-action tiles).
+- **29 unit tests, 0 failures.**
+
+### Phase 1 — real on-device LLM ✅
+- **Model: Gemma 3 1B INT4 (~584MB), sourced via AI Edge Gallery (Google CDN).**
+  Gemma 4 E2B (2.6GB) **OOMs on the 8GB S23** (only ~2.7GB free) — kept as a
+  secondary in `ModelConfig` for higher-RAM devices. HuggingFace was throttled
+  (13h ETA) so the Gallery's Google-hosted copy was used instead.
+- Hard-won fixes: async engine load off the main thread; model file perms `644`
+  in `/data/local/tmp/llm` so the app uid can `open()` it; `FLAG_KEEP_SCREEN_ON`.
+- MediaPipe `tasks-genai:0.10.27`: sampling params live on the **Session** API,
+  streaming via `ProgressListener` (verified by decompiling the AAR).
+
+### Small-model tuning ✅ (verified on device)
+- Retrieval relevance gate (`RELEVANCE_RATIO=0.5`) → one relevant source, no loose drag-in.
+- Prompt rewritten for a 1B: guidance steps front-and-center, language instruction
+  last (recency) → **real Tagalog numbered first-aid steps**, not rule-parroting.
+- Emergency-contact line rendered deterministically by the UI (always correct).
+- Known minor 1B artifacts: occasional duplicated step; acceptable.
+
+### Model note for the demo
+- **Gemma 3 1B is the demo model** — stable on 8GB, strong enough because RAG grounds
+  every answer in trusted Tagalog pack content.
+- If a higher-RAM device is used, dropping a Gemma 4 E2B `.litertlm` into
+  `/data/local/tmp/llm` auto-upgrades via `ModelConfig` (no rebuild).
+
+### Next
+- [ ] On-device check: typed TL query + an EN-profile query (confirm language switch).
+- [ ] Phase 4: chat-style onboarding + profile persistence (currently DEMO profile).
+- [ ] Phase 5/6: polish, optional voice, demo rehearsal with airplane mode.
 
 ---
 
