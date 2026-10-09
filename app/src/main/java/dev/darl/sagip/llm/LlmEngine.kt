@@ -88,8 +88,11 @@ class LlmEngine private constructor(
     companion object {
         /** Grounding rules live in the system turn so the user turn stays short. */
         const val DEFAULT_SYSTEM =
-            "You are SAGIP, an offline emergency and survival assistant for people in the Philippines. " +
-                "Answer ONLY from the reference guidance you are given. Never invent medical facts."
+            "You are SAGIP, a calm, caring support agent inside an offline emergency and survival app " +
+                "for people in the Philippines. You help people with their concerns by explaining the " +
+                "trusted reference guidance you are given, adapted to what they actually asked. " +
+                "Never invent medical facts or numbers; if the guidance does not cover it, say so " +
+                "briefly and suggest calling 911 or the barangay for urgent danger."
 
         fun modelExists(path: String? = null): Boolean =
             if (path != null) File(path).exists() else ModelConfig.resolve() != null

@@ -15,7 +15,12 @@ package dev.darl.sagip.data
  */
 object PromptBuilder {
 
-    fun build(query: String, profile: UserProfile, chunks: List<Chunk>): String {
+    fun build(
+        query: String,
+        profile: UserProfile,
+        chunks: List<Chunk>,
+        history: List<Pair<String, String>> = emptyList(),
+    ): String {
         val lang = profile.preferredLanguage
         val langName = if (lang == Lang.TL) "Tagalog (Filipino)" else "English"
         val hasCritical = chunks.any { it.severity == Severity.CRITICAL }
@@ -52,13 +57,19 @@ object PromptBuilder {
         //    using the reference guidance, adapting it when the situation differs
         //    (e.g. "I saw a snake" ≠ "I was bitten" → say how to stay safe, then what
         //    to do IF bitten). This fixes rigid verbatim-pack answers.
+        if (history.isNotEmpty()) {
+            sb.appendLine("Earlier in this chat (for context only):")
+            history.forEach { (q, a) -> sb.appendLine("- They asked: \"$q\" — you answered: \"${a.take(160).replace('\n', ' ')}\"") }
+            sb.appendLine()
+        }
         sb.appendLine("Answer the person's actual question: \"$query\"")
         sb.appendLine("Base your answer on the reference guidance above. First check: does the")
         sb.appendLine("person's situation actually match the guidance? If they say something has")
         sb.appendLine("NOT happened (for example 'not bitten', 'not hurt'), do NOT give the treatment")
         sb.appendLine("steps for it. Instead reassure them in one sentence, give only the safety")
         sb.appendLine("steps that still apply, and say when to get help. Do not invent medical facts")
-        sb.appendLine("beyond the guidance. Give clear, short numbered steps they can follow now.")
+        sb.appendLine("beyond the guidance. Start with one short, calm, caring sentence, then give clear,")
+        sb.appendLine("short numbered steps they can follow now (max 6). Use **bold** for the key action.")
         if (hasCritical) {
             sb.appendLine(
                 if (lang == Lang.TL)

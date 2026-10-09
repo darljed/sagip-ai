@@ -1,0 +1,155 @@
+# SAGIP — Image manifest
+
+Auto-generated from `assets/packs/*.json`. Re-run the generator (see bottom) after packs change.
+
+## Where files go (all under `app/src/main/assets/illustrations/`)
+
+| Slot | Path | Used for | Size hint |
+|---|---|---|---|
+| Category cover | `<category>.png` (category = pack id) | Home card + category header | 1200×900 |
+| Topic hero | `topics/<topic>.hero.png` | topic card + detail header | 1200×900 |
+| Step image | `topics/<topic>.step<N>.png` | shown under step N on the detail screen | 1200×800 |
+| Reference image | `topics/<topic>.<anything>.png` (not `hero`/`stepN`) | horizontal "Reference images" row | 1200×900 |
+
+png / webp / jpg are picked up automatically. A missing file shows a tinted placeholder slot, so nothing breaks while art is pending.
+
+Style: warm paper UI (#F4F3EE) — prefer light or transparent-friendly backgrounds; avoid near-black full-bleed art.
+
+## Category covers
+
+| Category | File | Status |
+|---|---|---|
+| earthquake | `earthquake.png` | ⬜ missing |
+| fire | `fire.png` | ⬜ missing |
+| first_aid | `first_aid.png` | ⬜ missing |
+| home | `home.png` | ⬜ missing |
+| public | `public.png` | ⬜ missing |
+| sea | `sea.png` | ⬜ missing |
+| survival | `survival.png` | ⬜ missing |
+| typhoon_flood | `typhoon_flood.png` | ⬜ missing |
+| vehicle | `vehicle.png` | ⬜ missing |
+| volcano | `volcano.png` | ⬜ missing |
+| wilderness | `wilderness.png` | ⬜ missing |
+| wildlife | `wildlife.png` | ⬜ missing |
+| workplace | `workplace.png` | ⬜ missing |
+
+## Topics
+
+| Pack | Topic | Title | Severity | Steps | Hero | Extra images |
+|---|---|---|---|---|---|---|
+| earthquake | `during_earthquake` | During an earthquake — Drop, Cover, Hold On | urgent | 5 | ✅ | during_earthquake.bed.png, during_earthquake.windows.png |
+| earthquake | `after_earthquake` | After the shaking stops | urgent | 5 | ⬜ | — |
+| earthquake | `gas_leak` | Suspected gas leak after an earthquake | critical | 5 | ⬜ | — |
+| earthquake | `trapped` | If you are trapped under debris | critical | 5 | ⬜ | — |
+| earthquake | `tsunami_warning` | Tsunami warning (coastal areas) | critical | 5 | ⬜ | — |
+| earthquake | `aftershock` | Aftershocks — stay ready | urgent | 5 | ⬜ | — |
+| earthquake | `elevator_trapped` | Trapped in an elevator | urgent | 5 | ⬜ | — |
+| fire | `house_fire` | House fire — escape | critical | 5 | ⬜ | — |
+| fire | `clothes_on_fire` | Clothes on fire — Stop, Drop, Roll | critical | 5 | ⬜ | — |
+| fire | `lpg_leak_home` | LPG gas leak at home | critical | 5 | ⬜ | — |
+| fire | `grease_fire` | Kitchen oil fire (grease fire) | urgent | 5 | ⬜ | — |
+| fire | `electrical_fire` | Electrical fire (outlet and wiring) | urgent | 5 | ⬜ | — |
+| first_aid | `severe_bleeding` | Severe bleeding (hemorrhage) | critical | 5 | ⬜ | — |
+| first_aid | `cpr_adult` | CPR for an adult (not breathing) | critical | 5 | ✅ | cpr_adult.hands.png |
+| first_aid | `choking_adult` | Choking (adult or child over 1 year) | urgent | 5 | ✅ | choking_adult.heimlich.png |
+| first_aid | `burns` | Burns (heat, fire, scald) | urgent | 5 | ⬜ | — |
+| first_aid | `fracture` | Suspected broken bone (fracture) | urgent | 5 | ⬜ | — |
+| first_aid | `snakebite` | Snakebite | critical | 5 | ⬜ | — |
+| first_aid | `shock` | Shock (pale, cold, weak, confused) | critical | 5 | ⬜ | — |
+| first_aid | `heart_attack` | Heart attack (chest pain) | critical | 5 | ⬜ | — |
+| first_aid | `stroke` | Stroke (FAST check) | critical | 5 | ⬜ | — |
+| first_aid | `allergic_reaction` | Severe allergy (anaphylaxis) | critical | 5 | ⬜ | — |
+| first_aid | `seizure` | Seizure (convulsion) | urgent | 5 | ⬜ | — |
+| first_aid | `fainting` | Fainting (brief collapse) | caution | 5 | ⬜ | — |
+| first_aid | `heat_stroke` | Heat stroke (overheating) | urgent | 5 | ⬜ | — |
+| first_aid | `drowning` | Drowning (rescue and aftercare) | critical | 5 | ⬜ | — |
+| first_aid | `electric_shock` | Electric shock (person electrocuted) | critical | 5 | ⬜ | — |
+| first_aid | `nosebleed` | Nosebleed | caution | 5 | ⬜ | — |
+| first_aid | `poisoning` | Poisoning (swallowed poison) | critical | 5 | ⬜ | — |
+| first_aid | `high_fever_child` | High fever in a child | urgent | 5 | ⬜ | — |
+| first_aid | `eye_injury` | Eye injury or chemical in the eye | urgent | 5 | ⬜ | — |
+| first_aid | `cpr_child` | CPR for a child (1 year to puberty) | critical | 5 | ✅ | cpr_child.hands.png |
+| first_aid | `cpr_infant` | CPR for an infant (under 1 year) | critical | 5 | ✅ | cpr_infant.fingers.png |
+| first_aid | `choking_infant` | Choking infant (under 1 year) | critical | 5 | ✅ | choking_infant.hold.png |
+| first_aid | `asthma_attack` | Asthma attack (difficulty breathing) | critical | 5 | ⬜ | — |
+| first_aid | `dog_bite` | Animal bite (dog or cat — rabies risk) | urgent | 5 | ⬜ | — |
+| first_aid | `head_injury` | Head injury (fall, blow, or crash) | urgent | 5 | ⬜ | — |
+| first_aid | `diabetic_emergency` | Low blood sugar (diabetic emergency) | urgent | 5 | ⬜ | — |
+| first_aid | `dehydration` | Dehydration (fluid loss) | urgent | 4 | ⬜ | — |
+| first_aid | `minor_wound` | Minor cuts and scrapes | caution | 5 | ⬜ | — |
+| first_aid | `sprain` | Sprain (twisted joint) | caution | 5 | ⬜ | — |
+| first_aid | `jellyfish_sting` | Jellyfish sting | urgent | 5 | ⬜ | — |
+| first_aid | `insect_sting` | Bee or wasp sting | caution | 5 | ⬜ | — |
+| first_aid | `febrile_seizure` | Seizure with fever in a child | urgent | 5 | ⬜ | — |
+| first_aid | `road_crash` | Road crash — first on the scene | urgent | 5 | ⬜ | — |
+| first_aid | `lightning_strike` | Lightning strike (person struck) | critical | 5 | ⬜ | — |
+| first_aid | `chemical_burn` | Chemical burn on skin | urgent | 5 | ⬜ | — |
+| first_aid | `heat_exhaustion` | Heat exhaustion (before heat stroke) | caution | 4 | ⬜ | — |
+| first_aid | `amputation` | Severed finger or limb (amputation) | critical | 5 | ⬜ | — |
+| first_aid | `marine_sting` | Sea urchin spines or spiny fish sting | urgent | 5 | ⬜ | — |
+| first_aid | `pesticide_exposure` | Pesticide exposure (farm spray poisoning) | urgent | 5 | ⬜ | — |
+| first_aid | `scorpion_sting` | Scorpion or centipede sting | caution | 5 | ⬜ | — |
+| first_aid | `food_poisoning` | Suspected food poisoning | caution | 5 | ⬜ | — |
+| first_aid | `knocked_out_tooth` | Knocked-out adult tooth | urgent | 5 | ⬜ | — |
+| first_aid | `object_in_nose_ear` | Object stuck in nose or ear (child) | caution | 4 | ⬜ | — |
+| first_aid | `button_battery` | Swallowed button battery (child emergency) | critical | 4 | ⬜ | — |
+| first_aid | `firecracker_injury` | Firecracker injury (paputok) | urgent | 5 | ⬜ | — |
+| home | `elderly_fall_home` | Elderly fall at home (slip in bathroom) | urgent | 5 | ⬜ | — |
+| home | `scald_child` | Scald in a child (hot water or food) | urgent | 5 | ⬜ | — |
+| home | `child_in_hot_car` | Child left in a hot car | critical | 5 | ⬜ | — |
+| home | `bucket_drowning` | Toddler drowning (bucket, drum, tub) | critical | 5 | ⬜ | — |
+| public | `crowd_crush` | Crowd crush (stampede, siksikan) | critical | 5 | ⬜ | — |
+| public | `lost_child_public` | Lost child in a mall or market | urgent | 5 | ⬜ | — |
+| public | `robbery_response` | Robbery / holdup — how to respond | urgent | 5 | ⬜ | — |
+| sea | `rip_current` | Rip current (pulled out to sea) | critical | 5 | ⬜ | — |
+| sea | `boat_capsize` | Boat capsized (tumaob na bangka) | critical | 5 | ⬜ | — |
+| sea | `stranded_at_sea` | Stranded at sea (engine failure, no signal) | urgent | 5 | ⬜ | — |
+| survival | `survival_priorities` | Survival priorities (Rule of 3s) | info | 5 | ⬜ | — |
+| survival | `finding_water` | Finding water in the wild | caution | 5 | ⬜ | — |
+| survival | `purifying_water` | Making wild water safe to drink | caution | 5 | ⬜ | — |
+| survival | `making_fire` | Making a campfire safely | caution | 5 | ⬜ | — |
+| survival | `emergency_shelter` | Building an emergency shelter | caution | 5 | ⬜ | — |
+| survival | `signaling_rescue` | Signaling rescuers (seen and heard) | urgent | 5 | ⬜ | — |
+| survival | `rescue_knots` | Two rescue knots (bowline + clove hitch) | caution | 5 | ⬜ | — |
+| survival | `navigation_no_compass` | Finding direction without a compass | caution | 5 | ⬜ | — |
+| survival | `wild_food_safety` | Wild food safety (what NOT to eat) | caution | 5 | ⬜ | — |
+| survival | `camp_animals` | Animals at camp (snakes, monkeys, rats) | caution | 5 | ⬜ | — |
+| typhoon_flood | `before_typhoon` | Before a typhoon — prepare | caution | 5 | ⬜ | — |
+| typhoon_flood | `flood_entering_home` | Flood water entering the house — what to do | urgent | 5 | ⬜ | — |
+| typhoon_flood | `electrical_hazard` | Downed power lines and electrical hazards | critical | 5 | ⬜ | — |
+| typhoon_flood | `safe_water` | Safe drinking water after a typhoon | caution | 5 | ⬜ | — |
+| typhoon_flood | `when_to_evacuate` | When and how to evacuate | urgent | 5 | ⬜ | — |
+| typhoon_flood | `during_typhoon` | During a typhoon — shelter in place | urgent | 5 | ⬜ | — |
+| typhoon_flood | `after_flood` | After a flood — cleanup and disease prevention | caution | 5 | ⬜ | — |
+| typhoon_flood | `landslide` | Landslide warning signs and escape | urgent | 5 | ⬜ | — |
+| typhoon_flood | `storm_surge` | Storm surge warning (coastal flooding) | critical | 5 | ⬜ | — |
+| typhoon_flood | `leptospirosis` | Leptospirosis risk after wading in flood | urgent | 5 | ⬜ | — |
+| typhoon_flood | `brownout_generator` | Brownout safety — generators and candles | urgent | 5 | ⬜ | — |
+| typhoon_flood | `stranded_rooftop` | Stranded on a roof by flood — signal for rescue | critical | 5 | ⬜ | — |
+| typhoon_flood | `dengue_after_flood` | Dengue risk after floods (mosquitoes) | caution | 5 | ⬜ | — |
+| typhoon_flood | `evacuation_center` | Life in an evacuation center | caution | 5 | ⬜ | — |
+| typhoon_flood | `mold_cleanup` | Mold cleanup after flooding | caution | 5 | ⬜ | — |
+| typhoon_flood | `tornado_ipoipo` | Tornado / ipo-ipo (buhawi) | urgent | 4 | ⬜ | — |
+| vehicle | `tire_blowout` | Tire blowout while driving | critical | 5 | ⬜ | — |
+| vehicle | `brake_failure` | Brake failure (nawalan ng preno) | critical | 5 | ⬜ | — |
+| vehicle | `overheating_engine` | Engine overheating (nag-overheat) | urgent | 5 | ⬜ | — |
+| vehicle | `dead_battery` | Dead battery — safe jumpstart | caution | 5 | ⬜ | — |
+| vehicle | `stalled_in_flood` | Car stalled in flood water | urgent | 5 | ⬜ | — |
+| vehicle | `roadside_breakdown` | Breakdown on the road (especially at night) | urgent | 5 | ⬜ | — |
+| volcano | `volcano_eruption` | Volcanic eruption — evacuate | critical | 5 | ⬜ | — |
+| volcano | `ashfall` | Ashfall — stay safe indoors and outdoors | urgent | 5 | ⬜ | — |
+| volcano | `vog` | Volcanic smog (vog) — health protection | caution | 5 | ⬜ | — |
+| wilderness | `lost_on_trail` | Lost while hiking — STOP | urgent | 5 | ⬜ | — |
+| wilderness | `no_signal_sos` | No signal — how to call for help offline | urgent | 5 | ⬜ | — |
+| wilderness | `trail_hypothermia` | Hypothermia on the trail (too cold) | urgent | 5 | ⬜ | — |
+| wilderness | `cave_emergency` | Cave emergency (lost, flood, or injury) | urgent | 5 | ⬜ | — |
+| wilderness | `open_field_storm` | Caught in an open field during a storm | urgent | 5 | ⬜ | — |
+| wilderness | `altitude_sickness` | Altitude sickness (high mountains) | urgent | 4 | ⬜ | — |
+| wildlife | `snake_encounter` | Seeing a snake (not bitten) | caution | 5 | ⬜ | — |
+| workplace | `office_earthquake` | Earthquake in an office building | urgent | 5 | ⬜ | — |
+| workplace | `workplace_fire` | Fire in the workplace — evacuate | critical | 5 | ⬜ | — |
+| workplace | `worksite_injury` | Injury at a worksite (shop, factory, construction) | urgent | 5 | ⬜ | — |
+
+**112 topics · 6 heroes done · 106 missing.**
+
+Regenerate: the script lives in git history of this commit (`docs/gen_image_manifest.py`).

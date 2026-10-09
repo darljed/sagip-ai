@@ -4,38 +4,44 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 /**
- * SAGIP design tokens — adapted from the unslop.site "AI Chat" reference.
- * Exact values mirrored from docs/DESIGN-SYSTEM.md. We keep the reference's
- * calm dark surface + soft-lavender text + single expressive accent, remapped
- * to SAGIP's emergency-assistant semantics (e.g. "Online" dot -> "Offline · Ready").
+ * SAGIP design tokens — "Photo Journal" direction (unslop.site Mobile Apps / Core Apps).
+ * Reference values: paper #F4F3EE, ink #151513, muted #6D6D66, line #D7D6CF, acid #D6FF3F,
+ * blue #3458F4, plus the reference app's coral (#FF5E6C) for the single loud action.
+ *
+ * Merged with the earlier dark "AI Chat" system into ONE light system: warm paper canvas,
+ * white photo cards with hairline borders, ink pills, and a single loud accent (coral = SOS).
+ * Legacy names (Text, Accent, Surface…) are kept so un-migrated screens recolour for free.
  */
 object SagipColors {
-    // Canvas (deep indigo -> near black gradient)
-    val CanvasTop = Color(0xFF0B0A1A)
-    val CanvasBottom = Color(0xFF050410)
+    // Photo Journal core
+    val Paper = Color(0xFFF4F3EE)
+    val Card = Color(0xFFFFFFFF)
+    val Ink = Color(0xFF151513)
+    val Muted = Color(0xFF6D6D66)
+    val Line = Color(0xFFD7D6CF)
+    val Acid = Color(0xFFD6FF3F)
+    val Blue = Color(0xFF3458F4)
+    val Coral = Color(0xFFFF5E6C)
+    val CoralDeep = Color(0xFFE5384A)
 
-    // Surfaces (translucent, float on the canvas)
-    val Surface = Color(0x0FFFFFFF)        // rgba(255,255,255,0.06)
-    val SurfaceStrong = Color(0x14FFFFFF)  // rgba(255,255,255,0.08)
+    // Legacy aliases (wizard / success screens)
+    val CanvasTop = Paper
+    val CanvasBottom = Paper
+    val Surface = Card
+    val SurfaceStrong = Color(0xFFEDEBE3)
+    val Text = Ink
+    val TextDim = Muted
+    val Accent = Ink
+    val Accent2 = Acid
+    val AccentSoft = Color(0x33D6FF3F)
+    val Ok = Color(0xFF1F9D63)
 
-    // Text
-    val Text = Color(0xFFE8EAFF)           // soft lavender-white
-    val TextDim = Color(0x80E8EAFF)        // 50% — meta labels, source line
+    // Severity (safety layer) — tuned for light backgrounds
+    val SeverityInfo = Blue
+    val SeverityCaution = Color(0xFFB7791F)
+    val SeverityUrgent = Color(0xFFE8590C)
+    val SeverityCritical = Color(0xFFD92D3A)
 
-    // Accent (the AI "orb")
-    val Accent = Color(0xFF7C5CFF)
-    val Accent2 = Color(0xFF4CC8FF)
-    val AccentSoft = Color(0x2E7C5CFF)     // rgba(124,92,255,0.18)
-
-    // Status: our core differentiator — green "Offline · Ready" dot (was "Online")
-    val Ok = Color(0xFF7BE3A8)
-
-    // Severity palette (SAGIP safety layer — not in the reference)
-    val SeverityInfo = Color(0xFF8AA0C0)
-    val SeverityCaution = Color(0xFFF2C94C)
-    val SeverityUrgent = Color(0xFFF2994A)
-    val SeverityCritical = Color(0xFFEB5757)
-
-    val CanvasGradient = Brush.verticalGradient(listOf(CanvasTop, CanvasBottom))
-    val OrbGradient = Brush.linearGradient(listOf(Accent, Accent2))
+    val CanvasGradient = Brush.verticalGradient(listOf(Paper, Paper))
+    val OrbGradient = Brush.linearGradient(listOf(Ink, Ink))
 }

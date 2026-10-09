@@ -146,8 +146,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        enableEdgeToEdge()
-        setContent { SagipApp(this) }
+        enableEdgeToEdge(
+            statusBarStyle = androidx.activity.SystemBarStyle.light(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT),
+            navigationBarStyle = androidx.activity.SystemBarStyle.light(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT),
+        )
+        if (android.os.Build.VERSION.SDK_INT >= 29) window.isNavigationBarContrastEnforced = false
+        setContent { dev.darl.sagip.ui.theme.SagipTheme { SagipApp(this) } }
     }
 }
 
@@ -163,7 +167,14 @@ private fun SagipApp(activity: MainActivity) {
     var savedProfile by remember { mutableStateOf<UserProfile?>(null) } // set when success shown
 
     when {
-        profile != null -> ChatApp(profile!!, activity)
+        profile != null -> dev.darl.sagip.ui.MainShell(
+            profile!!,
+            dev.darl.sagip.ui.VoiceHooks(
+                start = { tag, p, f, st, er -> activity.startVoiceInput(tag, p, f, st, er) },
+                stop = { activity.stopVoiceInput() },
+                openDownloadSettings = { activity.openVoiceDownloadSettings() },
+            ),
+        )
 
         savedProfile != null -> OnboardingSuccessScreen(
             profile = savedProfile!!,
@@ -192,81 +203,4 @@ private fun SagipApp(activity: MainActivity) {
             }
         }
     }
-}
-
-@Composable
-private fun ChatApp(profile: UserProfile, activity: MainActivity) {
-    val context = LocalContext.current.applicationContext
-    val vm = remember(profile) {
-        val repo = PackRepository.fromAssets(context)
-        val retriever = KeywordRetriever(repo)
-        ChatViewModel(context, retriever, profile).also { it.initEngine() }
-    }
-    val state by vm.state.collectAsState()
-
-    // DEBUG-ONLY headless test hook (compiled in, active only on debuggable builds):
-    //   adb shell am broadcast -a dev.darl.sagip.DEBUG_ASK --es q "<query>" -p dev.darl.sagip
-    // Drives the REAL ChatViewModel (retrieve -> prompt -> engine -> watchdog) with no UI
-    // taps and logs the final answer under tag SagipTest.
-    val debuggable = (context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0
-    if (debuggable) {
-        androidx.compose.runtime.DisposableEffect(vm) {
-            val r = object : android.content.BroadcastReceiver() {
-                override fun onReceive(c: android.content.Context?, i: android.content.Intent?) {
-                    val q = i?.getStringExtra("q") ?: return
-                    android.util.Log.i("SagipTest", "ASK: $q")
-                    vm.send(q)
-                }
-            }
-            androidx.core.content.ContextCompat.registerReceiver(
-                context, r, android.content.IntentFilter("dev.darl.sagip.DEBUG_ASK"),
-                androidx.core.content.ContextCompat.RECEIVER_EXPORTED,
-            )
-            onDispose { runCatching { context.unregisterReceiver(r) } }
-        }
-        androidx.compose.runtime.LaunchedEffect(state.busy, state.messages.size) {
-            val last = state.messages.lastOrNull()
-            if (!state.busy && last != null && last.role == dev.darl.sagip.chat.Role.ASSISTANT && !last.streaming) {
-                android.util.Log.i("SagipTest", "DONE model=${state.modelName} status=${state.modelStatus} sev=${last.severity} src=${last.sources}\n>>>\n${last.text}\n<<<")
-            }
-        }
-    }
-
-    var input by remember { mutableStateOf("") }
-    var listening by remember { mutableStateOf(false) }
-    var voiceHint by remember { mutableStateOf<String?>(null) }
-    var voiceNeedsPack by remember { mutableStateOf(false) }
-    val langTag = if (profile.preferredLanguage == dev.darl.sagip.data.Lang.TL) "fil-PH" else "en-PH"
-
-    ChatScreen(
-        state = state,
-        input = input,
-        onInputChange = { input = it; voiceHint = null; voiceNeedsPack = false },
-        onSend = { if (input.isNotBlank()) { vm.send(input); input = ""; voiceHint = null } },
-        listening = listening,
-        voiceHint = voiceHint,
-        onVoiceHintClick = if (voiceNeedsPack) ({ activity.openVoiceDownloadSettings() }) else null,
-        onMic = {
-            if (listening) {
-                activity.stopVoiceInput(); listening = false
-            } else {
-                voiceHint = null; voiceNeedsPack = false
-                activity.startVoiceInput(
-                    languageTag = langTag,
-                    onPartial = { input = it },
-                    onFinal = { input = it; listening = false },
-                    onState = { listening = it },
-                    onError = {
-                        listening = false
-                        if (it == "NEEDS_PACK") {
-                            voiceNeedsPack = true
-                            voiceHint = "Voice needs a language pack — tap to download"
-                        } else {
-                            voiceHint = it
-                        }
-                    },
-                )
-            }
-        },
-    )
 }
