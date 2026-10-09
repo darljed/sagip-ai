@@ -64,8 +64,14 @@ private val QUICK_ACTIONS = listOf(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ChatScreen(state: ChatState, onSend: (String) -> Unit) {
-    var input by remember { mutableStateOf("") }
+fun ChatScreen(
+    state: ChatState,
+    input: String,
+    onInputChange: (String) -> Unit,
+    onSend: () -> Unit,
+    listening: Boolean,
+    onMic: () -> Unit,
+) {
     val listState = rememberLazyListState()
 
     LaunchedEffect(state.messages.size) {
@@ -86,7 +92,7 @@ fun ChatScreen(state: ChatState, onSend: (String) -> Unit) {
 
             Box(Modifier.weight(1f).fillMaxWidth()) {
                 if (state.messages.isEmpty()) {
-                    EmptyState(onPick = { onSend(it) })
+                    EmptyState(onPick = { onInputChange(it); onSend() })
                 } else {
                     LazyColumn(
                         state = listState,
@@ -106,9 +112,11 @@ fun ChatScreen(state: ChatState, onSend: (String) -> Unit) {
 
             InputBar(
                 value = input,
-                onValueChange = { input = it },
+                onValueChange = onInputChange,
                 enabled = !state.busy,
-                onSend = { if (input.isNotBlank()) { onSend(input); input = "" } },
+                onSend = onSend,
+                listening = listening,
+                onMic = onMic,
             )
         }
     }
@@ -272,26 +280,51 @@ private fun SeverityBanner(sev: Severity) {
 }
 
 @Composable
-private fun InputBar(value: String, onValueChange: (String) -> Unit, enabled: Boolean, onSend: () -> Unit) {
+private fun InputBar(
+    value: String,
+    onValueChange: (String) -> Unit,
+    enabled: Boolean,
+    onSend: () -> Unit,
+    listening: Boolean,
+    onMic: () -> Unit,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 10.dp)
             .clip(RoundedCornerShape(22.dp)).background(SagipColors.SurfaceStrong)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
     ) {
         Box(Modifier.weight(1f)) {
-            if (value.isEmpty()) Text("Describe the emergency…", color = SagipColors.TextDim, fontSize = 15.sp)
+            if (value.isEmpty()) {
+                Text(
+                    if (listening) "Listening…" else "Describe the emergency…",
+                    color = if (listening) SagipColors.Accent else SagipColors.TextDim, fontSize = 15.sp,
+                )
+            }
             BasicTextField(
                 value = value, onValueChange = onValueChange, singleLine = true,
                 textStyle = TextStyle(color = SagipColors.Text, fontSize = 15.sp),
                 cursorBrush = SolidColor(SagipColors.Accent), modifier = Modifier.fillMaxWidth(),
             )
         }
-        Spacer(Modifier.width(10.dp))
-        Icon(Icons.Filled.Mic, contentDescription = "Voice input", tint = SagipColors.TextDim, modifier = Modifier.size(22.dp))
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(8.dp))
+        // Mic button — turns accent/active while listening. Tappable circle for a bigger target.
         Box(
-            Modifier.size(36.dp).clip(CircleShape)
+            Modifier.size(40.dp).clip(CircleShape)
+                .background(if (listening) SagipColors.Accent else Color.Transparent)
+                .clickable(onClick = onMic),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                Icons.Filled.Mic,
+                contentDescription = if (listening) "Stop voice input" else "Voice input",
+                tint = if (listening) Color.White else SagipColors.TextDim,
+                modifier = Modifier.size(22.dp),
+            )
+        }
+        Spacer(Modifier.width(10.dp))   // breathing room between mic and send
+        Box(
+            Modifier.size(40.dp).clip(CircleShape)
                 .background(if (enabled) SagipColors.Accent else SagipColors.AccentSoft)
                 .clickable(enabled = enabled, onClick = onSend),
             contentAlignment = Alignment.Center,

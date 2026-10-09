@@ -15,6 +15,15 @@
          to fill barangay/city via on-device reverse geocoding. No network, no tracking. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Microphone: for voice input via on-device SpeechRecognizer. Offline-capable. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Needed on Android 11+ so SpeechRecognizer can find the on-device recognizer. -->
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"

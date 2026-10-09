@@ -68,6 +68,32 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    // --- Voice input (on-device SpeechRecognizer) ---
+    private val voice by lazy { dev.darl.sagip.voice.VoiceInput(this) }
+    private var pendingVoiceStart: (() -> Unit)? = null
+    private val requestMicPerm = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted -> if (granted) pendingVoiceStart?.invoke(); pendingVoiceStart = null }
+
+    fun startVoiceInput(
+        languageTag: String,
+        onPartial: (String) -> Unit,
+        onFinal: (String) -> Unit,
+        onState: (Boolean) -> Unit,
+        onError: (String) -> Unit,
+    ) {
+        val begin = { voice.start(languageTag, onPartial, onFinal, onState, onError) }
+        val perm = android.Manifest.permission.RECORD_AUDIO
+        if (checkSelfPermission(perm) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            begin()
+        } else {
+            pendingVoiceStart = begin
+            requestMicPerm.launch(perm)
+        }
+    }
+
+    fun stopVoiceInput() = voice.stop()
+
     @Suppress("MissingPermission")
     private fun resolveLocation() {
         runCatching {
@@ -121,7 +147,7 @@ private fun SagipApp(activity: MainActivity) {
     var savedProfile by remember { mutableStateOf<UserProfile?>(null) } // set when success shown
 
     when {
-        profile != null -> ChatApp(profile!!)
+        profile != null -> ChatApp(profile!!, activity)
 
         savedProfile != null -> OnboardingSuccessScreen(
             profile = savedProfile!!,
@@ -153,7 +179,7 @@ private fun SagipApp(activity: MainActivity) {
 }
 
 @Composable
-private fun ChatApp(profile: UserProfile) {
+private fun ChatApp(profile: UserProfile, activity: MainActivity) {
     val context = LocalContext.current.applicationContext
     val vm = remember(profile) {
         val repo = PackRepository.fromAssets(context)
@@ -161,5 +187,29 @@ private fun ChatApp(profile: UserProfile) {
         ChatViewModel(context, retriever, profile).also { it.initEngine() }
     }
     val state by vm.state.collectAsState()
-    ChatScreen(state = state, onSend = vm::send)
+
+    var input by remember { mutableStateOf("") }
+    var listening by remember { mutableStateOf(false) }
+    val langTag = if (profile.preferredLanguage == dev.darl.sagip.data.Lang.TL) "fil-PH" else "en-PH"
+
+    ChatScreen(
+        state = state,
+        input = input,
+        onInputChange = { input = it },
+        onSend = { if (input.isNotBlank()) { vm.send(input); input = "" } },
+        listening = listening,
+        onMic = {
+            if (listening) {
+                activity.stopVoiceInput(); listening = false
+            } else {
+                activity.startVoiceInput(
+                    languageTag = langTag,
+                    onPartial = { input = it },
+                    onFinal = { input = it; listening = false },
+                    onState = { listening = it },
+                    onError = { listening = false },
+                )
+            }
+        },
+    )
 }
