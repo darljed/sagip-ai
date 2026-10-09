@@ -36,7 +36,7 @@ class SessionStore(context: Context) {
                             put(JSONObject()
                                 .put("role", m.role.name).put("text", m.text).put("severity", m.severity?.key ?: "")
                                 .put("related", JSONArray().apply { m.related.forEach { r -> put(JSONObject().put("id", r.topicId).put("title", r.title).put("sev", r.severity.key)) } })
-                                .put("contacts", JSONArray().apply { m.contacts.forEach { c -> put(JSONObject().put("label", c.label).put("number", c.number).put("sample", c.sample)) } }))
+                                .put("contacts", JSONArray().apply { m.contacts.forEach { c -> put(JSONObject().put("label", c.label).put("number", c.number).put("sample", c.sample).put("person", c.person)) } }))
                         }
                     },
                 ))
@@ -57,7 +57,7 @@ class SessionStore(context: Context) {
                             role = Role.valueOf(m.getString("role")), text = m.getString("text"),
                             severity = m.optString("severity").takeIf { it.isNotBlank() }?.let { Severity.from(it) },
                             related = (0 until (rel?.length() ?: 0)).map { k -> rel!!.getJSONObject(k).let { RelatedGuide(it.getString("id"), it.getString("title"), Severity.from(it.getString("sev"))) } },
-                            contacts = (0 until (con?.length() ?: 0)).map { k -> con!!.getJSONObject(k).let { ContactChip(it.getString("label"), it.getString("number"), it.optBoolean("sample")) } },
+                            contacts = (0 until (con?.length() ?: 0)).map { k -> con!!.getJSONObject(k).let { ContactChip(it.getString("label"), it.getString("number"), it.optBoolean("sample"), it.optBoolean("person")) } },
                         )
                     },
                 )

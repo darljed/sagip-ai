@@ -208,7 +208,7 @@ private fun AssistantBubble(m: Message, onOpenTopic: (String) -> Unit) {
                     ) {
                         Icon(Icons.Outlined.Call, null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(8.dp))
-                        Text("${tr(lang, "Call", "Tawagan")} ${c.label}${if (c.sample) " · sample" else ""}", style = MaterialTheme.typography.labelLarge)
+                        Text("${tr(lang, "Call", if (c.person) "Tawagan si" else "Tawagan ang")} ${c.label}${if (c.sample) " · sample" else ""}", style = MaterialTheme.typography.labelLarge)
                     }
                 }
             }

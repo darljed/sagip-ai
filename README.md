@@ -175,9 +175,9 @@ Gemma 4 E2B on GPU: first token ≈ 0.7–1.8 s, a full answer in ≈ 3–10 s.
 |---|---|
 | **Models** | Google **Gemma 4 E2B** (runtime, on-device). Gemma 3n E2B and Gemma 3 1B INT4 are optional fallbacks that were not required for the demo. No cloud inference. |
 | **Frameworks & libraries** | Kotlin 2.2.21, Jetpack Compose, **LiteRT-LM** 0.14.0, AndroidX, Gradle; Android `SpeechRecognizer`, `LocationManager`/`Geocoder`, Telecom. |
-| **APIs / cloud** | None at runtime. During development: OpenRouter (image generation, below). |
+| **APIs / cloud** | None at runtime. During development: OpenRouter (image generation, demo-video voice and music, below). |
 | **Existing code & assets** | Open-source libraries above. Gemma weights are Google's, used under the Gemma terms. The plan and the first three seed knowledge packs (first aid, typhoon/flood, earthquake) were drafted just before the clock started (see `PLAN.md` §9); the app, the other 100+ topics, categories, contacts, tests, art and tooling were built during the hackathon — see the git history. Geist font (SIL OFL). |
-| **AI-generated assets** | 121 PNG topic illustrations generated through OpenRouter (`google/gemini-2.5-flash-image` pilot, `google/gemini-3.1-flash-lite-image` bulk); only a sample was human-reviewed (see [`docs/PACK-AUTHORING-GUIDE.md`](docs/PACK-AUTHORING-GUIDE.md) §9). 13 category covers are hand-authored SVG. App icon and logo were generated with unslop.site tooling. |
+| **AI-generated assets** | 121 PNG topic illustrations generated through OpenRouter (`google/gemini-2.5-flash-image` pilot, `google/gemini-3.1-flash-lite-image` bulk); only a sample was human-reviewed (see [`docs/PACK-AUTHORING-GUIDE.md`](docs/PACK-AUTHORING-GUIDE.md) §9). 13 category covers are hand-authored SVG. App icon and logo were generated with unslop.site tooling. Demo-video narration: ElevenLabs Multilingual v2 (stock synthetic voice, not the builder's own) and background music: Google Lyria 3 Pro, both via OpenRouter. |
 | **AI development tools** | kiro-cli (Claude Sonnet) and opencode were used as coding assistants. No Devin / Cognition tooling was used. |
 | **Sample data** | Makati and San Pablo area contacts are placeholders, badged **Sample** in the app; 911 and Red Cross 143 are real. Replace with official DRRMO numbers before production. |
 

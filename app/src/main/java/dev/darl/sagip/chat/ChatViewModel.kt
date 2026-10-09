@@ -36,7 +36,8 @@ enum class ModelStatus { LOADING, READY, MOCK, ERROR }
 data class RelatedGuide(val topicId: String, val title: String, val severity: Severity)
 
 /** A chat-level contact chip (personal contact, barangay…). 911 lives in the top bar, not here. */
-data class ContactChip(val label: String, val number: String, val sample: Boolean = false)
+/** [person] = a named person (the emergency contact), not an office — drives "Tawagan si …" vs "Tawagan ang …". */
+data class ContactChip(val label: String, val number: String, val sample: Boolean = false, val person: Boolean = false)
 
 data class Message(
     val role: Role,
@@ -319,7 +320,7 @@ class ChatViewModel(
 
     /** Chat-level contacts: the person's own emergency contact + their local barangay/city contact. */
     private fun personalContacts(): List<ContactChip> = buildList {
-        if (profile.hasEmergencyContact) add(ContactChip(profile.emergencyContactName, profile.emergencyContactNumber))
+        if (profile.hasEmergencyContact) add(ContactChip(profile.emergencyContactName, profile.emergencyContactNumber, person = true))
         directory.localContacts(place()).firstOrNull()?.let { add(it.toChip(profile.preferredLanguage)) }
     }
 
@@ -334,7 +335,7 @@ class ChatViewModel(
                 if (profile.hasEmergencyContact)
                     (if (tl) "Tinatawagan si ${profile.emergencyContactName}… Kung hindi tumuloy, i-tap ang button."
                      else "Calling ${profile.emergencyContactName}… If it doesn't start, tap the button.") to
-                        listOf(ContactChip(profile.emergencyContactName, profile.emergencyContactNumber))
+                        listOf(ContactChip(profile.emergencyContactName, profile.emergencyContactNumber, person = true))
                 else
                     (if (tl) "Wala ka pang naka-save na emergency contact. Pumunta sa Contact tab at i-tap ang I-edit para idagdag ito."
                      else "You haven't saved an emergency contact yet. Open the Contacts tab and tap Edit to add one.") to emptyList()

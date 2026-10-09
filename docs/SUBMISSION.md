@@ -20,7 +20,7 @@ extensions. Fields marked **TODO** need a human before submitting.
 
 | Field | Answer |
 |---|---|
-| **Demo video (~1 min)** | **TODO** — record the 60-second script in the README (airplane mode on → bleeding → Tagalog flood → allergies → "call my wife") |
+| **Demo video (~1 min)** | 72 s captioned screen recording from the S23 in airplane mode (bleeding answer shown in real time; typing/scrolling sped up and labelled). **TODO** upload and paste the link |
 | **Screenshots** | [`docs/screenshots/`](screenshots/) — `hero.jpg` is the combined image |
 | **X / LinkedIn video URL** | **TODO** — post the video, tag **Devin / Cognition**, include **#AppBuildersPH** |
 | **What runs locally** | Everything that matters: LLM inference (Gemma 4 E2B via LiteRT-LM on the phone GPU), retrieval over the 112 bundled guides, prompt personalisation, guardrails, phone-number lookup, GPS → area lookup (bundled coordinates), illustrations, chat history and the user's health profile. |
@@ -42,9 +42,9 @@ steps than a large remote model improvising.
 |---|---|
 | **Models used** | Google **Gemma 4 E2B** (`gemma-4-E2B-it.litertlm`, on-device, GPU). Optional fallbacks present in code: Gemma 3n E2B, Gemma 3 1B INT4 (not needed for the demo). Image models used at development time only: `google/gemini-2.5-flash-image`, `google/gemini-3.1-flash-lite-image` (via OpenRouter). |
 | **Technologies & frameworks** | Kotlin 2.2.21, Jetpack Compose, AndroidX, Gradle, **LiteRT-LM** `litertlm-android` 0.14.0, Android `SpeechRecognizer` / `LocationManager` / Telecom, Geist font (SIL OFL). |
-| **APIs & cloud services** | None at runtime. OpenRouter was used at development time to generate topic illustrations. |
+| **APIs & cloud services** | None at runtime. OpenRouter was used at development time to generate topic illustrations and the demo video's voice and music. |
 | **Existing code & assets** | Open-source libraries above; Gemma weights under the Gemma terms. The plan (`PLAN.md`) and the first three seed knowledge packs (first aid, typhoon/flood, earthquake; 32 chunks) were drafted just before the clock started — **TODO confirm this statement is accurate**; everything else (the app, 100+ more topics, retrieval, prompts, UI, contacts, tests, art, tooling) was built during the hackathon — see the git history from Fri 9 Oct. |
-| **AI-generated assets** | 121 PNG topic illustrations (OpenRouter models above), reviewed only in part; app icon and logo generated with unslop.site tooling; 13 category covers hand-authored as SVG. |
+| **AI-generated assets** | 121 PNG topic illustrations (OpenRouter models above), reviewed only in part; app icon and logo generated with unslop.site tooling; 13 category covers hand-authored as SVG. Demo video: narration by ElevenLabs Multilingual v2 (stock synthetic voice, not the builder's own) and music by Google Lyria 3 Pro, both via OpenRouter. |
 | **AI development tools** | kiro-cli (Claude Sonnet) and opencode as coding assistants. Devin / Cognition was not used. |
 
 ## Judging-criteria map
