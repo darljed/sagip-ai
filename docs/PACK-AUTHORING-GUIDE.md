@@ -239,6 +239,23 @@ altitude_sickness (wilderness); robbery_response (public). Retrieval upgrades
 swapped generic "animal bite" for unggoy/monkey (rabies vectors).
 Batch 8 (2026-10-09): tire_blowout, brake_failure, overheating_engine,
 dead_battery, stalled_in_flood, roadside_breakdown (vehicle).
+
+### Batch 9 — topic art program (2026-10-10, AI-generated PNG via OpenRouter)
+Pilot + batches: `during_earthquake` (hero + windows + bed), CPR trio + choking
+pair (heroes + close-ups), then 71 heroes covering ALL of first_aid,
+typhoon_flood, earthquake, fire, survival → **83/112 topics (74%) have hero art**
+in `app/src/main/assets/illustrations/topics/`, model
+`google/gemini-3.1-flash-lite-image` (~$0.034/image, ~$2.94 total art spend).
+Style: flat vector, dark-indigo bg, no text (EN/TL share files), edge-to-edge.
+REJECTED after visual review (do not regenerate without new prompts):
+`choking_adult.heimlich` (ambiguous fist placement), `anaphylaxis.epi` v1
+(unclear landmark) and v2/v3 (baked-in English title; then wrong hip/buttock
+placement) — heroes already cover both procedures. Spot-verified shippable:
+quake hero, cpr_adult hero, button_battery hero (no gore, correct story).
+Everything else is UNVERIFIED — human must review body positions before ship.
+Still missing heroes (29): `art` filename field
+not yet added to the chunk schema (§1/§4) and no loader support — layout
+session owns that.
 NOTE: `wildlife.json` (`snake_encounter`) was found in the working tree but was
 NOT authored in this session — verify its origin before shipping.
 
@@ -480,8 +497,7 @@ ipo-ipo events):
 Pending human review: button-battery honey wording and tornado severity
 (urgent vs critical for direct hits).
 
-### Batch 8 (added 2026-10-09 — vehicle emergencies)
-NEW pack `vehicle` (LTO Driver's Manual / MMDA / NDRRMC): `tire_blowout`
+### Batch 8 (added 2026-10-09 — vehicle emergencies)NEW pack `vehicle` (LTO Driver's Manual / MMDA / NDRRMC): `tire_blowout`
 (critical — no swerve, no brake-slam), `brake_failure` (critical — pump,
 downshift, gradual handbrake, guardrail last resort), `overheating_engine`
 (urgent — heater-full trick, never open hot radiator cap), `dead_battery`

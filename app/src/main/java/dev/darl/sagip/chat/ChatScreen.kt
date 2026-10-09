@@ -164,7 +164,7 @@ private fun UserBubble(m: Message) {
         Box(
             Modifier.widthIn(max = 320.dp).clip(UserShape).background(SagipColors.Ink)
                 .padding(horizontal = 18.dp, vertical = 14.dp),
-        ) { Text(m.text, style = MaterialTheme.typography.bodyMedium, color = Color.White) }
+        ) { Text(m.text, style = MaterialTheme.typography.bodyMedium, color = SagipColors.OnInk) }
     }
 }
 
@@ -277,7 +277,7 @@ private fun InputBar(
                 .clickable(enabled = enabled && value.isNotBlank(), onClick = onSend)
                 .semantics { contentDescription = tr(lang, "Send", "Ipadala") },
             contentAlignment = Alignment.Center,
-        ) { Icon(Icons.AutoMirrored.Outlined.Send, null, tint = if (enabled && value.isNotBlank()) SagipColors.Acid else Color.White) }
+        ) { Icon(Icons.AutoMirrored.Outlined.Send, null, tint = if (enabled && value.isNotBlank()) SagipColors.InkAccent else SagipColors.Muted) }
     }
 }
 
@@ -286,9 +286,8 @@ private fun ChatActions(hasHistory: Boolean, canNew: Boolean, onHistory: () -> U
     val lang = LocalLang.current
     Row(
         Modifier.fillMaxWidth().padding(horizontal = G, vertical = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.End), verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(tr(lang, "Ask", "Magtanong"), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
         PillChip(tr(lang, "History", "Kasaysayan"), selected = false, onClick = onHistory, modifier = Modifier.then(if (hasHistory) Modifier else Modifier.alpha(0.45f)))
         PillChip(tr(lang, "+ New chat", "+ Bagong chat"), selected = false, onClick = { if (canNew) onNew() }, modifier = Modifier.then(if (canNew) Modifier else Modifier.alpha(0.45f)))
     }

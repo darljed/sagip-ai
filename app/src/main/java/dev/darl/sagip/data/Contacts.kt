@@ -29,6 +29,10 @@ data class Area(
     val aliases: List<String>,
     val contacts: List<ContactEntry>,
     val barangays: List<Barangay>,
+    /** Optional centre + radius so GPS works offline (no reverse geocoder needed). */
+    val lat: Double? = null,
+    val lng: Double? = null,
+    val radiusKm: Double = 10.0,
 )
 
 /** A resolved place: an area and (optionally) a barangay inside it. */
@@ -42,11 +46,38 @@ class ContactDirectory(val national: List<ContactEntry>, val areas: List<Area>) 
     fun placeFor(text: String): Place? {
         val t = text.lowercase(Locale.ROOT)
         if (t.isBlank()) return null
+        placeForGeo(t)?.let { geoPlace -> 
+            // A named barangay in the same text refines the GPS area.
+            val named = geoPlace.area.barangays.filter { b -> b.aliases.any { t.contains(it) } }.maxByOrNull { it.name.length }
+            return Place(geoPlace.area, named)
+        }
         val area = areas.firstOrNull { a -> a.aliases.any { t.contains(it) } }
             ?: areas.firstOrNull { a -> a.barangays.any { b -> b.aliases.any { t.contains(it) } } }
             ?: return null
         val b = area.barangays.filter { b -> b.aliases.any { t.contains(it) } }.maxByOrNull { it.name.length }
         return Place(area, b)
+    }
+
+    /** "geo:lat,lng" token (appended by the location lookup) -> nearest area within its radius. */
+    fun placeForGeo(text: String): Place? {
+        val m = Regex("geo:(-?\\d+(?:\\.\\d+)?),(-?\\d+(?:\\.\\d+)?)").find(text) ?: return null
+        val lat = m.groupValues[1].toDouble(); val lng = m.groupValues[2].toDouble()
+        return areas.filter { it.lat != null && it.lng != null }
+            .map { it to distanceKm(lat, lng, it.lat!!, it.lng!!) }
+            .filter { (a, d) -> d <= a.radiusKm }
+            .minByOrNull { it.second }?.first?.let { Place(it, null) }
+    }
+
+    /** Find areas/barangays by name for the Contacts search box (only places we have data for). */
+    fun search(query: String, limit: Int = 8): List<Place> {
+        val q = query.trim().lowercase(Locale.ROOT)
+        if (q.length < 2) return emptyList()
+        val out = ArrayList<Place>()
+        for (a in areas) {
+            if (a.name.lowercase(Locale.ROOT).contains(q) || a.aliases.any { it.contains(q) }) out += Place(a, null)
+            for (b in a.barangays) if (b.name.lowercase(Locale.ROOT).contains(q) || b.aliases.any { it.contains(q) }) out += Place(a, b)
+        }
+        return out.take(limit)
     }
 
     /** Local contacts that actually have numbers: barangay first, then the city/area. */
@@ -83,6 +114,9 @@ class ContactDirectory(val national: List<ContactEntry>, val areas: List<Area>) 
                     val bs = a.optJSONArray("barangays")
                     Area(
                         id = a.getString("id"), name = a.getString("name"),
+                        lat = if (a.has("lat")) a.getDouble("lat") else null,
+                        lng = if (a.has("lng")) a.getDouble("lng") else null,
+                        radiusKm = a.optDouble("radiusKm", 10.0),
                         aliases = strings(a.optJSONArray("aliases")).ifEmpty { listOf(a.getString("name").lowercase(Locale.ROOT)) },
                         contacts = entries(a.optJSONArray("contacts")),
                         barangays = (0 until (bs?.length() ?: 0)).map { j ->
@@ -98,3 +132,15 @@ class ContactDirectory(val national: List<ContactEntry>, val areas: List<Area>) 
             parse(context.assets.open("contacts.json").bufferedReader().use { it.readText() })
     }
 }
+
+/** Great-circle distance in km (haversine). */
+fun distanceKm(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+    val r = 6371.0
+    val dLat = Math.toRadians(lat2 - lat1); val dLon = Math.toRadians(lon2 - lon1)
+    val a = Math.sin(dLat / 2).let { it * it } +
+        Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2).let { it * it }
+    return 2 * r * Math.asin(Math.sqrt(a))
+}
+
+/** Human label of a location-lookup result (drops the machine-readable geo token). */
+fun placeLabel(raw: String): String = raw.substringBefore("geo:").trim().trimEnd(',')

@@ -32,7 +32,7 @@ object Space {
 
 private fun t(size: Int, line: Int, weight: Int, track: Double = 0.0) = TextStyle(
     fontFamily = Geist, fontSize = size.sp, lineHeight = line.sp,
-    fontWeight = FontWeight(weight), letterSpacing = track.sp, color = SagipColors.Ink,
+    fontWeight = FontWeight(weight), letterSpacing = track.sp,
 )
 
 val SagipTypography = Typography(

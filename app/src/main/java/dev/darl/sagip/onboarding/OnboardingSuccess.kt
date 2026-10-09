@@ -73,7 +73,7 @@ fun OnboardingSuccessScreen(profile: UserProfile, onEnter: () -> Unit) {
                 Modifier.clip(RoundedCornerShape(999.dp)).background(SagipColors.Accent)
                     .clickable { onEnter() }.padding(horizontal = 40.dp, vertical = 14.dp)
             ) {
-                Text(if (tl) "Simulan" else "Enter SAGIP", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                Text(if (tl) "Simulan" else "Enter SAGIP", color = SagipColors.OnInk, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
             }
         }
     }

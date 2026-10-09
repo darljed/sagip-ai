@@ -10,6 +10,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -117,15 +119,19 @@ class MainActivity : ComponentActivity() {
             val loc = lm?.getLastKnownLocation(android.location.LocationManager.GPS_PROVIDER)
                 ?: lm?.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER)
             if (loc == null) { onLocation?.invoke(""); return }
-            val geo = android.location.Geocoder(this, java.util.Locale.getDefault())
-            @Suppress("DEPRECATION")
-            val addr = geo.getFromLocation(loc.latitude, loc.longitude, 1)?.firstOrNull()
-            val place = listOfNotNull(
-                addr?.subLocality,
-                addr?.locality ?: addr?.subAdminArea,
-            ).distinct().filter { it.isNotBlank() }.joinToString(", ")
-            onLocation?.invoke(place)
-        }.onFailure { onLocation?.invoke("") }
+            // Reverse geocoding needs the network on most phones; offline it throws. Always
+            // append the raw coordinates so the contact directory can still resolve the area.
+            val place = runCatching {
+                val geo = android.location.Geocoder(this, java.util.Locale.getDefault())
+                @Suppress("DEPRECATION")
+                val addr = geo.getFromLocation(loc.latitude, loc.longitude, 1)?.firstOrNull()
+                listOfNotNull(addr?.subLocality, addr?.locality ?: addr?.subAdminArea)
+                    .distinct().filter { it.isNotBlank() }.joinToString(", ")
+            }.getOrDefault("")
+            val geoToken = "geo:${"%.4f".format(java.util.Locale.US, loc.latitude)},${"%.4f".format(java.util.Locale.US, loc.longitude)}"
+            onLocation?.invoke("$place $geoToken".trim())
+            return
+                    }.onFailure { onLocation?.invoke("") }
     }
 
     fun pickDate(current: String, onResult: (String) -> Unit) {
@@ -143,6 +149,13 @@ class MainActivity : ComponentActivity() {
         }.show()
     }
 
+    /** Status/nav bar icon colours must follow the in-app theme (not just the phone's). */
+    fun applySystemBars(dark: Boolean) {
+        val style = if (dark) androidx.activity.SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+        else androidx.activity.SystemBarStyle.light(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT)
+        enableEdgeToEdge(statusBarStyle = style, navigationBarStyle = style)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -151,7 +164,7 @@ class MainActivity : ComponentActivity() {
             navigationBarStyle = androidx.activity.SystemBarStyle.light(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT),
         )
         if (android.os.Build.VERSION.SDK_INT >= 29) window.isNavigationBarContrastEnforced = false
-        setContent { dev.darl.sagip.ui.theme.SagipTheme { SagipApp(this) } }
+        setContent { SagipApp(this) }
     }
 }
 
@@ -159,6 +172,8 @@ class MainActivity : ComponentActivity() {
 private fun SagipApp(activity: MainActivity) {
     val context = LocalContext.current.applicationContext
     val store = remember { ProfileStore(context) }
+    val settings = remember { dev.darl.sagip.data.SettingsStore(context) }
+    var themeMode by remember { mutableStateOf(settings.themeMode) }
 
     // Three phases on first run: wizard -> success -> chat. Returning users skip to chat.
     var profile by remember {
@@ -166,44 +181,53 @@ private fun SagipApp(activity: MainActivity) {
     }
     var savedProfile by remember { mutableStateOf<UserProfile?>(null) } // set when success shown
 
-    when {
-        profile != null -> dev.darl.sagip.ui.MainShell(
-            profile!!,
-            dev.darl.sagip.ui.VoiceHooks(
-                start = { tag, p, f, st, er -> activity.startVoiceInput(tag, p, f, st, er) },
-                stop = { activity.stopVoiceInput() },
-                openDownloadSettings = { activity.openVoiceDownloadSettings() },
-                pickContact = { cb -> activity.pickContact { n, num -> cb(n, num) } },
-                locate = { cb -> activity.useMyLocation { cb(it) } },
-            ),
-            onProfileChange = { updated -> store.save(updated); profile = updated },
-        )
-
-        savedProfile != null -> OnboardingSuccessScreen(
-            profile = savedProfile!!,
-            onEnter = { profile = savedProfile },
-        )
-
-        else -> {
-            val vm: WizardViewModel = viewModel()
-            val state by vm.state.collectAsState()
-            WizardScreen(
-                state = state,
-                onValue = vm::setValue,
-                onToggleChip = vm::toggleChip,
-                onBack = vm::back,
-                onNext = vm::next,
-                onSkip = vm::skip,
-                onPickContact = { activity.pickContact { name, number -> vm.setValue("$name|$number") } },
-                onPickDate = { activity.pickDate(state.value) { vm.setValue(it) } },
-                onUseLocation = { activity.useMyLocation { place -> if (place.isNotBlank()) vm.setValue(place) } },
+    dev.darl.sagip.ui.theme.SagipTheme(themeMode) {
+        val dark = dev.darl.sagip.ui.theme.isDark(themeMode)
+        androidx.compose.runtime.LaunchedEffect(dark) { activity.applySystemBars(dark) }
+        androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.fillMaxSize().background(dev.darl.sagip.ui.theme.SagipColors.Paper)) {
+        when {
+            profile != null -> dev.darl.sagip.ui.MainShell(
+                profile!!,
+                dev.darl.sagip.ui.VoiceHooks(
+                    start = { tag, p, f, st, er -> activity.startVoiceInput(tag, p, f, st, er) },
+                    stop = { activity.stopVoiceInput() },
+                    openDownloadSettings = { activity.openVoiceDownloadSettings() },
+                    pickContact = { cb -> activity.pickContact { n, num -> cb(n, num) } },
+                    locate = { cb -> activity.useMyLocation { cb(it) } },
+                    pickDate = { cur, cb -> activity.pickDate(cur) { cb(it) } },
+                ),
+                themeMode = themeMode,
+                onThemeChange = { themeMode = it; settings.themeMode = it },
+                onProfileChange = { updated -> store.save(updated); profile = updated },
             )
-            androidx.compose.runtime.LaunchedEffect(state.done) {
-                if (state.done) {
-                    store.save(state.profile)
-                    savedProfile = state.profile   // show success page next
+
+            savedProfile != null -> OnboardingSuccessScreen(
+                profile = savedProfile!!,
+                onEnter = { profile = savedProfile },
+            )
+
+            else -> {
+                val vm: WizardViewModel = viewModel()
+                val state by vm.state.collectAsState()
+                WizardScreen(
+                    state = state,
+                    onValue = vm::setValue,
+                    onToggleChip = vm::toggleChip,
+                    onBack = vm::back,
+                    onNext = vm::next,
+                    onSkip = vm::skip,
+                    onPickContact = { activity.pickContact { name, number -> vm.setValue("$name|$number") } },
+                    onPickDate = { activity.pickDate(state.value) { vm.setValue(it) } },
+                    onUseLocation = { activity.useMyLocation { place -> dev.darl.sagip.data.placeLabel(place).let { if (it.isNotBlank()) vm.setValue(it) } } },
+                )
+                androidx.compose.runtime.LaunchedEffect(state.done) {
+                    if (state.done) {
+                        store.save(state.profile)
+                        savedProfile = state.profile   // show success page next
+                    }
                 }
             }
+        }
         }
     }
 }

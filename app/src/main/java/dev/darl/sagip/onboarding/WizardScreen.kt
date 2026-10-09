@@ -168,7 +168,7 @@ private fun ChipGroup(chips: List<String>, value: String, multi: Boolean, onTogg
                     .clickable { onToggle(chip, multi) }
                     .padding(horizontal = 18.dp, vertical = 12.dp)
             ) {
-                Text(chip, color = if (isSel) Color.White else SagipColors.Text, fontSize = 15.sp,
+                Text(chip, color = if (isSel) SagipColors.OnInk else SagipColors.Text, fontSize = 15.sp,
                     fontWeight = if (isSel) FontWeight.SemiBold else FontWeight.Normal)
             }
         }
@@ -293,6 +293,6 @@ private fun PillButton(label: String, filled: Boolean, onClick: () -> Unit) {
             .background(if (filled) SagipColors.Accent else SagipColors.SurfaceStrong)
             .clickable { onClick() }.padding(horizontal = 24.dp, vertical = 12.dp)
     ) {
-        Text(label, color = if (filled) Color.White else SagipColors.Text, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+        Text(label, color = if (filled) SagipColors.OnInk else SagipColors.Text, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
     }
 }

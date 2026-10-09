@@ -302,9 +302,9 @@ fun TopicScreen(
                         }.padding(horizontal = 24.dp),
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center,
                 ) {
-                    Icon(Icons.Outlined.AutoAwesome, null, tint = SagipColors.Acid)
+                    Icon(Icons.Outlined.AutoAwesome, null, tint = SagipColors.InkAccent)
                     Spacer(Modifier.width(10.dp))
-                    Text(tr(lang, "Ask SAGIP about this", "Magtanong sa SAGIP tungkol dito"), style = MaterialTheme.typography.labelLarge, color = Color.White)
+                    Text(tr(lang, "Ask SAGIP about this", "Magtanong sa SAGIP tungkol dito"), style = MaterialTheme.typography.labelLarge, color = SagipColors.OnInk)
                 }
             }
         }
@@ -326,7 +326,7 @@ private fun StepCard(n: Int, text: String, imagePath: String?, cat: Category) {
                 Modifier.size(36.dp).clip(CircleShape).background(SagipColors.Acid)
                     .semantics { contentDescription = tr(lang, "Step $n", "Hakbang $n") },
                 contentAlignment = Alignment.Center,
-            ) { Text("$n", style = MaterialTheme.typography.labelLarge, color = SagipColors.Ink) }
+            ) { Text("$n", style = MaterialTheme.typography.labelLarge, color = SagipColors.OnAcid) }
             Text(text, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
         }
     }

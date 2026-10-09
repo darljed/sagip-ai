@@ -30,4 +30,26 @@ class ContactDirectoryTest {
         assertTrue(f.any { it.kind == "fire" }); assertTrue(f.any { it.number == "911" })
         assertNotNull(f.firstOrNull { it.sample })
     }
+
+    @Test fun gpsCoordinatesResolveAreaOffline() {
+        assertEquals("makati", dir.placeFor("geo:14.5600,121.0300")?.area?.id)
+        assertEquals("san_pablo", dir.placeFor("geo:14.0700,121.3300")?.area?.id)
+        assertNull(dir.placeFor("geo:10.3157,123.8854")) // Cebu — no data, no wrong guess
+    }
+
+    @Test fun addressPlusGeoRefinesToBarangay() {
+        val p = dir.placeFor("Poblacion geo:14.5600,121.0300")
+        assertEquals("makati", p?.area?.id); assertEquals("Poblacion", p?.barangay?.name)
+    }
+
+    @Test fun searchFindsAreasAndBarangays() {
+        assertTrue(dir.search("makat").any { it.area.id == "makati" })
+        assertTrue(dir.search("ignacio").any { it.barangay?.name == "San Ignacio" })
+        assertTrue(dir.search("zzzz").isEmpty())
+    }
+
+    @Test fun placeLabelDropsGeoToken() {
+        assertEquals("Poblacion, Makati", placeLabel("Poblacion, Makati geo:14.5600,121.0300"))
+        assertEquals("", placeLabel("geo:14.5600,121.0300"))
+    }
 }

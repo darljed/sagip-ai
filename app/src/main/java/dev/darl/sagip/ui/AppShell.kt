@@ -2,6 +2,7 @@ package dev.darl.sagip.ui
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +29,9 @@ import androidx.compose.material.icons.automirrored.outlined.Chat
 import androidx.compose.material.icons.outlined.Contacts
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.ui.res.painterResource
+import dev.darl.sagip.R
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -80,6 +84,7 @@ enum class Tab { HOME, SEARCH, ASK, CONTACTS }
 sealed interface Detail {
     data class CategoryDetail(val id: String) : Detail
     data class TopicDetail(val id: String) : Detail
+    data object SettingsDetail : Detail
 }
 
 /** Platform voice hooks, supplied by the Activity. */
@@ -90,11 +95,18 @@ class VoiceHooks(
     val pickContact: ((name: String, number: String) -> Unit) -> Unit,
     /** Resolve the user's current place text (only called when location permission is already granted). */
     val locate: ((String) -> Unit) -> Unit,
+    val pickDate: (String, (String) -> Unit) -> Unit,
 )
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun MainShell(initialProfile: UserProfile, voice: VoiceHooks, onProfileChange: (UserProfile) -> Unit) {
+fun MainShell(
+    initialProfile: UserProfile,
+    voice: VoiceHooks,
+    themeMode: dev.darl.sagip.ui.theme.ThemeMode,
+    onThemeChange: (dev.darl.sagip.ui.theme.ThemeMode) -> Unit,
+    onProfileChange: (UserProfile) -> Unit,
+) {
     val context = LocalContext.current.applicationContext
     var profile by remember { mutableStateOf(initialProfile) }
     val lang = profile.preferredLanguage
@@ -117,6 +129,13 @@ fun MainShell(initialProfile: UserProfile, voice: VoiceHooks, onProfileChange: (
             .also { it.initEngine() }
     }
     val chat by vm.state.collectAsState()
+
+    // Loading screen: shown while Gemma loads, for at least ~1.8 s so it never flashes.
+    var splashMinElapsed by remember { mutableStateOf(false) }
+    var splashSkipped by remember { mutableStateOf(false) }
+    androidx.compose.runtime.LaunchedEffect(Unit) { kotlinx.coroutines.delay(1800); splashMinElapsed = true }
+    val showLoading = !splashSkipped && (chat.modelStatus == ModelStatus.LOADING || !splashMinElapsed) &&
+        chat.modelStatus != ModelStatus.MOCK && chat.modelStatus != ModelStatus.ERROR
 
     var tab by remember { mutableStateOf(Tab.HOME) }
     val stack = remember { mutableStateListOf<Detail>() }
@@ -145,10 +164,10 @@ fun MainShell(initialProfile: UserProfile, voice: VoiceHooks, onProfileChange: (
 
     val imeVisible = WindowInsets.isImeVisible
 
-    SagipTheme {
+    run {
         CompositionLocalProvider(LocalIllustrations provides illus, LocalLang provides lang) {
             Column(Modifier.fillMaxSize().background(SagipColors.Paper)) {
-                TopBar(chat.modelName, chat.modelStatus, chat.backend, onSos = { showSos = true })
+                TopBar(chat.modelName, chat.modelStatus, chat.backend, onSos = { showSos = true }, onSettings = { if (stack.lastOrNull() != Detail.SettingsDetail) open(Detail.SettingsDetail) })
 
                 Box(Modifier.weight(1f).fillMaxWidth().then(if (tab == Tab.ASK) Modifier.imePadding() else Modifier)) {
                     val top = stack.lastOrNull()
@@ -157,6 +176,17 @@ fun MainShell(initialProfile: UserProfile, voice: VoiceHooks, onProfileChange: (
                             Categories.of(top.id), topics, illus,
                             onBack = { stack.removeAt(stack.lastIndex) },
                             onOpenTopic = { open(Detail.TopicDetail(it)) },
+                        )
+                        top is Detail.SettingsDetail -> dev.darl.sagip.ui.screens.SettingsScreen(
+                            profile = profile, themeMode = themeMode,
+                            modelLine = "${chat.modelName}${if (chat.backend.isNotEmpty()) " · ${chat.backend}" else ""} · offline mode",
+                            onBack = { stack.removeAt(stack.lastIndex) },
+                            onTheme = onThemeChange,
+                            onSave = { profile = it; onProfileChange(it) },
+                            onResetChats = { vm.clearHistory() },
+                            onPickContact = { cb -> voice.pickContact(cb) },
+                            onPickDate = { cur, cb -> voice.pickDate(cur, cb) },
+                            onLocate = { cb -> voice.locate(cb) },
                         )
                         top is Detail.TopicDetail -> topics.get(top.id)?.let { t ->
                             TopicScreen(
@@ -209,7 +239,8 @@ fun MainShell(initialProfile: UserProfile, voice: VoiceHooks, onProfileChange: (
                                 },
                             )
                             Tab.CONTACTS -> ContactsScreen(
-                                directory, profile, placeText,
+                                directory, profile, gpsPlace,
+                                onLocate = { voice.locate { if (it.isNotBlank()) gpsPlace = it } },
                                 onSaveEmergencyContact = { n, num ->
                                     profile = profile.copy(emergencyContactName = n, emergencyContactNumber = num)
                                     onProfileChange(profile)
@@ -225,6 +256,13 @@ fun MainShell(initialProfile: UserProfile, voice: VoiceHooks, onProfileChange: (
                 }
             }
 
+            if (showLoading) {
+                LoadingScreen(
+                    modelName = chat.modelName.ifBlank { "Gemma 4" },
+                    onSos = { showSos = true },
+                    onSkip = { splashSkipped = true },
+                )
+            }
             if (showSos) {
                 SosSheet(directory, profile, placeText, onDismiss = { showSos = false }, onAllContacts = { showSos = false; stack.clear(); tab = Tab.CONTACTS })
             }
@@ -241,6 +279,8 @@ fun MainShell(initialProfile: UserProfile, voice: VoiceHooks, onProfileChange: (
             to == "ask" -> tab = Tab.ASK
             to == "contacts" -> tab = Tab.CONTACTS
             to == "sos" -> showSos = true
+            to == "settings" -> stack.add(Detail.SettingsDetail)
+            to.startsWith("theme:") -> onThemeChange(dev.darl.sagip.ui.theme.ThemeMode.from(to.removePrefix("theme:")))
             to.startsWith("category:") -> { tab = Tab.HOME; stack.add(Detail.CategoryDetail(to.removePrefix("category:"))) }
             to.startsWith("topic:") -> { tab = Tab.HOME; stack.add(Detail.TopicDetail(to.removePrefix("topic:"))) }
         }
@@ -248,20 +288,18 @@ fun MainShell(initialProfile: UserProfile, voice: VoiceHooks, onProfileChange: (
 }
 
 @Composable
-private fun TopBar(model: String, status: ModelStatus, backend: String, onSos: () -> Unit) {
+private fun TopBar(model: String, status: ModelStatus, backend: String, onSos: () -> Unit, onSettings: () -> Unit) {
     val lang = LocalLang.current
     Row(
         Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = Space.gutter.dp, vertical = Space.md.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        Image(painterResource(R.drawable.sagip_logo), null, Modifier.size(40.dp).clip(RoundedCornerShape(11.dp)))
+        Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.size(10.dp).clip(CircleShape).background(SagipColors.Coral))
-                Spacer(Modifier.width(8.dp))
-                Text("sagip", style = MaterialTheme.typography.headlineSmall)
-            }
+            Text("SAGIP", style = MaterialTheme.typography.headlineSmall)
             val s = when (status) {
-                ModelStatus.READY -> "Offline mode · $model${if (backend.isNotEmpty()) " · $backend" else ""}"
+                ModelStatus.READY -> "Offline mode · ${model.removeSuffix(" E2B")}${if (backend.isNotEmpty()) " · $backend" else ""}"
                 ModelStatus.LOADING -> tr(lang, "Offline mode · loading $model…", "Offline mode · nilo-load ang $model…")
                 else -> tr(lang, "Offline mode · guides only", "Offline mode · mga gabay lang")
             }
@@ -271,6 +309,12 @@ private fun TopBar(model: String, status: ModelStatus, backend: String, onSos: (
                 Text(s, style = MaterialTheme.typography.labelSmall, color = SagipColors.Muted, maxLines = 1)
             }
         }
+        Box(
+            Modifier.size(48.dp).clip(CircleShape).clickable(onClick = onSettings)
+                .semantics { contentDescription = tr(lang, "Settings", "Mga Setting") },
+            contentAlignment = Alignment.Center,
+        ) { Icon(Icons.Outlined.Settings, null, tint = SagipColors.Ink) }
+        Spacer(Modifier.width(4.dp))
         SosPill(onClick = onSos)
     }
 }
@@ -301,7 +345,7 @@ private fun BottomBar(selected: Tab, onSelect: (Tab) -> Unit) {
                     Box(
                         Modifier.clip(CircleShape).background(if (on) SagipColors.Ink else Color.Transparent)
                             .padding(horizontal = 18.dp, vertical = 6.dp),
-                    ) { Icon(it.icon, null, tint = if (on) SagipColors.Acid else SagipColors.Muted, modifier = Modifier.size(24.dp)) }
+                    ) { Icon(it.icon, null, tint = if (on) SagipColors.InkAccent else SagipColors.Muted, modifier = Modifier.size(24.dp)) }
                     Text(label, style = MaterialTheme.typography.labelSmall, color = if (on) SagipColors.Ink else SagipColors.Muted)
                 }
             }

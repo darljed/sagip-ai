@@ -1,6 +1,21 @@
 package dev.darl.sagip.ui.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.MyLocation
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.Icon
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -30,7 +45,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import dev.darl.sagip.data.Area
 import dev.darl.sagip.data.ContactDirectory
 import dev.darl.sagip.data.Place
 import dev.darl.sagip.data.UserProfile
@@ -46,21 +60,33 @@ private val G = Space.gutter.dp
 /** Digits, +, spaces, dashes, parentheses only; at least 3 digits. */
 fun validPhone(n: String) = n.matches(Regex("[+0-9()\\-\\s]+")) && n.count { it.isDigit() } >= 3
 
+/** Where the shown contacts come from — surfaced to the user so GPS-based results are never a surprise. */
+private enum class Source { GPS, SAVED, SEARCH, NONE }
+
 @Composable
 fun ContactsScreen(
     directory: ContactDirectory,
     profile: UserProfile,
-    placeText: String,
+    gpsText: String,
     onSaveEmergencyContact: (name: String, number: String) -> Unit,
     onPickPhoneContact: ((String, String) -> Unit) -> Unit,
+    onLocate: () -> Unit,
 ) {
     val lang = LocalLang.current
-    val detected: Place? = directory.placeFor(placeText) ?: directory.placeFor(profile.home)
-    var chosen by remember(detected) { mutableStateOf<Area?>(null) }
+    val gpsPlace = directory.placeFor(gpsText)
+    val homePlace = directory.placeFor(profile.home)
+    var chosen by remember { mutableStateOf<Place?>(null) }
+    var query by remember { mutableStateOf("") }
     var editing by remember { mutableStateOf(false) }
-    val area = chosen ?: detected?.area
-    val local = if (chosen != null) chosen!!.contacts.filter { it.number != null }
-                else directory.localContacts(detected)
+    val place: Place? = chosen ?: gpsPlace ?: homePlace
+    val source = when {
+        chosen != null -> Source.SEARCH
+        gpsPlace != null -> Source.GPS
+        homePlace != null -> Source.SAVED
+        else -> Source.NONE
+    }
+    val local = directory.localContacts(place)
+    val results = remember(query, directory) { directory.search(query) }
 
     LazyColumn(
         Modifier.fillMaxSize(),
@@ -83,28 +109,81 @@ fun ContactsScreen(
         }
         item { PillChip(if (profile.hasEmergencyContact) tr(lang, "Edit", "I-edit") else tr(lang, "Add emergency contact", "Magdagdag ng emergency contact"), false, { editing = true }) }
 
+        item { Section(tr(lang, "Near you", "Malapit sa iyo")) }
         item {
-            Section(
-                if (area != null) tr(lang, "Near you · ${(if (chosen == null) detected?.title else null) ?: area.name}", "Malapit sa iyo · ${(if (chosen == null) detected?.title else null) ?: area.name}")
-                else tr(lang, "Near you", "Malapit sa iyo"),
-            )
+            // Source indicator: GPS / saved address / searched place.
+            Row(
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(SagipColors.SurfaceStrong).padding(horizontal = 14.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    if (source == Source.GPS) Icons.Outlined.MyLocation else Icons.Outlined.LocationOn, null,
+                    tint = if (source == Source.GPS) SagipColors.Ok else SagipColors.Muted, modifier = Modifier.size(22.dp),
+                )
+                Spacer(Modifier.width(10.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(place?.title ?: tr(lang, "Area not found", "Hindi makita ang lugar"), style = MaterialTheme.typography.titleSmall)
+                    Text(
+                        when (source) {
+                            Source.GPS -> tr(lang, "Based on your GPS location", "Batay sa GPS location mo")
+                            Source.SAVED -> tr(lang, "Based on your saved address (GPS not used)", "Batay sa naka-save mong address (hindi GPS)")
+                            Source.SEARCH -> tr(lang, "Searched location", "Hinanap na lokasyon")
+                            Source.NONE -> tr(lang, "No local numbers for your area yet", "Wala pang lokal na numero sa lugar mo")
+                        },
+                        style = MaterialTheme.typography.labelMedium, color = if (source == Source.GPS) SagipColors.Ok else SagipColors.Muted,
+                    )
+                }
+            }
+        }
+        if (chosen != null || source != Source.GPS) {
+            item {
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    if (chosen != null) PillChip(tr(lang, "Back to my location", "Bumalik sa lokasyon ko"), false, { chosen = null })
+                    if (gpsPlace == null) PillChip(tr(lang, "Use my location", "Gamitin ang lokasyon ko"), false, onLocate)
+                }
+            }
         }
         if (local.isEmpty()) {
             item {
                 Text(
-                    tr(lang, "No local numbers for your area yet. Pick another area below, or use 911.", "Wala pang lokal na numero para sa lugar mo. Pumili ng ibang lugar sa ibaba, o tumawag sa 911."),
+                    tr(lang, "Search another city or barangay below, or call 911.", "Maghanap ng ibang lungsod o barangay sa ibaba, o tumawag sa 911."),
                     style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted,
                 )
             }
         } else {
             items(local) { c -> CallRow(c.label(lang), c.number, c.note, sample = c.sample) }
         }
-        if (directory.areas.size > 1) {
-            item { Text(tr(lang, "Other areas", "Iba pang lugar"), style = MaterialTheme.typography.titleSmall, color = SagipColors.Muted) }
+
+        item { Section(tr(lang, "Find another location", "Maghanap ng ibang lokasyon")) }
+        item {
+            OutlinedTextField(
+                value = query, onValueChange = { query = it }, singleLine = true, modifier = Modifier.fillMaxWidth(),
+                leadingIcon = { Icon(Icons.Outlined.Search, null, tint = SagipColors.Muted) },
+                placeholder = { Text(tr(lang, "City or barangay, e.g. Makati", "Lungsod o barangay, hal. Makati"), color = SagipColors.Muted) },
+                textStyle = MaterialTheme.typography.bodyMedium, shape = CircleShape,
+            )
+        }
+        if (query.length >= 2 && results.isEmpty()) {
+            item { Text(tr(lang, "No contacts for that place yet.", "Wala pang contact para sa lugar na iyon."), style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted) }
+        }
+        items(results) { r ->
+            Row(
+                Modifier.fillMaxWidth().heightIn(min = 56.dp).clip(RoundedCornerShape(18.dp)).background(SagipColors.Card)
+                    .border(1.dp, SagipColors.Line, RoundedCornerShape(18.dp)).clickable { chosen = r; query = "" }
+                    .padding(horizontal = Space.lg.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(Icons.Outlined.LocationOn, null, tint = SagipColors.Muted)
+                Spacer(Modifier.width(12.dp))
+                Text(r.title, style = MaterialTheme.typography.bodyMedium)
+            }
+        }
+        if (query.isBlank() && directory.areas.isNotEmpty()) {
             item {
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    items(directory.areas) { a -> PillChip(a.name, a == area, { chosen = if (a == detected?.area) null else a }) }
-                }
+                Text(
+                    tr(lang, "Areas with contacts: ", "Mga lugar na may contact: ") + directory.areas.joinToString(", ") { it.name },
+                    style = MaterialTheme.typography.bodySmall, color = SagipColors.Muted,
+                )
             }
         }
     }

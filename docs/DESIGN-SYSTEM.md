@@ -112,3 +112,18 @@ white photo cards with hairline borders, ink pills, one loud accent. Implemented
   tinted placeholder otherwise. See `docs/IMAGE-MANIFEST.md`.
 * Chat: ink user bubble, white assistant card, animated 3-dot typing bubble, related-guide cards,
   chat-level contact chips. 911 is **not** repeated per message.
+
+---
+
+## UPDATE 2026-10-10 (b) — brand, theming, settings
+
+* **Brand:** launcher icon = `images/icon/SAGIP.jpg` (adaptive: navy background + lifebuoy-robot logo); in-app logo
+  `res/drawable-nodpi/sagip_logo.png`; mascot `sagip_mascot.png` (background removed). Wordmark is uppercase **SAGIP**.
+  Loading screen explains the name: **S**mart **A**id & **G**uidance for **I**mmediate **P**reparedness.
+* **Themes:** System / Light / Dark (Settings → Appearance). `SagipColors` getters read a Compose-state palette, so
+  switching recomposes everything. Content on ink fills uses `OnInk` / `InkAccent`; default text colour comes from
+  `LocalContentColor` (Typography bakes no colour).
+* **Settings:** language, theme, profile details (name, birthday, blood type, allergies/conditions/meds, home, household,
+  emergency contact), *Reset chats & sessions* (clears conversations + history only; profile/settings/guides stay), About.
+* **Contacts:** defaults to the GPS area, with a source indicator (GPS / saved address / searched place), a search box for
+  other areas, and offline GPS resolution via area centre + radius in `contacts.json` (no network geocoder needed).

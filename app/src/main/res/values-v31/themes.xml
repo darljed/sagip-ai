@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Edge-to-edge base; Compose paints the real UI. Window background = paper so there
-         is no dark flash before the first frame. The Android 12+ system splash shows the
-         launcher icon on navy; the in-app loading screen takes over from there. -->
     <style name="Theme.SAGIP" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@color/sagip_paper</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowSplashScreenBackground">@color/sagip_navy</item>
-        <item name="android:windowSplashScreenIconBackgroundColor">@color/sagip_navy</item>
+        <item name="android:windowSplashScreenAnimationDuration">300</item>
     </style>
 </resources>

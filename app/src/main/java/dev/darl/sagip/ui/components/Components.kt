@@ -99,7 +99,8 @@ fun ImageSlot(
         bmp = if (path != null && illus != null) withContext(Dispatchers.IO) { illus.load(path)?.asImageBitmap() } else null
     }
     val a11y = if (description != null) Modifier.semantics { contentDescription = description } else Modifier
-    Box(modifier.then(a11y).background(Brush.verticalGradient(listOf(tint, tint.copy(alpha = 0.55f))))) {
+    val t = if (SagipColors.isDark) tint.copy(alpha = 0.30f) else tint
+    Box(modifier.then(a11y).background(Brush.verticalGradient(listOf(t, t.copy(alpha = if (SagipColors.isDark) 0.16f else 0.55f))))) {
         val b = bmp
         if (b != null) {
             Image(b, contentDescription = null, modifier = Modifier.fillMaxSize(), contentScale = contentScale)
@@ -108,7 +109,7 @@ fun ImageSlot(
             if (label != null) {
                 Row(
                     Modifier.align(Alignment.BottomStart).padding(Space.md.dp)
-                        .clip(CircleShape).background(Color.White.copy(alpha = 0.75f))
+                        .clip(CircleShape).background(SagipColors.Card.copy(alpha = 0.8f))
                         .padding(horizontal = 10.dp, vertical = 5.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -137,7 +138,7 @@ fun PillChip(text: String, selected: Boolean, onClick: () -> Unit, modifier: Mod
     ) {
         Text(
             text, style = MaterialTheme.typography.labelLarge,
-            color = if (selected) Color.White else SagipColors.Ink, maxLines = 1,
+            color = if (selected) SagipColors.OnInk else SagipColors.Ink, maxLines = 1,
         )
     }
 }
@@ -279,7 +280,7 @@ fun CallRow(label: String, number: String?, note: String = "", emphasis: Boolean
                 Modifier.size(44.dp).clip(CircleShape)
                     .background(if (emphasis) Color.White.copy(alpha = 0.22f) else SagipColors.Ink),
                 contentAlignment = Alignment.Center,
-            ) { Icon(Icons.Outlined.Call, tint = Color.White, contentDescription = tr(lang, "Call", "Tawag"), modifier = Modifier.size(22.dp)) }
+            ) { Icon(Icons.Outlined.Call, tint = if (emphasis) Color.White else SagipColors.OnInk, contentDescription = tr(lang, "Call", "Tawag"), modifier = Modifier.size(22.dp)) }
         }
     }
 }
@@ -302,7 +303,7 @@ fun TypingBubble(label: String, modifier: Modifier = Modifier) {
                 infiniteRepeatable(tween(520, delayMillis = i * 160), RepeatMode.Reverse),
                 label = "dot$i",
             )
-            Box(Modifier.size(10.dp).scale(0.7f + 0.5f * p).alpha(p).clip(CircleShape).background(SagipColors.Ink))
+            Box(Modifier.size(10.dp).scale(0.7f + 0.5f * p).alpha(p).clip(CircleShape).background(SagipColors.Muted))
             Spacer(Modifier.size(7.dp))
         }
         Spacer(Modifier.size(Space.sm.dp))
