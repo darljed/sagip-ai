@@ -24,29 +24,66 @@ import dev.darl.sagip.data.PackRepository
 import dev.darl.sagip.data.ProfileStore
 import dev.darl.sagip.data.UserProfile
 import dev.darl.sagip.onboarding.WizardScreen
+import dev.darl.sagip.onboarding.OnboardingSuccessScreen
 import dev.darl.sagip.onboarding.WizardViewModel
 import java.util.Calendar
 
 class MainActivity : ComponentActivity() {
 
-    // Contact picker: returns a content URI; we read the primary phone number.
-    private var onContactPicked: ((String) -> Unit)? = null
+    // Contact picker: returns a content URI; we read the display name AND phone number.
+    private var onContactPicked: ((name: String, number: String) -> Unit)? = null
     private val pickContact = registerForActivityResult(ActivityResultContracts.PickContact()) { uri ->
         if (uri == null) return@registerForActivityResult
         runCatching {
             contentResolver.query(uri, null, null, null, null)?.use { c ->
                 if (c.moveToFirst()) {
-                    val idx = c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                    val numberIdx = if (idx >= 0) idx else c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
-                    if (numberIdx >= 0) onContactPicked?.invoke(c.getString(numberIdx) ?: "")
+                    val nameIdx = c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+                    val numIdx = c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                    val name = if (nameIdx >= 0) c.getString(nameIdx) ?: "" else ""
+                    val number = if (numIdx >= 0) c.getString(numIdx) ?: "" else ""
+                    onContactPicked?.invoke(name, number)
                 }
             }
         }
     }
 
-    fun pickContactNumber(onResult: (String) -> Unit) {
+    fun pickContact(onResult: (name: String, number: String) -> Unit) {
         onContactPicked = onResult
         pickContact.launch(null)
+    }
+
+    // Location: one-tap reverse-geocode to a place name for the barangay/city step.
+    private var onLocation: ((String) -> Unit)? = null
+    private val requestLocationPerm = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted -> if (granted) resolveLocation() else onLocation?.invoke("") }
+
+    fun useMyLocation(onResult: (String) -> Unit) {
+        onLocation = onResult
+        val perm = android.Manifest.permission.ACCESS_FINE_LOCATION
+        if (checkSelfPermission(perm) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            resolveLocation()
+        } else {
+            requestLocationPerm.launch(perm)
+        }
+    }
+
+    @Suppress("MissingPermission")
+    private fun resolveLocation() {
+        runCatching {
+            val lm = getSystemService(android.location.LocationManager::class.java)
+            val loc = lm?.getLastKnownLocation(android.location.LocationManager.GPS_PROVIDER)
+                ?: lm?.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER)
+            if (loc == null) { onLocation?.invoke(""); return }
+            val geo = android.location.Geocoder(this, java.util.Locale.getDefault())
+            @Suppress("DEPRECATION")
+            val addr = geo.getFromLocation(loc.latitude, loc.longitude, 1)?.firstOrNull()
+            val place = listOfNotNull(
+                addr?.subLocality,
+                addr?.locality ?: addr?.subAdminArea,
+            ).distinct().filter { it.isNotBlank() }.joinToString(", ")
+            onLocation?.invoke(place)
+        }.onFailure { onLocation?.invoke("") }
     }
 
     fun pickDate(current: String, onResult: (String) -> Unit) {
@@ -76,31 +113,42 @@ class MainActivity : ComponentActivity() {
 private fun SagipApp(activity: MainActivity) {
     val context = LocalContext.current.applicationContext
     val store = remember { ProfileStore(context) }
+
+    // Three phases on first run: wizard -> success -> chat. Returning users skip to chat.
     var profile by remember {
         mutableStateOf(if (store.isOnboarded) (store.load() ?: UserProfile()) else null)
     }
+    var savedProfile by remember { mutableStateOf<UserProfile?>(null) } // set when success shown
 
-    if (profile == null) {
-        val vm: WizardViewModel = viewModel()
-        val state by vm.state.collectAsState()
-        WizardScreen(
-            state = state,
-            onValue = vm::setValue,
-            onToggleChip = vm::toggleChip,
-            onBack = vm::back,
-            onNext = vm::next,
-            onSkip = vm::skip,
-            onPickContact = { activity.pickContactNumber { vm.setValue(it) } },
-            onPickDate = { activity.pickDate(state.value) { vm.setValue(it) } },
+    when {
+        profile != null -> ChatApp(profile!!)
+
+        savedProfile != null -> OnboardingSuccessScreen(
+            profile = savedProfile!!,
+            onEnter = { profile = savedProfile },
         )
-        androidx.compose.runtime.LaunchedEffect(state.done) {
-            if (state.done) {
-                store.save(state.profile)
-                profile = state.profile
+
+        else -> {
+            val vm: WizardViewModel = viewModel()
+            val state by vm.state.collectAsState()
+            WizardScreen(
+                state = state,
+                onValue = vm::setValue,
+                onToggleChip = vm::toggleChip,
+                onBack = vm::back,
+                onNext = vm::next,
+                onSkip = vm::skip,
+                onPickContact = { activity.pickContact { name, number -> vm.setValue("$name|$number") } },
+                onPickDate = { activity.pickDate(state.value) { vm.setValue(it) } },
+                onUseLocation = { activity.useMyLocation { place -> if (place.isNotBlank()) vm.setValue(place) } },
+            )
+            androidx.compose.runtime.LaunchedEffect(state.done) {
+                if (state.done) {
+                    store.save(state.profile)
+                    savedProfile = state.profile   // show success page next
+                }
             }
         }
-    } else {
-        ChatApp(profile!!)
     }
 }
 

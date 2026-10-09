@@ -51,6 +51,7 @@ fun WizardScreen(
     onSkip: () -> Unit,
     onPickContact: () -> Unit,
     onPickDate: () -> Unit,
+    onUseLocation: () -> Unit,
 ) {
     val step = state.step
     val lang = state.lang
@@ -98,14 +99,24 @@ fun WizardScreen(
 
                 when (step.kind) {
                     StepKind.CHIPS_SINGLE -> ChipGroup(step.chips(lang), state.value, multi = false, onToggleChip)
-                    StepKind.CHIPS_MULTI -> ChipGroup(step.chips(lang), state.value, multi = true, onToggleChip)
+                    StepKind.CHIPS_MULTI -> {
+                        ChipGroup(step.chips(lang), state.value, multi = true, onToggleChip)
+                        if (step.allowCustom) {
+                            Spacer(Modifier.height(16.dp))
+                            Text(
+                                if (lang == Lang.TL) "May iba pa? I-type dito (paghiwalayin ng kuwit):"
+                                else "Something else? Type it here (separate with commas):",
+                                color = SagipColors.TextDim, fontSize = 13.sp,
+                            )
+                            Spacer(Modifier.height(8.dp))
+                            TextField(state.value, lang, onValue, number = false)
+                        }
+                    }
                     StepKind.DATE -> DateField(state.value, lang, onPickDate)
-                    StepKind.PHONE -> PhoneField(state.value, lang, onValue, onPickContact)
+                    StepKind.CONTACT -> ContactField(state.value, lang, onPickContact)
+                    StepKind.LOCATION -> LocationField(state.value, lang, onValue, onUseLocation)
                     StepKind.TEXT -> TextField(state.value, lang, onValue, number = false)
-                    StepKind.YESNO -> ChipGroup(
-                        if (lang == Lang.TL) listOf("Oo", "Hindi") else listOf("Yes", "No"),
-                        state.value, multi = false, onToggleChip,
-                    )
+                    StepKind.REVIEW -> ReviewList(state.profile, lang)
                 }
 
                 if (state.showRequiredError) {
@@ -179,11 +190,83 @@ private fun TextField(value: String, lang: Lang, onValue: (String) -> Unit, numb
 }
 
 @Composable
-private fun PhoneField(value: String, lang: Lang, onValue: (String) -> Unit, onPickContact: () -> Unit) {
+private fun ContactField(value: String, lang: Lang, onPickContact: () -> Unit) {
+    // value is "name|number" (empty until a contact is picked).
+    val parts = value.split("|")
+    val name = parts.getOrNull(0).orEmpty()
+    val number = parts.getOrNull(1).orEmpty()
     Column {
-        TextField(value, lang, onValue, number = true)
+        PillButton(
+            if (lang == Lang.TL) "Pumili mula sa Contacts" else "Pick from Contacts",
+            filled = true, onClick = onPickContact,
+        )
+        if (name.isNotBlank() || number.isNotBlank()) {
+            Spacer(Modifier.height(16.dp))
+            Box(
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(SagipColors.Surface)
+                    .padding(16.dp)
+            ) {
+                Column {
+                    if (name.isNotBlank()) Text(name, color = SagipColors.Text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                    if (number.isNotBlank()) {
+                        Spacer(Modifier.height(2.dp))
+                        Text(number, color = SagipColors.TextDim, fontSize = 14.sp)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun LocationField(value: String, lang: Lang, onValue: (String) -> Unit, onUseLocation: () -> Unit) {
+    Column {
+        PillButton(
+            if (lang == Lang.TL) "Gamitin ang aking lokasyon" else "Use my location",
+            filled = true, onClick = onUseLocation,
+        )
         Spacer(Modifier.height(12.dp))
-        PillButton(if (lang == Lang.TL) "Pumili mula sa Contacts" else "Pick from Contacts", filled = false, onClick = onPickContact)
+        Text(if (lang == Lang.TL) "o i-type nang manu-mano:" else "or type it manually:",
+            color = SagipColors.TextDim, fontSize = 13.sp)
+        Spacer(Modifier.height(8.dp))
+        TextField(value, lang, onValue, number = false)
+    }
+}
+
+@Composable
+private fun ReviewList(profile: dev.darl.sagip.data.UserProfile, lang: Lang) {
+    val tl = lang == Lang.TL
+    val items = buildList {
+        add((if (tl) "Wika" else "Language") to (if (profile.preferredLanguage == Lang.TL) "Tagalog" else "English"))
+        if (profile.name.isNotBlank()) add((if (tl) "Pangalan" else "Name") to profile.name)
+        profile.age?.let { add((if (tl) "Edad" else "Age") to "$it") }
+        if (profile.bloodType.isNotBlank()) add((if (tl) "Blood type" else "Blood type") to profile.bloodType)
+        if (profile.allergies.isNotEmpty()) add((if (tl) "Allergy" else "Allergies") to profile.allergies.joinToString(", "))
+        if (profile.conditions.isNotEmpty()) add((if (tl) "Sakit/Gamot" else "Conditions") to profile.conditions.joinToString(", "))
+        if (profile.hasEmergencyContact) add((if (tl) "Tawagan" else "Emergency contact") to "${profile.emergencyContactName} (${profile.emergencyContactNumber})")
+        if (profile.home.isNotBlank()) add((if (tl) "Lokasyon" else "Home") to profile.home)
+        val household = buildList {
+            if (profile.householdInfant) add(if (tl) "sanggol/bata" else "baby/child")
+            if (profile.householdElderly) add(if (tl) "matanda" else "elderly")
+            if (profile.householdPwd) add("PWD")
+            if (profile.householdPregnant) add(if (tl) "buntis" else "pregnant")
+        }
+        if (household.isNotEmpty()) add((if (tl) "Kasama sa bahay" else "Household") to household.joinToString(", "))
+    }
+    Column {
+        items.forEach { (label, value) ->
+            Column(Modifier.padding(vertical = 8.dp)) {
+                Text(label, color = SagipColors.TextDim, fontSize = 12.sp)
+                Spacer(Modifier.height(2.dp))
+                Text(value, color = SagipColors.Text, fontSize = 16.sp)
+            }
+        }
+        Spacer(Modifier.height(8.dp))
+        Text(
+            if (tl) "I-tap ang Bumalik para baguhin, o Tapos para i-save."
+            else "Tap Back to change anything, or Finish to save.",
+            color = SagipColors.TextDim, fontSize = 13.sp,
+        )
     }
 }
 

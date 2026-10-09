@@ -42,15 +42,34 @@ class WizardTest {
 
     @Test fun householdChipsMapToFlags() {
         val i = Wizard.STEPS.indexOfFirst { it.id == "household" }
-        val p = Wizard.applyStep(UserProfile(), i, "Infant / small child, Elderly")
+        val p = Wizard.applyStep(UserProfile(), i, "Baby or toddler, Elderly parent / grandparent")
         assertTrue(p.householdInfant)
         assertTrue(p.householdElderly)
         assertFalse(p.householdPwd)
     }
 
-    @Test fun phoneStepStripsFormatting() {
-        val i = Wizard.STEPS.indexOfFirst { it.id == "contact_number" }
-        assertEquals("+639171234567", Wizard.applyStep(UserProfile(), i, "+63 917 123 4567").emergencyContactNumber)
+    @Test fun contactStepSplitsNameAndNumber() {
+        val i = Wizard.STEPS.indexOfFirst { it.id == "contact" }
+        val p = Wizard.applyStep(UserProfile(), i, "Camille|+63 906 245 7566")
+        assertEquals("Camille", p.emergencyContactName)
+        assertEquals("+639062457566", p.emergencyContactNumber)
+        assertTrue(p.hasEmergencyContact)
+    }
+
+    @Test fun noSeparateContactNameStep() {
+        assertFalse(Wizard.STEPS.any { it.id == "contact_name" })
+        assertFalse(Wizard.STEPS.any { it.id == "contact_number" })
+    }
+
+    @Test fun multiSelectStepsAllowCustom() {
+        listOf("allergies", "conditions", "household").forEach { id ->
+            val step = Wizard.STEPS.first { it.id == id }
+            assertTrue("$id should allow custom text", step.allowCustom)
+        }
+    }
+
+    @Test fun reviewStepIsLast() {
+        assertEquals("review", Wizard.STEPS.last().id)
     }
 
     @Test fun bloodTypeUnknownClears() {
