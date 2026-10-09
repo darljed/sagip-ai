@@ -32,12 +32,12 @@ class PromptBuilderTest {
         assertTrue(p.contains("Severe bleeding (hemorrhage)"))
         assertTrue(p.contains("Apply firm pressure"))
         // Guidance should appear BEFORE the output-format instruction (front-and-center).
-        assertTrue(p.indexOf("Apply firm pressure") < p.indexOf("numbered steps"))
+        assertTrue(p.indexOf("Apply firm pressure") < p.indexOf("numbered list"))
     }
 
     @Test fun outputFormatInstructsNumberedSteps() {
         val p = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(bleedingCritical))
-        assertTrue(p.contains("numbered steps"))
+        assertTrue(p.contains("numbered list"))
     }
 
     @Test fun languageInstructionIsLast_forRecency() {
@@ -74,8 +74,14 @@ class PromptBuilderTest {
 
     @Test fun groundingPresent_butTerse() {
         val p = PromptBuilder.build("x", UserProfile.DEMO, listOf(bleedingCritical))
-        assertTrue(p.contains("Use only the steps above"))
+        assertTrue(p.contains("Copy the actual instructions"))
         assertTrue(p.contains("don't have that info"))
+    }
+
+    @Test fun instructsAgainstChantingAndRepeating() {
+        val p = PromptBuilder.build("x", UserProfile.DEMO, listOf(bleedingCritical))
+        assertTrue("warns against keyword/slogan collapse", p.contains("do NOT shorten them to keywords"))
+        assertTrue("warns against repetition", p.contains("do NOT repeat a line"))
     }
 
     @Test fun sourceNamed() {
@@ -100,6 +106,6 @@ class PromptBuilderTest {
     @Test fun emptyProfile_noPersonalBlock_butStillGrounded() {
         val p = PromptBuilder.build("bleeding", UserProfile(), listOf(bleedingCritical))
         assertFalse(p.contains("Personalise for this person"))
-        assertTrue(p.contains("Use only the steps above"))
+        assertTrue(p.contains("Copy the actual instructions"))
     }
 }

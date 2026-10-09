@@ -29,6 +29,7 @@ data class Message(
     val sources: List<String> = emptyList(),
     val callContact: String? = null,
     val callNumber: String? = null,
+    val showCallActions: Boolean = false,
     val streaming: Boolean = false,
 )
 
@@ -88,7 +89,7 @@ class ChatViewModel(
             busy = true,
         )
 
-        val chunks = retriever.retrieve(userText, lang, k = 3)
+        val chunks = retriever.retrieve(userText, lang, k = 2)
         val prompt = PromptBuilder.build(userText, profile, chunks)
 
         val severity = chunks.maxByOrNull { it.severity.ordinal }?.severity
@@ -96,13 +97,17 @@ class ChatViewModel(
         val hasCall = chunks.any { it.callEmergency } && profile.hasEmergencyContact
         val callContact = if (hasCall) "Call ${profile.emergencyContactName}" else null
         val callNumber = if (hasCall) profile.emergencyContactNumber else null
+        // SOP: offer tap-to-call (incl. 911) whenever this is a real emergency.
+        val showCallActions = chunks.any {
+            it.callEmergency || it.severity == Severity.URGENT || it.severity == Severity.CRITICAL
+        }
 
         val assistantIndex = _state.value.messages.size
         _state.value = _state.value.copy(
             messages = _state.value.messages + Message(
                 role = Role.ASSISTANT, text = "", severity = severity,
                 sources = sources, callContact = callContact, callNumber = callNumber,
-                streaming = true,
+                showCallActions = showCallActions, streaming = true,
             )
         )
 

@@ -45,16 +45,17 @@ object PromptBuilder {
         }
 
         // 4. Output shape — tell it exactly what to produce. Minimal, concrete.
-        sb.appendLine("Write the answer as short numbered steps the person can follow right now.")
+        sb.appendLine("Rewrite the steps above as a clear numbered list the person can follow now.")
+        sb.appendLine("Copy the actual instructions from the steps — do NOT shorten them to keywords")
+        sb.appendLine("or slogans, and do NOT repeat a line. Each step must be a full instruction.")
         if (hasCritical) {
             val leadIn = if (lang == Lang.TL)
-                "Start with one short line warning that this is a life-threatening emergency (write that line in Tagalog too)."
+                "Start with one short line warning that this is a life-threatening emergency (in Tagalog)."
             else
                 "Start with one short line: this is an emergency, get help fast."
             sb.appendLine(leadIn)
         }
-        sb.appendLine("Use only the steps above. If something is not covered, say you don't have that info.")
-        sb.appendLine("Keep it under 8 steps. Do not repeat a step. Stop when the steps are done.")
+        sb.appendLine("If something is not covered, say you don't have that info.")
 
         // 5. Language instruction LAST (recency) — strongest placement for a 1B model.
         sb.appendLine()

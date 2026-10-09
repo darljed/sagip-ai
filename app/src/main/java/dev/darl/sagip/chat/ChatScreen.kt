@@ -202,27 +202,20 @@ private fun AssistantBubble(m: Message) {
                 color = SagipColors.Text, fontSize = 15.sp,
             )
 
-            // Real "Call" button — dials the emergency contact (ACTION_DIAL).
-            m.callContact?.let { label ->
-                m.callNumber?.let { number ->
-                    Spacer(Modifier.height(12.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.clip(RoundedCornerShape(999.dp))
-                            .background(SagipColors.SeverityUrgent)
-                            .clickable {
-                                val intent = Intent(Intent.ACTION_DIAL, "tel:$number".toUri())
-                                context.startActivity(intent)
-                            }
-                            .padding(horizontal = 16.dp, vertical = 10.dp)
-                    ) {
-                        Icon(Icons.Filled.Phone, contentDescription = "Call", tint = Color.White, modifier = Modifier.size(18.dp))
-                        Spacer(Modifier.width(8.dp))
-                        Text(label, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+            // Tap-to-call buttons (SOP: every number is a dial button).
+            // 911 is ALWAYS offered on an emergency answer; the personal contact
+            // shows when the retrieved guidance is call-worthy and a contact is set.
+            if (m.showCallActions) {
+                Spacer(Modifier.height(12.dp))
+                m.callContact?.let { label ->
+                    m.callNumber?.let { number ->
+                        CallButton(label = label, number = number, color = SagipColors.Accent)
+                        Spacer(Modifier.height(8.dp))
                     }
-                    Spacer(Modifier.height(2.dp))
-                    Text("or 911 when signal returns", color = SagipColors.TextDim, fontSize = 11.sp)
                 }
+                CallButton(label = "Call 911 — Emergency", number = "911", color = SagipColors.SeverityCritical)
+                Spacer(Modifier.height(2.dp))
+                Text("Tap to dial when signal returns", color = SagipColors.TextDim, fontSize = 11.sp)
             }
 
             if (m.sources.isNotEmpty() && !m.streaming) {
@@ -230,6 +223,28 @@ private fun AssistantBubble(m: Message) {
                 Text("Source: " + m.sources.joinToString("; "), color = SagipColors.TextDim, fontSize = 11.sp)
             }
         }
+    }
+}
+
+/**
+ * Reusable tap-to-call button (SOP: every phone number/hotline is a dial button).
+ * Fires ACTION_DIAL so no CALL_PHONE permission is needed — opens the dialer
+ * pre-filled with [number] and the user taps call.
+ */
+@Composable
+private fun CallButton(label: String, number: String, color: Color) {
+    val context = LocalContext.current
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clip(RoundedCornerShape(999.dp)).background(color)
+            .clickable {
+                context.startActivity(Intent(Intent.ACTION_DIAL, "tel:$number".toUri()))
+            }
+            .padding(horizontal = 16.dp, vertical = 10.dp)
+    ) {
+        Icon(Icons.Filled.Phone, contentDescription = "Call $label", tint = Color.White, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.width(8.dp))
+        Text(label, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
     }
 }
 

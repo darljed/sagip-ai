@@ -46,11 +46,11 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
         }
         val ranked = bestByTopic.values.sortedByDescending { it.second }
 
-        // Relevance gate: only keep secondary topics whose score is within
-        // RELEVANCE_RATIO of the top hit. Stops a dominant match (e.g. "bleeding")
-        // from dragging in a loosely-related topic (e.g. "fracture" sharing the word
-        // "wound"/"pressure"). ponytail: a relative ratio needs no magic absolute
-        // tuning and scales with query strength.
+        // Relevance gate: a secondary topic rides along ONLY if it's nearly as strong
+        // as the top hit (>= RELEVANCE_RATIO of it). This makes a dominant match return
+        // ALONE — important for a small (1B) model, which gets confused and starts
+        // chanting when fed two topics' step-lists at once (e.g. earthquake during+after
+        // -> "Duck! Cover! Hold!" loop). Genuinely co-equal topics still both pass.
         val topScore = ranked.first().second
         val threshold = topScore * RELEVANCE_RATIO
         val kept = ranked.filter { it.second >= threshold }.take(k)
@@ -86,8 +86,9 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
             .toSet()
 
     companion object {
-        // A secondary topic rides along only if it scores >= 50% of the top hit.
-        private const val RELEVANCE_RATIO = 0.5
+        // A secondary topic rides along only if it scores >= 80% of the top hit.
+        // High on purpose: a small model does best with ONE focused topic.
+        private const val RELEVANCE_RATIO = 0.8
         // Minimal EN+TL stopwords so short function words don't create noise.
         private val STOPWORDS = setOf(
             "the", "and", "for", "are", "was", "with", "what", "how", "when", "who",
