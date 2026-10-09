@@ -133,6 +133,8 @@ fun MainShell(
     // Loading screen: shown while Gemma loads, for at least ~1.8 s so it never flashes.
     var splashMinElapsed by remember { mutableStateOf(false) }
     var splashSkipped by remember { mutableStateOf(false) }
+    var demoLoading by remember { mutableStateOf(false) }   // Settings → "Show loading screen" (demo only)
+    val version = remember { appVersionLabel(context) }
     androidx.compose.runtime.LaunchedEffect(Unit) { kotlinx.coroutines.delay(1800); splashMinElapsed = true }
     val showLoading = !splashSkipped && (chat.modelStatus == ModelStatus.LOADING || !splashMinElapsed) &&
         chat.modelStatus != ModelStatus.MOCK && chat.modelStatus != ModelStatus.ERROR
@@ -175,7 +177,7 @@ fun MainShell(
             Column(Modifier.fillMaxSize().background(SagipColors.Paper)) {
                 TopBar(chat.modelName, chat.modelStatus, chat.backend, onSos = { showSos = true }, onSettings = { if (stack.lastOrNull() != Detail.SettingsDetail) open(Detail.SettingsDetail) })
 
-                Box(Modifier.weight(1f).fillMaxWidth().then(if (tab == Tab.ASK) Modifier.imePadding() else Modifier)) {
+                Box(Modifier.weight(1f).fillMaxWidth().imePadding()) {
                     val top = stack.lastOrNull()
                     when {
                         top is Detail.CategoryDetail -> CategoryScreen(
@@ -185,7 +187,9 @@ fun MainShell(
                         )
                         top is Detail.SettingsDetail -> dev.darl.sagip.ui.screens.SettingsScreen(
                             profile = profile, themeMode = themeMode,
-                            modelLine = "${chat.modelName}${if (chat.backend.isNotEmpty()) " · ${chat.backend}" else ""} · offline mode",
+                            modelLine = "${chat.modelName}${if (chat.backend.isNotEmpty()) " · ${chat.backend}" else ""}",
+                            version = version,
+                            onShowLoading = { demoLoading = true },
                             onBack = { stack.removeAt(stack.lastIndex) },
                             onTheme = onThemeChange,
                             autoSend = autoSend, onAutoSend = { autoSend = it; appSettings.voiceAutoSend = it },
@@ -270,11 +274,14 @@ fun MainShell(
                 }
             }
 
-            if (showLoading) {
+            if (showLoading || demoLoading) {
                 LoadingScreen(
                     modelName = chat.modelName.ifBlank { "Gemma 4" },
+                    version = version,
+                    demo = demoLoading,
                     onSos = { showSos = true },
                     onSkip = { splashSkipped = true },
+                    onDismissDemo = { demoLoading = false },
                 )
             }
             if (showSos) {
@@ -313,8 +320,8 @@ private fun TopBar(model: String, status: ModelStatus, backend: String, onSos: (
         Column(Modifier.weight(1f)) {
             Text("SAGIP", style = MaterialTheme.typography.headlineSmall)
             val s = when (status) {
-                ModelStatus.READY -> "Offline mode · ${model.removeSuffix(" E2B")}${if (backend.isNotEmpty()) " · $backend" else ""}"
-                ModelStatus.LOADING -> tr(lang, "Offline mode · loading $model…", "Offline mode · nilo-load ang $model…")
+                ModelStatus.READY -> "Offline mode"
+                ModelStatus.LOADING -> tr(lang, "Offline mode · getting ready…", "Offline mode · naghahanda…")
                 else -> tr(lang, "Offline mode · guides only", "Offline mode · mga gabay lang")
             }
             Row(verticalAlignment = Alignment.CenterVertically) {

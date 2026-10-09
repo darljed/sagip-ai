@@ -4,6 +4,15 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
+// Build tracking: versionName = <base>+<git short hash>[.dirty], versionCode = number of commits.
+fun git(vararg args: String): String = try {
+    providers.exec { commandLine(listOf("git") + args); isIgnoreExitValue = true }.standardOutput.asText.get().trim()
+} catch (e: Exception) { "" }
+val baseVersion = "0.9.0"
+val gitHash = git("rev-parse", "--short", "HEAD").ifEmpty { "nogit" }
+val gitDirty = if (git("status", "--porcelain", "--untracked-files=no").isNotEmpty()) ".dirty" else ""
+val gitCount = git("rev-list", "--count", "HEAD").toIntOrNull() ?: 1
+
 android {
     namespace = "dev.darl.sagip"
     compileSdk = 35
@@ -12,8 +21,8 @@ android {
         applicationId = "dev.darl.sagip"
         minSdk = 29
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = gitCount
+        versionName = "$baseVersion+$gitHash$gitDirty"
     }
 
     buildTypes {

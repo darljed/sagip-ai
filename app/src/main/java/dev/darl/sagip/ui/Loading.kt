@@ -56,14 +56,23 @@ import dev.darl.sagip.ui.theme.Space
  * SOS stays reachable, and after a few seconds the user can skip into the guides.
  */
 @Composable
-fun LoadingScreen(modelName: String, onSos: () -> Unit, onSkip: () -> Unit) {
+fun LoadingScreen(
+    modelName: String,
+    version: String,
+    demo: Boolean,
+    onSos: () -> Unit,
+    onSkip: () -> Unit,
+    onDismissDemo: () -> Unit,
+) {
     val lang = LocalLang.current
     var canSkip by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { kotlinx.coroutines.delay(7000); canSkip = true }
 
 
     Column(
-        Modifier.fillMaxSize().background(SagipColors.Paper).statusBarsPadding().navigationBarsPadding()
+        Modifier.fillMaxSize().background(SagipColors.Paper)
+            .then(if (demo) Modifier.clickable(onClick = onDismissDemo) else Modifier)
+            .statusBarsPadding().navigationBarsPadding()
             .padding(horizontal = Space.gutter.dp, vertical = Space.md.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -101,8 +110,14 @@ fun LoadingScreen(modelName: String, onSos: () -> Unit, onSkip: () -> Unit) {
             tr(lang, "Loading $modelName — runs on this phone, in offline mode.", "Nilo-load ang $modelName — tumatakbo sa phone na ito, sa offline mode."),
             style = MaterialTheme.typography.labelMedium, color = SagipColors.Muted, textAlign = TextAlign.Center,
         )
+        Text(version, style = MaterialTheme.typography.labelSmall, color = SagipColors.Muted, modifier = Modifier.padding(top = Space.sm.dp))
         Box(Modifier.heightIn(min = 56.dp), contentAlignment = Alignment.Center) {
-            if (canSkip) {
+            if (demo) {
+                Text(
+                    tr(lang, "Demo — tap anywhere to close", "Demo — i-tap kahit saan para isara"),
+                    style = MaterialTheme.typography.labelLarge, color = SagipColors.Blue,
+                )
+            } else if (canSkip) {
                 Text(
                     tr(lang, "Skip — browse guides while it loads", "Laktawan — mag-browse ng gabay habang naglo-load"),
                     style = MaterialTheme.typography.labelLarge, color = SagipColors.Blue,

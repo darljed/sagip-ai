@@ -32,26 +32,29 @@ import java.util.Calendar
 
 class MainActivity : ComponentActivity() {
 
-    // Contact picker: returns a content URI; we read the display name AND phone number.
+    // Contact picker. IMPORTANT: it must pick a PHONE row (Phone.CONTENT_URI). The stock
+    // PickContact() contract returns a *Contacts* row, which has no NUMBER column — so the number
+    // came back empty and the emergency contact never counted as saved. Picking a Phone row also
+    // grants read access to just that row, so no READ_CONTACTS prompt is needed.
     private var onContactPicked: ((name: String, number: String) -> Unit)? = null
-    private val pickContact = registerForActivityResult(ActivityResultContracts.PickContact()) { uri ->
-        if (uri == null) return@registerForActivityResult
+    private val pickContactLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
+        val uri = res.data?.data ?: return@registerForActivityResult
         runCatching {
-            contentResolver.query(uri, null, null, null, null)?.use { c ->
-                if (c.moveToFirst()) {
-                    val nameIdx = c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
-                    val numIdx = c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                    val name = if (nameIdx >= 0) c.getString(nameIdx) ?: "" else ""
-                    val number = if (numIdx >= 0) c.getString(numIdx) ?: "" else ""
-                    onContactPicked?.invoke(name, number)
-                }
+            contentResolver.query(
+                uri,
+                arrayOf(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER),
+                null, null, null,
+            )?.use { c ->
+                if (c.moveToFirst()) onContactPicked?.invoke(c.getString(0).orEmpty(), c.getString(1).orEmpty())
             }
         }
     }
 
     fun pickContact(onResult: (name: String, number: String) -> Unit) {
         onContactPicked = onResult
-        pickContact.launch(null)
+        pickContactLauncher.launch(
+            Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
+        )
     }
 
     // Location: one-tap reverse-geocode to a place name for the barangay/city step.

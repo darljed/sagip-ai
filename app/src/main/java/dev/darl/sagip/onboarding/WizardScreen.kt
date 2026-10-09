@@ -116,7 +116,7 @@ fun WizardScreen(
                         }
                     }
                     StepKind.DATE -> DateField(state.value, lang, onPickDate)
-                    StepKind.CONTACT -> ContactField(state.value, lang, onPickContact)
+                    StepKind.CONTACT -> ContactField(state.value, lang, onPickContact, onValue)
                     StepKind.LOCATION -> LocationField(state.value, lang, onValue, onUseLocation)
                     StepKind.TEXT -> TextField(state.value, lang, onValue, number = false)
                     StepKind.REVIEW -> ReviewList(state.profile, lang)
@@ -193,31 +193,28 @@ private fun TextField(value: String, lang: Lang, onValue: (String) -> Unit, numb
 }
 
 @Composable
-private fun ContactField(value: String, lang: Lang, onPickContact: () -> Unit) {
-    // value is "name|number" (empty until a contact is picked).
+private fun ContactField(value: String, lang: Lang, onPickContact: () -> Unit, onValue: (String) -> Unit) {
+    // value is "name|number". Either pick from the phone's contacts OR type it — typing must always work.
     val parts = value.split("|")
     val name = parts.getOrNull(0).orEmpty()
     val number = parts.getOrNull(1).orEmpty()
-    Column {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        androidx.compose.material3.OutlinedTextField(
+            value = name, onValueChange = { onValue("$it|$number") }, singleLine = true,
+            label = { Text(if (lang == Lang.TL) "Pangalan (hal. Mama)" else "Name (e.g. Mama)") },
+            modifier = Modifier.fillMaxWidth(),
+        )
+        androidx.compose.material3.OutlinedTextField(
+            value = number, onValueChange = { onValue("$name|$it") }, singleLine = true,
+            label = { Text(if (lang == Lang.TL) "Numero ng telepono" else "Phone number") },
+            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Phone),
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Text(if (lang == Lang.TL) "o" else "or", color = SagipColors.TextDim, fontSize = 13.sp)
         PillButton(
             if (lang == Lang.TL) "Pumili mula sa Contacts" else "Pick from Contacts",
-            filled = true, onClick = onPickContact,
+            filled = false, onClick = onPickContact,
         )
-        if (name.isNotBlank() || number.isNotBlank()) {
-            Spacer(Modifier.height(16.dp))
-            Box(
-                Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(SagipColors.Surface)
-                    .padding(16.dp)
-            ) {
-                Column {
-                    if (name.isNotBlank()) Text(name, color = SagipColors.Text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                    if (number.isNotBlank()) {
-                        Spacer(Modifier.height(2.dp))
-                        Text(number, color = SagipColors.TextDim, fontSize = 14.sp)
-                    }
-                }
-            }
-        }
     }
 }
 

@@ -154,17 +154,6 @@ fun ContactsScreen(
                 )
             }
         }
-        if (local.isEmpty()) {
-            item {
-                Text(
-                    tr(lang, "Search another city or barangay below, or call 911.", "Maghanap ng ibang lungsod o barangay sa ibaba, o tumawag sa 911."),
-                    style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted,
-                )
-            }
-        } else {
-            items(local) { c -> CallRow(c.label(lang), c.number, c.note, sample = c.sample) }
-        }
-
         item { Section(tr(lang, "Find another location", "Maghanap ng ibang lokasyon")) }
         item {
             OutlinedTextField(
@@ -189,6 +178,17 @@ fun ContactsScreen(
                 Text(r.title, style = MaterialTheme.typography.bodyMedium)
             }
         }
+        if (local.isEmpty()) {
+            item {
+                Text(
+                    tr(lang, "Search another city or barangay below, or call 911.", "Maghanap ng ibang lungsod o barangay sa ibaba, o tumawag sa 911."),
+                    style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted,
+                )
+            }
+        } else {
+            items(local) { c -> CallRow(c.label(lang), c.number, c.note, sample = c.sample) }
+        }
+
         if (query.isBlank() && directory.areas.isNotEmpty()) {
             item {
                 Text(

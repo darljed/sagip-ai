@@ -69,6 +69,8 @@ fun SettingsScreen(
     profile: UserProfile,
     themeMode: ThemeMode,
     modelLine: String,
+    version: String,
+    onShowLoading: () -> Unit,
     onBack: () -> Unit,
     onTheme: (ThemeMode) -> Unit,
     autoSend: Boolean,
@@ -195,7 +197,15 @@ fun SettingsScreen(
             ) { Text(tr(lang, "Reset chats & sessions", "I-reset ang mga chat at session"), style = MaterialTheme.typography.labelLarge, color = SagipColors.SeverityCritical) }
         } }
 
-        item { AboutCard(modelLine) }
+        item { Group(tr(lang, "Demo", "Demo")) {
+            Text(tr(lang, "Replays the start-up screen shown while the AI model loads. Tap it to close.", "Ipinapakita ulit ang start-up screen habang naglo-load ang AI model. I-tap ito para isara."), style = MaterialTheme.typography.bodySmall, color = SagipColors.Muted)
+            Box(
+                Modifier.fillMaxWidth().heightIn(min = 52.dp).clip(CircleShape).border(1.dp, SagipColors.Ink, CircleShape).clickable(onClick = onShowLoading),
+                contentAlignment = Alignment.Center,
+            ) { Text(tr(lang, "Show loading screen", "Ipakita ang loading screen"), style = MaterialTheme.typography.labelLarge) }
+        } }
+
+        item { AboutCard(modelLine, version) }
     }
 
     if (confirmReset) {
@@ -246,7 +256,7 @@ private fun ToggleRow(label: String, checked: Boolean, onChange: (Boolean) -> Un
 }
 
 @Composable
-private fun AboutCard(modelLine: String) {
+private fun AboutCard(modelLine: String, version: String) {
     val lang = LocalLang.current
     Column(
         Modifier.padding(horizontal = G).fillMaxWidth().clip(RoundedCornerShape(22.dp)).background(SagipColors.Card)
@@ -260,6 +270,7 @@ private fun AboutCard(modelLine: String) {
             style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted, textAlign = androidx.compose.ui.text.style.TextAlign.Center,
         )
         Spacer(Modifier.height(Space.xs.dp))
-        Text(modelLine, style = MaterialTheme.typography.labelSmall, color = SagipColors.Muted)
+        Text(tr(lang, "AI model: ", "AI model: ") + modelLine + " · offline mode", style = MaterialTheme.typography.bodySmall, color = SagipColors.Muted)
+        Text(version, style = MaterialTheme.typography.bodySmall, color = SagipColors.Muted)
     }
 }
