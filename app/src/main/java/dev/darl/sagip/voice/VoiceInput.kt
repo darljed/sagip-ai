@@ -31,6 +31,19 @@ class VoiceInput(private val context: Context) {
         onError: (String) -> Unit,
     ) {
         if (!isAvailable) { onError("Voice input not available on this device"); return }
+        startInternal(languageTag, preferOffline = true, allowFallback = true,
+            onPartial, onFinal, onState, onError)
+    }
+
+    private fun startInternal(
+        languageTag: String,
+        preferOffline: Boolean,
+        allowFallback: Boolean,
+        onPartial: (String) -> Unit,
+        onFinal: (String) -> Unit,
+        onState: (listening: Boolean) -> Unit,
+        onError: (String) -> Unit,
+    ) {
         stop()
         val sr = SpeechRecognizer.createSpeechRecognizer(context)
         recognizer = sr
@@ -42,7 +55,19 @@ class VoiceInput(private val context: Context) {
             override fun onEndOfSpeech() = onState(false)
             override fun onError(error: Int) {
                 onState(false)
-                onError(errorText(error))
+                // The device often lacks the fil-PH / offline pack. Fall back once to
+                // en-US with online allowed, which is installed on virtually all devices.
+                val packOrNet = error == SpeechRecognizer.ERROR_NETWORK ||
+                    error == SpeechRecognizer.ERROR_NETWORK_TIMEOUT ||
+                    error == 12 /* LANGUAGE_PACK_ERROR surfaces as a client error */ ||
+                    error == SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE ||
+                    error == SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED
+                if (allowFallback && packOrNet) {
+                    startInternal("en-US", preferOffline = false, allowFallback = false,
+                        onPartial, onFinal, onState, onError)
+                } else {
+                    onError(errorText(error))
+                }
             }
             override fun onResults(results: Bundle?) {
                 onState(false)
@@ -58,7 +83,7 @@ class VoiceInput(private val context: Context) {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageTag)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-            putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
+            putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, preferOffline)
         }
         sr.startListening(intent)
     }

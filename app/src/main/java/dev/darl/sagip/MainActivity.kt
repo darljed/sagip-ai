@@ -190,24 +190,27 @@ private fun ChatApp(profile: UserProfile, activity: MainActivity) {
 
     var input by remember { mutableStateOf("") }
     var listening by remember { mutableStateOf(false) }
+    var voiceHint by remember { mutableStateOf<String?>(null) }
     val langTag = if (profile.preferredLanguage == dev.darl.sagip.data.Lang.TL) "fil-PH" else "en-PH"
 
     ChatScreen(
         state = state,
         input = input,
-        onInputChange = { input = it },
-        onSend = { if (input.isNotBlank()) { vm.send(input); input = "" } },
+        onInputChange = { input = it; voiceHint = null },
+        onSend = { if (input.isNotBlank()) { vm.send(input); input = ""; voiceHint = null } },
         listening = listening,
+        voiceHint = voiceHint,
         onMic = {
             if (listening) {
                 activity.stopVoiceInput(); listening = false
             } else {
+                voiceHint = null
                 activity.startVoiceInput(
                     languageTag = langTag,
                     onPartial = { input = it },
                     onFinal = { input = it; listening = false },
                     onState = { listening = it },
-                    onError = { listening = false },
+                    onError = { listening = false; voiceHint = it },
                 )
             }
         },

@@ -70,6 +70,7 @@ fun ChatScreen(
     onInputChange: (String) -> Unit,
     onSend: () -> Unit,
     listening: Boolean,
+    voiceHint: String? = null,
     onMic: () -> Unit,
 ) {
     val listState = rememberLazyListState()
@@ -110,6 +111,12 @@ fun ChatScreen(
                 }
             }
 
+            voiceHint?.let {
+                Text(
+                    it, color = SagipColors.SeverityUrgent, fontSize = 12.sp,
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 2.dp),
+                )
+            }
             InputBar(
                 value = input,
                 onValueChange = onInputChange,
