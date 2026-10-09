@@ -17,11 +17,9 @@ class PackRepositoryTest {
     private val assetsDir = File("src/main/assets")
 
     private fun loadAll(): List<Chunk> =
-        PackRepository.PACK_FILES.flatMap { rel ->
-            val f = File(assetsDir, rel)
-            assertTrue("pack file missing: ${f.path}", f.exists())
-            PackRepository.parsePack(f.readText())
-        }
+        (File(assetsDir, "packs").listFiles { f -> f.name.endsWith(".json") } ?: emptyArray())
+            .sortedBy { it.name }
+            .flatMap { PackRepository.parsePack(it.readText()) }
 
     @Test fun allChunksLoad_andCorpusIsNonTrivial() {
         val chunks = loadAll()

@@ -15,6 +15,10 @@ data class Chunk(
     val source: String,        // named authority (Red Cross, DOH, NDRRMC, WHO, PHIVOLCS, PAGASA, BFP)
     val personalize: List<String>, // profile keys that may modify this chunk
     val callEmergency: Boolean,
+    /** Optional (schema v2): UI category id; falls back to the pack id. */
+    val category: String? = null,
+    /** Optional (schema v2): one-line card summary. */
+    val summary: String? = null,
 )
 
 enum class Severity(val key: String) {

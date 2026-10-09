@@ -97,19 +97,7 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
      * stemmer or EmbeddingGemma semantic retrieval, but this fixes the common
      * conjugation misses for ~zero cost.
      */
-    private fun hit(term: String, pool: Set<String>): Boolean {
-        if (term in pool) return true
-        return pool.any { w ->
-            val shorter = minOf(term.length, w.length)
-            when {
-                shorter >= 5 -> term.contains(w) || w.contains(term)
-                // 4-letter stems (mata, dugo, hika) must sit at a word edge — otherwise
-                // "nahi-MATA-y" (fainted) wrongly matches the eye-injury tag "mata".
-                shorter == 4 -> term.startsWith(w) || term.endsWith(w) || w.startsWith(term) || w.endsWith(term)
-                else -> false
-            }
-        }
-    }
+    private fun hit(term: String, pool: Set<String>): Boolean = stemHit(term, pool)
 
     private fun tokenize(s: String): Set<String> =
         s.lowercase(Locale.ROOT)
@@ -131,5 +119,22 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
             "ang", "ng", "sa", "na", "ko", "ba", "ano", "may", "mga", "ay", "si",
             "do", "to", "is", "it", "my", "me", "in", "on", "of", "at", "a", "an"
         )
+    }
+}
+
+/**
+ * A query term hits a pool word on exact match or stem containment (cheap Tagalog
+ * stemmer: lumi-LINDOL ~ lindol). 4-letter stems must sit at a word edge so
+ * "nahi-MATA-y" (fainted) does not match "mata" (eye).
+ */
+internal fun stemHit(term: String, pool: Set<String>): Boolean {
+    if (term in pool) return true
+    return pool.any { w ->
+        val shorter = minOf(term.length, w.length)
+        when {
+            shorter >= 5 -> term.contains(w) || w.contains(term)
+            shorter == 4 -> term.startsWith(w) || term.endsWith(w) || w.startsWith(term) || w.endsWith(term)
+            else -> false
+        }
     }
 }

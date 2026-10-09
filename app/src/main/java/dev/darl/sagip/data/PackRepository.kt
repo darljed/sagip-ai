@@ -30,7 +30,12 @@ class PackRepository(val chunks: List<Chunk>) {
         )
 
         /** Load from Android assets (device/app runtime). */
-        fun fromAssets(context: Context, files: List<String> = PACK_FILES): PackRepository {
+        /** Every .json file shipped in assets/packs, so new packs load without code changes. */
+        fun discoverPackFiles(context: Context): List<String> =
+            (context.assets.list("packs") ?: emptyArray())
+                .filter { it.endsWith(".json") }.sorted().map { "packs/$it" }
+
+        fun fromAssets(context: Context, files: List<String> = discoverPackFiles(context)): PackRepository {
             val all = files.flatMap { path ->
                 val json = context.assets.open(path).bufferedReader().use { it.readText() }
                 parsePack(json)
@@ -58,6 +63,9 @@ class PackRepository(val chunks: List<Chunk>) {
                     source = o.getString("source"),
                     personalize = o.getJSONArray("personalize").toStringList(),
                     callEmergency = o.getBoolean("call_emergency"),
+                    // Optional fields (pack schema v2) — tolerate absence.
+                    category = o.optString("category").ifBlank { null },
+                    summary = o.optString("summary").ifBlank { null },
                 )
             }
         }
