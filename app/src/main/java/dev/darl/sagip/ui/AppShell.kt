@@ -96,6 +96,8 @@ class VoiceHooks(
     /** Resolve the user's current place text (only called when location permission is already granted). */
     val locate: ((String) -> Unit) -> Unit,
     val pickDate: (String, (String) -> Unit) -> Unit,
+    /** Place a phone call now (CALL_PHONE when granted, otherwise opens the dialer). */
+    val call: (String) -> Unit = {},
 )
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
@@ -106,6 +108,8 @@ fun MainShell(
     themeMode: dev.darl.sagip.ui.theme.ThemeMode,
     onThemeChange: (dev.darl.sagip.ui.theme.ThemeMode) -> Unit,
     onProfileChange: (UserProfile) -> Unit,
+    /** Wipe everything (profile, settings, chats) and return to onboarding. */
+    onResetApp: () -> Unit = {},
 ) {
     val context = LocalContext.current.applicationContext
     var profile by remember { mutableStateOf(initialProfile) }
@@ -129,6 +133,8 @@ fun MainShell(
             .also { it.initEngine() }
     }
     val chat by vm.state.collectAsState()
+    // "Call my wife": the view model asks once; place the call, then clear the request.
+    LaunchedEffect(chat.callNow) { chat.callNow?.let { voice.call(it); vm.consumeCall() } }
 
     // Loading screen: shown while Gemma loads, for at least ~1.8 s so it never flashes.
     var splashMinElapsed by remember { mutableStateOf(false) }
@@ -194,7 +200,7 @@ fun MainShell(
                             onTheme = onThemeChange,
                             autoSend = autoSend, onAutoSend = { autoSend = it; appSettings.voiceAutoSend = it },
                             onSave = { profile = it; onProfileChange(it) },
-                            onResetChats = { vm.clearHistory() },
+                            onResetApp = { vm.clearHistory(); onResetApp() },
                             onPickContact = { cb -> voice.pickContact(cb) },
                             onPickDate = { cur, cb -> voice.pickDate(cur, cb) },
                             onLocate = { cb -> voice.locate(cb) },

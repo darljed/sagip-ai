@@ -27,6 +27,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import dev.darl.sagip.data.Lang
 import dev.darl.sagip.data.UserProfile
@@ -51,7 +53,7 @@ fun OnboardingSuccessScreen(profile: UserProfile, onEnter: () -> Unit) {
             Spacer(Modifier.height(24.dp))
             Text(
                 if (tl) "Handa na ang SAGIP!" else "You're all set!",
-                color = SagipColors.Text, fontSize = 24.sp, fontWeight = FontWeight.Bold,
+                color = SagipColors.Text, fontSize = 24.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center,
             )
             Spacer(Modifier.height(10.dp))
             Text(
@@ -59,13 +61,13 @@ fun OnboardingSuccessScreen(profile: UserProfile, onEnter: () -> Unit) {
                     "Naka-save sa device mo ang iyong impormasyon — hindi ito umaalis sa telepono. Gagamitin ko ito para iakma ang payo sa'yo."
                 else
                     "Your info is saved on your device — it never leaves the phone. I'll use it to tailor my guidance to you.",
-                color = SagipColors.TextDim, fontSize = 14.sp,
+                color = SagipColors.TextDim, fontSize = 14.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(),
             )
             Spacer(Modifier.height(8.dp))
             if (profile.name.isNotBlank()) {
                 Text(
                     (if (tl) "Mag-ingat, " else "Stay safe, ") + profile.name + ".",
-                    color = SagipColors.Text, fontSize = 15.sp, fontWeight = FontWeight.Medium,
+                    color = SagipColors.Text, fontSize = 15.sp, fontWeight = FontWeight.Medium, textAlign = TextAlign.Center,
                 )
             }
             Spacer(Modifier.height(36.dp))

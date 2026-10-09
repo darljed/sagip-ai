@@ -73,6 +73,28 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    // --- Direct calling ("call my wife"): CALL_PHONE if granted, else the dialer ---
+    private var pendingCall: String? = null
+    private val requestCallPerm = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted -> pendingCall?.let { placeCall(it, granted) }; pendingCall = null }
+
+    fun callNumber(number: String) {
+        val perm = android.Manifest.permission.CALL_PHONE
+        if (checkSelfPermission(perm) == android.content.pm.PackageManager.PERMISSION_GRANTED) placeCall(number, true)
+        else { pendingCall = number; requestCallPerm.launch(perm) }
+    }
+
+    private fun placeCall(number: String, direct: Boolean) {
+        val uri = android.net.Uri.fromParts("tel", number, null)
+        // TelecomManager goes straight to the phone app (an ACTION_CALL intent can trigger an app chooser
+        // when Viber etc. also handle tel:). Falls back to the dialer if denied or it throws.
+        val placed = direct && runCatching {
+            (getSystemService(android.content.Context.TELECOM_SERVICE) as android.telecom.TelecomManager).placeCall(uri, Bundle())
+        }.isSuccess
+        if (!placed) runCatching { startActivity(Intent(Intent.ACTION_DIAL, uri)) }
+    }
+
     // --- Voice input (on-device SpeechRecognizer) ---
     private val voice by lazy { dev.darl.sagip.voice.VoiceInput(this) }
     private var pendingVoiceStart: (() -> Unit)? = null
@@ -183,6 +205,7 @@ private fun SagipApp(activity: MainActivity) {
         mutableStateOf(if (store.isOnboarded) (store.load() ?: UserProfile()) else null)
     }
     var savedProfile by remember { mutableStateOf<UserProfile?>(null) } // set when success shown
+    var resetGen by remember { mutableStateOf(0) } // new wizard state after each full reset
 
     dev.darl.sagip.ui.theme.SagipTheme(themeMode) {
         val dark = dev.darl.sagip.ui.theme.isDark(themeMode)
@@ -198,10 +221,17 @@ private fun SagipApp(activity: MainActivity) {
                     pickContact = { cb -> activity.pickContact { n, num -> cb(n, num) } },
                     locate = { cb -> activity.useMyLocation { cb(it) } },
                     pickDate = { cur, cb -> activity.pickDate(cur) { cb(it) } },
+                    call = { activity.callNumber(it) },
                 ),
                 themeMode = themeMode,
                 onThemeChange = { themeMode = it; settings.themeMode = it },
                 onProfileChange = { updated -> store.save(updated); profile = updated },
+                onResetApp = {
+                    store.clear(); settings.clear()
+                    themeMode = settings.themeMode
+                    savedProfile = null; resetGen++
+                    profile = null   // -> onboarding
+                },
             )
 
             savedProfile != null -> OnboardingSuccessScreen(
@@ -210,7 +240,7 @@ private fun SagipApp(activity: MainActivity) {
             )
 
             else -> {
-                val vm: WizardViewModel = viewModel()
+                val vm: WizardViewModel = viewModel(key = "wizard-$resetGen")
                 val state by vm.state.collectAsState()
                 WizardScreen(
                     state = state,

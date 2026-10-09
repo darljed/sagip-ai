@@ -112,12 +112,7 @@ fun LoadingScreen(
         )
         Text(version, style = MaterialTheme.typography.labelSmall, color = SagipColors.Muted, modifier = Modifier.padding(top = Space.sm.dp))
         Box(Modifier.heightIn(min = 56.dp), contentAlignment = Alignment.Center) {
-            if (demo) {
-                Text(
-                    tr(lang, "Demo — tap anywhere to close", "Demo — i-tap kahit saan para isara"),
-                    style = MaterialTheme.typography.labelLarge, color = SagipColors.Blue,
-                )
-            } else if (canSkip) {
+            if (!demo && canSkip) {
                 Text(
                     tr(lang, "Skip — browse guides while it loads", "Laktawan — mag-browse ng gabay habang naglo-load"),
                     style = MaterialTheme.typography.labelLarge, color = SagipColors.Blue,

@@ -11,6 +11,8 @@
       emergency contact's number from the device — purely local, no network.
     -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- "Call my wife/mom" places the call directly; falls back to the dialer if denied. -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- Coarse/fine location: ONLY for the one-tap "use my location" in onboarding
          to fill barangay/city via on-device reverse geocoding. No network, no tracking. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

@@ -76,7 +76,7 @@ fun SettingsScreen(
     autoSend: Boolean,
     onAutoSend: (Boolean) -> Unit,
     onSave: (UserProfile) -> Unit,
-    onResetChats: () -> Unit,
+    onResetApp: () -> Unit,
     onPickContact: ((String, String) -> Unit) -> Unit,
     onPickDate: (String, (String) -> Unit) -> Unit,
     onLocate: ((String) -> Unit) -> Unit,
@@ -186,15 +186,15 @@ fun SettingsScreen(
         item { Group(tr(lang, "Reset", "I-reset")) {
             Text(
                 tr(lang,
-                    "Clears every conversation and the chat history on this phone. Your details, language, theme, contacts and the app's guides stay.",
-                    "Buburahin ang lahat ng usapan at kasaysayan ng chat sa phone na ito. Mananatili ang iyong detalye, wika, theme, contact at mga gabay ng app."),
+                    "Erases your details, emergency contact, chats, history and settings on this phone, then takes you back to setup. The guides stay.",
+                    "Buburahin ang iyong detalye, emergency contact, mga chat, kasaysayan at settings sa phone na ito, at babalik ka sa setup. Mananatili ang mga gabay."),
                 style = MaterialTheme.typography.bodySmall, color = SagipColors.Muted,
             )
             Box(
                 Modifier.fillMaxWidth().heightIn(min = 52.dp).clip(CircleShape)
                     .border(1.dp, SagipColors.SeverityCritical, CircleShape).clickable { confirmReset = true },
                 contentAlignment = Alignment.Center,
-            ) { Text(tr(lang, "Reset chats & sessions", "I-reset ang mga chat at session"), style = MaterialTheme.typography.labelLarge, color = SagipColors.SeverityCritical) }
+            ) { Text(tr(lang, "Reset app", "I-reset ang app"), style = MaterialTheme.typography.labelLarge, color = SagipColors.SeverityCritical) }
         } }
 
         item { Group(tr(lang, "Demo", "Demo")) {
@@ -212,9 +212,9 @@ fun SettingsScreen(
         AlertDialog(
             onDismissRequest = { confirmReset = false },
             containerColor = SagipColors.Paper,
-            title = { Text(tr(lang, "Reset chats & sessions?", "I-reset ang mga chat at session?"), style = MaterialTheme.typography.titleLarge) },
-            text = { Text(tr(lang, "All conversations and history will be deleted. This can't be undone.", "Mabubura ang lahat ng usapan at kasaysayan. Hindi na ito maibabalik.")) },
-            confirmButton = { TextButton(onClick = { onResetChats(); confirmReset = false }) { Text(tr(lang, "Reset", "I-reset"), color = SagipColors.SeverityCritical) } },
+            title = { Text(tr(lang, "Reset the whole app?", "I-reset ang buong app?"), style = MaterialTheme.typography.titleLarge) },
+            text = { Text(tr(lang, "Your details, emergency contact, chats and settings will be deleted and you'll go through setup again. This can't be undone.", "Mabubura ang iyong detalye, emergency contact, mga chat at settings, at uulitin mo ang setup. Hindi na ito maibabalik.")) },
+            confirmButton = { TextButton(onClick = { confirmReset = false; onResetApp() }) { Text(tr(lang, "Reset", "I-reset"), color = SagipColors.SeverityCritical) } },
             dismissButton = { TextButton(onClick = { confirmReset = false }) { Text(tr(lang, "Cancel", "Kanselahin")) } },
         )
     }

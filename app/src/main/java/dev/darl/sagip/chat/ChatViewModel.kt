@@ -55,6 +55,8 @@ data class ChatState(
     val backend: String = "",
     val sessions: List<ChatSession> = emptyList(),
     val currentId: String = "",
+    /** One-shot: a number the UI should place a call to right now ("call my wife"). Never persisted. */
+    val callNow: String? = null,
 )
 
 /**
@@ -158,8 +160,15 @@ class ChatViewModel(
         // Short follow-ups ("what about kids?") borrow the previous question — but ONLY when
         // the message finds nothing on its own, so a new topic is never hijacked by the last one.
         var chunks = retriever.retrieve(text, lang, k = 3)
-        if (chunks.isEmpty() && lastUser != null && text.split(Regex("\\s+")).size <= 4) {
-            chunks = retriever.retrieve("$lastUser $text", lang, k = 3)
+        val priorUser = previous.filter { it.role == Role.USER }.map { it.text }
+        val shortAndEmpty = chunks.isEmpty() && text.split(Regex("\\s+")).size <= 4
+        if (lastUser != null && (shortAndEmpty || FollowUp.looksLike(text))) {
+            // "paano kung walang response?" is about the earlier topic (CPR), not about "no signal":
+            // retrieve with the conversation's anchor question so the topic is kept.
+            FollowUp.contextQuery(priorUser, text)?.let { q ->
+                val withContext = retriever.retrieve(q, lang, k = 3)
+                if (withContext.isNotEmpty()) chunks = withContext
+            }
         }
         val history = previous.chunked(2).takeLast(2).mapNotNull { pair ->
             val u = pair.firstOrNull { it.role == Role.USER }?.text
@@ -196,12 +205,15 @@ class ChatViewModel(
         // Retrieval returns best-first, so the lead guide decides the banner (not the loudest
         // secondary one — a snake *sighting* must not be labelled life-threatening).
         val severity = chunks.first().severity
-        val contacts = if (chunks.any { it.callEmergency }) personalContacts() else emptyList()
+        // Contacts are offered to the model, which decides whether to suggest them; a chip appears only
+        // if the final answer actually mentions that contact.
+        val candidates = if (chunks.any { it.callEmergency } || PromptBuilder.isDisaster(chunks)) personalContacts() else emptyList()
         _state.value = _state.value.copy(
-            messages = withUser + Message(Role.ASSISTANT, "", severity, related, contacts, streaming = true),
+            messages = withUser + Message(Role.ASSISTANT, "", severity, related, emptyList(), streaming = true),
         )
 
-        val prompt = PromptBuilder.build(text, profile, chunks, history)
+        val offices = candidates.filter { it.label != profile.emergencyContactName }.map { it.label to it.number }
+        val prompt = PromptBuilder.build(text, profile, chunks, history, followUp = FollowUp.looksLike(text), offices = offices)
         val fallback = packFallback(chunks)
 
         viewModelScope.launch {
@@ -224,6 +236,10 @@ class ChatViewModel(
                 setMessage(idx, Message(Role.ASSISTANT, scopeMessage(lang)))
             } else {
                 update(idx, finalText, streaming = false)
+                mentionedContacts(finalText, candidates).takeIf { it.isNotEmpty() }?.let { chips ->
+                    val msgs = _state.value.messages.toMutableList()
+                    if (idx in msgs.indices) { msgs[idx] = msgs[idx].copy(contacts = chips); _state.value = _state.value.copy(messages = msgs) }
+                }
             }
             _state.value = _state.value.copy(busy = false)
             persist()
@@ -301,6 +317,8 @@ class ChatViewModel(
         directory.localContacts(place()).firstOrNull()?.let { add(it.toChip(profile.preferredLanguage)) }
     }
 
+    fun consumeCall() { _state.value = _state.value.copy(callNow = null) }
+
     private fun ContactEntry.toChip(lang: Lang) = ContactChip(label(lang), number!!, sample)
 
     private fun replyWithContacts(withUser: List<Message>, intent: QuickIntent, lang: Lang, asked: String) {
@@ -308,8 +326,8 @@ class ChatViewModel(
         val (text, chips) = when (intent) {
             is QuickIntent.CallFamily ->
                 if (profile.hasEmergencyContact)
-                    (if (tl) "Sige, i-tap ang button para tawagan si ${profile.emergencyContactName}."
-                     else "Sure — tap the button to call ${profile.emergencyContactName}.") to
+                    (if (tl) "Tinatawagan si ${profile.emergencyContactName}… Kung hindi tumuloy, i-tap ang button."
+                     else "Calling ${profile.emergencyContactName}… If it doesn't start, tap the button.") to
                         listOf(ContactChip(profile.emergencyContactName, profile.emergencyContactNumber))
                 else
                     (if (tl) "Wala ka pang naka-save na emergency contact. Pumunta sa Contact tab at i-tap ang I-edit para idagdag ito."
@@ -330,7 +348,10 @@ class ChatViewModel(
                 msg to list.map { it.toChip(lang) }
             }
         }
-        _state.value = _state.value.copy(messages = withUser + Message(Role.ASSISTANT, text, contacts = chips), busy = false)
+        _state.value = _state.value.copy(
+            messages = withUser + Message(Role.ASSISTANT, text, contacts = chips), busy = false,
+            callNow = if (intent is QuickIntent.CallFamily && profile.hasEmergencyContact) profile.emergencyContactNumber else null,
+        )
         persist()
     }
 
@@ -363,6 +384,15 @@ class ChatViewModel(
     }
 
     companion object {
+        /** Contacts the answer actually mentions (by name or by number) — those get a tap-to-call chip. */
+        fun mentionedContacts(answer: String, candidates: List<ContactChip>): List<ContactChip> {
+            val digits = answer.filter { it.isDigit() }
+            return candidates.filter { c ->
+                val num = c.number.filter { it.isDigit() }
+                answer.contains(c.label, ignoreCase = true) || (num.length >= 3 && digits.contains(num))
+            }
+        }
+
         /** True once the reply is the out-of-scope sentinel the prompt asks the model to emit. */
         fun isOffTopic(text: String) = text.trim().uppercase().replace(" ", "_").startsWith("OFF_TOPIC") ||
             (text.length < 40 && text.uppercase().contains("OFF_TOPIC"))

@@ -66,9 +66,36 @@ class PromptBuilderTest {
         assertTrue(p.contains("Household has infant"))
     }
 
-    @Test fun emergencyContactHint_whenCallEmergency() {
+    @Test fun emergencyContactOffered_whenCallEmergency() {
         val p = PromptBuilder.build("evacuate", UserProfile.DEMO, listOf(evacUrgent))
         assertTrue(p.contains("Maria") && p.contains("+639171234567"))
+    }
+
+    @Test fun contactsAreOptional_notForced() {
+        val p = PromptBuilder.build("evacuate", UserProfile.DEMO, listOf(evacUrgent), offices = listOf("San Pablo CDRRMO" to "(049) 555-0101"))
+        assertTrue(p.contains("MAY suggest calling"))
+        assertTrue(p.contains("do not mention any contact"))
+        assertTrue(p.contains("San Pablo CDRRMO"))
+        assertFalse(p.contains("End by telling them to call"))
+    }
+
+    @Test fun tagalogUsesKayForPeople() {
+        val p = PromptBuilder.build("evacuate", UserProfile.DEMO, listOf(evacUrgent))   // DEMO is Tagalog
+        assertTrue(p.contains("tumawag kay Maria"))
+        assertTrue(p.contains("never 'sa Maria'"))
+    }
+
+    @Test fun disasterGuideAsksToCheckOnFamilyEvenWithoutCallFlag() {
+        val quake = evacUrgent.copy(pack = "earthquake", topic = "during_earthquake", callEmergency = false)
+        val p = PromptBuilder.build("lindol", UserProfile.DEMO, listOf(quake))
+        assertTrue(p.contains("make sure their family and household are safe"))
+        assertTrue(p.contains("Maria"))
+    }
+
+    @Test fun noContactSectionWhenGuideDoesNotNeedCalling() {
+        val calm = evacUrgent.copy(pack = "first_aid", callEmergency = false)
+        val p = PromptBuilder.build("evacuate", UserProfile.DEMO, listOf(calm))
+        assertFalse(p.contains("MAY suggest calling"))
     }
 
     @Test fun criticalAddsEmergencyLeadInstruction() {
@@ -113,5 +140,39 @@ class PromptBuilderTest {
         assertTrue(p.contains("name is Juan"))
         assertTrue(p.contains("Never call them 'Mahal'"))
         assertFalse(p.contains("Dela Cruz"))
+    }
+
+    // --- personal questions must see the whole saved profile ---
+
+    private val saved = UserProfile(
+        name = "Darl Jed", birthday = "1995-07-22", bloodType = "O", allergies = listOf("Seafood"),
+        conditions = listOf("asthma"), medications = listOf("salbutamol"),
+    )
+
+    @Test fun personalQuestionIncludesAllergiesConditionsMedsAgeBlood() {
+        val p = PromptBuilder.build("what foods should I avoid to avoid irritations on allergies", saved, listOf(bleedingCritical))
+        assertTrue(p.contains("Allergies: Seafood"))
+        assertTrue(p.contains("Medical conditions: asthma"))
+        assertTrue(p.contains("Medications: salbutamol"))
+        assertTrue(p.contains("Blood type: O"))
+        assertTrue(Regex("Age: \\d+").containsMatchIn(p))
+        assertTrue(p.contains("Never say you do not"))
+    }
+
+    @Test fun emptyFactsAreExplicitlyNoneSaved() {
+        val p = PromptBuilder.build("which medicines should I avoid", UserProfile(name = "Ana"), listOf(bleedingCritical))
+        assertTrue(p.contains("Allergies: none saved"))
+        assertTrue(p.contains("Medications: none saved"))
+    }
+
+    @Test fun nonPersonalQuestionDoesNotDumpTheProfile() {
+        val p = PromptBuilder.build("bleeding heavily", saved, listOf(bleedingCritical))
+        assertFalse(p.contains("About this person"))
+    }
+
+    @Test fun personalQuestionDetectionCoversTagalog() {
+        assertTrue(PromptBuilder.isPersonalQuestion("anong pagkain ang dapat kong iwasan sa allergy ko"))
+        assertTrue(PromptBuilder.isPersonalQuestion("bawal ba sa akin ang gamot na ito"))
+        assertFalse(PromptBuilder.isPersonalQuestion("may baha na papasok sa bahay"))
     }
 }

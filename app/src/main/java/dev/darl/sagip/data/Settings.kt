@@ -12,6 +12,8 @@ class SettingsStore(context: Context) {
         get() = sp.getBoolean("voice_autosend", true)
         set(v) { sp.edit().putBoolean("voice_autosend", v).apply() }
 
+    fun clear() = sp.edit().clear().apply()
+
     var themeMode: ThemeMode
         get() = ThemeMode.from(sp.getString("theme", null))
         set(v) { sp.edit().putString("theme", v.key).apply() }
