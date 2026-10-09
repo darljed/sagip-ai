@@ -82,3 +82,33 @@ reference, remapped to SAGIP semantics.
 
 *Study the reference, keep SAGIP's voice. Accessible (contrast ≥ 4.5:1 for body text
 on canvas — verify E8EAFF on #0B0A1A passes), responsive, production-ready.*
+
+---
+
+## UPDATE 2026-10-09 — "Photo Journal" direction (supersedes the dark AI-Chat palette above)
+
+The app now follows unslop.site **Photo Journal** (Mobile Apps / Core Apps): warm paper canvas,
+white photo cards with hairline borders, ink pills, one loud accent. Implemented in
+`ui/theme/{Color,Type,Theme}.kt` and `ui/components/Components.kt`.
+
+| Token | Value | Role |
+|---|---|---|
+| Paper | `#F4F3EE` | app background |
+| Card | `#FFFFFF` | cards, inputs |
+| Ink | `#151513` | text, selected pills, primary buttons |
+| Muted | `#6D6D66` | secondary text |
+| Line | `#D7D6CF` | 1dp card/input borders |
+| Acid | `#D6FF3F` | step badges, active-tab icon, send arrow |
+| Coral | `#FF5E6C` | **SOS only** (the single loud action) |
+| Blue | `#3458F4` | links ("Open guide →"), info severity |
+
+* **One font: Geist** (variable, bundled in `res/font/geist.ttf`, offline). Replaces the reference's
+  Geist + Geist Mono + Instrument Serif; editorial feel comes from weight + tight tracking.
+* Larger scale than the reference: body 17sp, chat body 18sp, min label 13sp; gutters 20dp,
+  section gaps 24dp, touch targets ≥ 44dp (inputs 52–56dp).
+* Layout: staggered 2-column image-card grid (Home categories, Category topics), pill chips,
+  translucent bottom tab bar (Home / Search / Ask / Contacts), SOS pill always in the top bar.
+* Images: every card/header is an `ImageSlot` — real art from `assets/illustrations/` when present,
+  tinted placeholder otherwise. See `docs/IMAGE-MANIFEST.md`.
+* Chat: ink user bubble, white assistant card, animated 3-dot typing bubble, related-guide cards,
+  chat-level contact chips. 911 is **not** repeated per message.
