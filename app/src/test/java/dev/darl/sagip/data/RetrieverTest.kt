@@ -65,6 +65,21 @@ class RetrieverTest {
         assertTrue("unknown query returns empty", hits.isEmpty())
     }
 
+    @Test fun strongSingleTopicQuery_doesNotDragLooseSecondTopic() {
+        // "severe bleeding" strongly matches severe_bleeding; it must NOT also pull in
+        // fracture (which shares body words like "pressure"/"wound").
+        val hits = retriever.retrieve("severe bleeding", Lang.EN, k = 3)
+        assertEquals("should return bleeding alone", listOf("severe_bleeding"), hits.map { it.topic })
+    }
+
+    @Test fun genuinelyMultiTopicQuery_stillReturnsMultiple() {
+        // Explicitly naming two strong topics should keep both.
+        val hits = retriever.retrieve("bleeding and choking", Lang.EN, k = 3)
+        val topics = hits.map { it.topic }.toSet()
+        assertTrue("bleeding kept", "severe_bleeding" in topics)
+        assertTrue("choking kept", "choking_adult" in topics)
+    }
+
     @Test fun respectsK() {
         val hits = retriever.retrieve("earthquake fire flood bleeding water gas", Lang.EN, k = 2)
         assertTrue("should return at most k", hits.size <= 2)

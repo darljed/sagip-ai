@@ -38,20 +38,29 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
 
         if (scored.isEmpty()) return emptyList()
 
-        // Resolve to the requested language: for each matched topic, return the twin
-        // in `lang` if it exists, else fall back to the matched chunk (EN).
-        val seenTopics = LinkedHashSet<String>()
-        val result = ArrayList<Chunk>(k)
-        for ((chunk, _) in scored) {
-            if (chunk.topic in seenTopics) continue
-            val preferred = repo.chunks.firstOrNull {
+        // Collapse to the best score per topic (EN+TL twins both score; keep the max).
+        val bestByTopic = LinkedHashMap<String, Pair<Chunk, Int>>()
+        for ((chunk, sc) in scored) {
+            val cur = bestByTopic[chunk.topic]
+            if (cur == null || sc > cur.second) bestByTopic[chunk.topic] = chunk to sc
+        }
+        val ranked = bestByTopic.values.sortedByDescending { it.second }
+
+        // Relevance gate: only keep secondary topics whose score is within
+        // RELEVANCE_RATIO of the top hit. Stops a dominant match (e.g. "bleeding")
+        // from dragging in a loosely-related topic (e.g. "fracture" sharing the word
+        // "wound"/"pressure"). ponytail: a relative ratio needs no magic absolute
+        // tuning and scales with query strength.
+        val topScore = ranked.first().second
+        val threshold = topScore * RELEVANCE_RATIO
+        val kept = ranked.filter { it.second >= threshold }.take(k)
+
+        // Resolve each kept topic to the twin in the requested language, else EN.
+        return kept.map { (chunk, _) ->
+            repo.chunks.firstOrNull {
                 it.topic == chunk.topic && it.pack == chunk.pack && it.lang == lang.code
             } ?: chunk
-            result.add(preferred)
-            seenTopics.add(chunk.topic)
-            if (result.size >= k) break
         }
-        return result
     }
 
     /** Overlap score: tag hits weigh most, then topic, title, body. */
@@ -77,6 +86,8 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
             .toSet()
 
     companion object {
+        // A secondary topic rides along only if it scores >= 50% of the top hit.
+        private const val RELEVANCE_RATIO = 0.5
         // Minimal EN+TL stopwords so short function words don't create noise.
         private val STOPWORDS = setOf(
             "the", "and", "for", "are", "was", "with", "what", "how", "when", "who",
