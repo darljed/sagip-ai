@@ -6,7 +6,11 @@
       permission. The app cannot phone home even if it wanted to — the core
       "when the internet dies, your AI doesn't" guarantee, enforced by the
       manifest. ponytail: this is the cheapest, strongest proof of offline.
+
+      READ_CONTACTS is only used so onboarding can let the user PICK their
+      emergency contact's number from the device — purely local, no network.
     -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"

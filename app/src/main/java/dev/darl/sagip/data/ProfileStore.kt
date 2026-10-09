@@ -43,6 +43,7 @@ class ProfileStore(context: Context) {
 
         fun toJson(p: UserProfile): JSONObject = JSONObject().apply {
             put("name", p.name)
+            put("birthday", p.birthday)
             put("bloodType", p.bloodType)
             put("allergies", JSONArray(p.allergies))
             put("conditions", JSONArray(p.conditions))
@@ -65,6 +66,7 @@ class ProfileStore(context: Context) {
             }
             return UserProfile(
                 name = o.optString("name", ""),
+                birthday = o.optString("birthday", ""),
                 bloodType = o.optString("bloodType", ""),
                 allergies = strList("allergies"),
                 conditions = strList("conditions"),

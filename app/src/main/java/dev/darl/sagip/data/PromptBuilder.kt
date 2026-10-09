@@ -25,6 +25,7 @@ object PromptBuilder {
         // 1. Role + task, stated once, concretely.
         sb.appendLine("You are SAGIP, an offline first-aid and disaster guide for the Philippines.")
         sb.appendLine("A person facing an emergency asks: \"$query\"")
+        profile.comprehensionHint()?.let { sb.appendLine(it) }
         sb.appendLine()
 
         // 2. The guidance FIRST and prominent — this is what we want it to output.
