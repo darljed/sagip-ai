@@ -28,6 +28,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Send
 import androidx.compose.material.icons.outlined.Call
+import androidx.compose.material.icons.outlined.DeleteOutline
+import androidx.compose.ui.draw.alpha
 import androidx.compose.material.icons.outlined.Mic
 import androidx.compose.material.icons.outlined.MicNone
 import androidx.compose.material3.Icon
@@ -37,6 +39,10 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -75,7 +81,20 @@ fun ChatScreen(
     voiceHint: String? = null,
     onVoiceHintClick: (() -> Unit)? = null,
     onMic: () -> Unit,
+    onNewChat: () -> Unit = {},
+    onOpenSession: (String) -> Unit = {},
+    onDeleteSession: (String) -> Unit = {},
+    onClearHistory: () -> Unit = {},
 ) {
+    var showHistory by remember { mutableStateOf(false) }
+    if (showHistory) {
+        HistoryScreen(
+            state, onBack = { showHistory = false },
+            onOpen = { onOpenSession(it); showHistory = false },
+            onDelete = onDeleteSession, onClearAll = onClearHistory,
+        )
+        return
+    }
     val listState = rememberLazyListState()
     val lastLen = state.messages.lastOrNull()?.text?.length ?: 0
     LaunchedEffect(state.messages.size, lastLen / 40) {
@@ -83,6 +102,10 @@ fun ChatScreen(
     }
 
     Column(Modifier.fillMaxSize()) {
+        ChatActions(
+            hasHistory = state.sessions.isNotEmpty(), canNew = state.messages.isNotEmpty() && !state.busy,
+            onHistory = { showHistory = true }, onNew = onNewChat,
+        )
         Box(Modifier.weight(1f).fillMaxWidth()) {
             if (state.messages.isEmpty()) {
                 EmptyState(quickAsks, onQuickAsk)
@@ -173,7 +196,7 @@ private fun AssistantBubble(m: Message, onOpenTopic: (String) -> Unit) {
                     ) {
                         Icon(Icons.Outlined.Call, null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(8.dp))
-                        Text("${tr(lang, "Call", "Tawagan")} ${c.label}", style = MaterialTheme.typography.labelLarge)
+                        Text("${tr(lang, "Call", "Tawagan")} ${c.label}${if (c.sample) " · sample" else ""}", style = MaterialTheme.typography.labelLarge)
                     }
                 }
             }
@@ -255,5 +278,84 @@ private fun InputBar(
                 .semantics { contentDescription = tr(lang, "Send", "Ipadala") },
             contentAlignment = Alignment.Center,
         ) { Icon(Icons.AutoMirrored.Outlined.Send, null, tint = if (enabled && value.isNotBlank()) SagipColors.Acid else Color.White) }
+    }
+}
+
+@Composable
+private fun ChatActions(hasHistory: Boolean, canNew: Boolean, onHistory: () -> Unit, onNew: () -> Unit) {
+    val lang = LocalLang.current
+    Row(
+        Modifier.fillMaxWidth().padding(horizontal = G, vertical = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(tr(lang, "Ask", "Magtanong"), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
+        PillChip(tr(lang, "History", "Kasaysayan"), selected = false, onClick = onHistory, modifier = Modifier.then(if (hasHistory) Modifier else Modifier.alpha(0.45f)))
+        PillChip(tr(lang, "+ New chat", "+ Bagong chat"), selected = false, onClick = { if (canNew) onNew() }, modifier = Modifier.then(if (canNew) Modifier else Modifier.alpha(0.45f)))
+    }
+}
+
+@Composable
+private fun HistoryScreen(
+    state: ChatState,
+    onBack: () -> Unit,
+    onOpen: (String) -> Unit,
+    onDelete: (String) -> Unit,
+    onClearAll: () -> Unit,
+) {
+    val lang = LocalLang.current
+    var confirmClear by remember { mutableStateOf(false) }
+    val fmt = remember { java.text.SimpleDateFormat("MMM d · h:mm a", java.util.Locale.getDefault()) }
+    Column(Modifier.fillMaxSize()) {
+        Row(Modifier.fillMaxWidth().padding(horizontal = G, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(tr(lang, "History", "Kasaysayan"), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
+            PillChip(tr(lang, "Back to chat", "Bumalik"), false, onBack)
+        }
+        Text(
+            tr(lang, "Saved only on this phone.", "Naka-save lang sa phone na ito."),
+            style = MaterialTheme.typography.labelMedium, color = SagipColors.Muted, modifier = Modifier.padding(horizontal = G),
+        )
+        if (state.sessions.isEmpty()) {
+            Text(tr(lang, "No saved chats yet.", "Wala pang naka-save na chat."), style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted, modifier = Modifier.padding(G))
+        } else {
+            LazyColumn(
+                contentPadding = PaddingValues(horizontal = G, vertical = Space.lg.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                items(state.sessions, key = { it.id }) { s ->
+                    val preview = s.messages.lastOrNull { it.role == Role.ASSISTANT }?.text?.replace("**", "")?.replace('\n', ' ').orEmpty()
+                    Row(
+                        Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))
+                            .background(if (s.id == state.currentId) SagipColors.AccentSoft else SagipColors.Card)
+                            .border(1.dp, SagipColors.Line, RoundedCornerShape(20.dp))
+                            .clickable { onOpen(s.id) }.padding(start = Space.lg.dp, top = Space.md.dp, bottom = Space.md.dp, end = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(s.title, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            if (preview.isNotBlank()) Text(preview, style = MaterialTheme.typography.bodySmall, color = SagipColors.Muted, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                            Text(fmt.format(java.util.Date(s.updatedAt)), style = MaterialTheme.typography.labelSmall, color = SagipColors.Muted)
+                        }
+                        Box(
+                            Modifier.size(48.dp).clip(CircleShape).clickable { onDelete(s.id) }
+                                .semantics { contentDescription = tr(lang, "Delete chat", "Burahin ang chat") },
+                            contentAlignment = Alignment.Center,
+                        ) { Icon(Icons.Outlined.DeleteOutline, null, tint = SagipColors.Muted) }
+                    }
+                }
+                item {
+                    PillChip(tr(lang, "Clear all history", "Burahin ang lahat"), false, { confirmClear = true })
+                }
+            }
+        }
+    }
+    if (confirmClear) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { confirmClear = false },
+            containerColor = SagipColors.Paper,
+            title = { Text(tr(lang, "Delete all chats?", "Burahin ang lahat ng chat?"), style = MaterialTheme.typography.titleLarge) },
+            text = { Text(tr(lang, "This removes every saved conversation from this phone. It can't be undone.", "Aalisin nito ang lahat ng naka-save na usapan sa phone. Hindi na ito maibabalik.")) },
+            confirmButton = { androidx.compose.material3.TextButton(onClick = { onClearAll(); confirmClear = false }) { Text(tr(lang, "Delete all", "Burahin lahat"), color = SagipColors.SeverityCritical) } },
+            dismissButton = { androidx.compose.material3.TextButton(onClick = { confirmClear = false }) { Text(tr(lang, "Cancel", "Kanselahin")) } },
+        )
     }
 }

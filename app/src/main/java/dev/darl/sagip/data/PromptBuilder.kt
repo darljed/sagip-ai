@@ -62,6 +62,13 @@ object PromptBuilder {
             history.forEach { (q, a) -> sb.appendLine("- They asked: \"$q\" — you answered: \"${a.take(160).replace('\n', ' ')}\"") }
             sb.appendLine()
         }
+        sb.appendLine("SCOPE: you only help with emergencies, first aid, health and safety, disasters, survival,")
+        sb.appendLine("and emergency contacts. If the person's message is about anything else (food or candy,")
+        sb.appendLine("games, chit-chat, homework, shopping, money, jokes...), reply with exactly the single word")
+        sb.appendLine("OFF_TOPIC and nothing else — even if the reference guidance above looks loosely related.")
+        sb.appendLine("A message that merely mentions a disaster or emergency word but is not asking for safety")
+        sb.appendLine("help or contacts (songs, movies, jokes, trivia, opinions) is also OFF_TOPIC.")
+        sb.appendLine()
         sb.appendLine("Answer the person's actual question: \"$query\"")
         sb.appendLine("Base your answer on the reference guidance above. First check: does the")
         sb.appendLine("person's situation actually match the guidance? If they say something has")

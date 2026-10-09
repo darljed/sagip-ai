@@ -203,8 +203,17 @@ fun TopicCard(topic: Topic, category: Category, heroPath: String?, imageHeight: 
         Modifier.fillMaxWidth().clip(CardShape).background(SagipColors.Card)
             .border(1.dp, SagipColors.Line, CardShape).clickable(onClick = onClick),
     ) {
-        ImageSlot(heroPath, category.tint, category.icon, Modifier.fillMaxWidth().height(imageHeight.dp))
+        // Only a few guides will ever get art, so no empty image boxes: guides without a hero
+        // get a compact icon badge instead and the grid stays dense.
+        if (heroPath != null) {
+            ImageSlot(heroPath, category.tint, category.icon, Modifier.fillMaxWidth().height(imageHeight.dp))
+        }
         Column(Modifier.padding(Space.lg.dp), verticalArrangement = Arrangement.spacedBy(Space.sm.dp)) {
+            if (heroPath == null) {
+                Box(Modifier.size(44.dp).clip(RoundedCornerShape(14.dp)).background(category.tint), contentAlignment = Alignment.Center) {
+                    Icon(category.icon, null, tint = SagipColors.Ink.copy(alpha = 0.7f), modifier = Modifier.size(24.dp))
+                }
+            }
             SeverityTag(topic.severity)
             Text(topic.title(lang), style = MaterialTheme.typography.titleSmall, maxLines = 3, overflow = TextOverflow.Ellipsis)
             val sum = topic.summary(lang)
@@ -234,7 +243,7 @@ fun SosPill(onClick: () -> Unit, modifier: Modifier = Modifier) {
 
 /** Tap-to-call row. A null [number] renders a muted "not added yet" placeholder. */
 @Composable
-fun CallRow(label: String, number: String?, note: String = "", emphasis: Boolean = false, modifier: Modifier = Modifier) {
+fun CallRow(label: String, number: String?, note: String = "", emphasis: Boolean = false, modifier: Modifier = Modifier, sample: Boolean = false) {
     val ctx = LocalContext.current
     val lang = LocalLang.current
     val enabled = number != null
@@ -248,7 +257,16 @@ fun CallRow(label: String, number: String?, note: String = "", emphasis: Boolean
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(Modifier.weight(1f)) {
-            Text(label, style = MaterialTheme.typography.titleSmall, color = fg)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(label, style = MaterialTheme.typography.titleSmall, color = fg, modifier = Modifier.weight(1f, fill = false))
+                if (sample) {
+                    Spacer(Modifier.size(8.dp))
+                    Text(
+                        tr(lang, "Sample", "Sample"), style = MaterialTheme.typography.labelSmall, color = SagipColors.Muted,
+                        modifier = Modifier.clip(CircleShape).background(SagipColors.SurfaceStrong).padding(horizontal = 8.dp, vertical = 2.dp),
+                    )
+                }
+            }
             val sub = number ?: tr(lang, "Number not added yet", "Wala pang numero")
             Text(
                 if (note.isBlank()) sub else "$sub · $note",

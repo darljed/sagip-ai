@@ -117,7 +117,9 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
         private val STOPWORDS = setOf(
             "the", "and", "for", "are", "was", "with", "what", "how", "when", "who",
             "ang", "ng", "sa", "na", "ko", "ba", "ano", "may", "mga", "ay", "si",
-            "do", "to", "is", "it", "my", "me", "in", "on", "of", "at", "a", "an"
+            "do", "to", "is", "it", "my", "me", "in", "on", "of", "at", "a", "an",
+            // chit-chat fillers that stem-match real tags ("kailangan" ~ "kailan lumikas")
+            "kailangan", "gusto", "pwede", "puwede", "pahingi", "please", "paki", "pakiusap", "ayoko", "want", "need", "give"
         )
     }
 }

@@ -193,7 +193,6 @@ fun CategoryScreen(
                 ImageSlot(
                     illus.categoryPath(category.id), category.tint, category.icon,
                     Modifier.fillMaxWidth().height(200.dp).clip(RoundedCornerShape(24.dp)),
-                    label = tr(lang, "Category image", "Larawan ng kategorya"),
                 )
                 Column(verticalArrangement = Arrangement.spacedBy(Space.xs.dp)) {
                     Text(category.title(lang), style = MaterialTheme.typography.headlineLarge)
@@ -235,12 +234,14 @@ fun TopicScreen(
         verticalArrangement = Arrangement.spacedBy(Space.lg.dp),
     ) {
         item { BackRow(onBack, topic.title(lang)) }
-        item {
-            ImageSlot(
-                illus.heroPath(topic.key), cat.tint, cat.icon,
-                Modifier.padding(horizontal = G).fillMaxWidth().height(240.dp).clip(RoundedCornerShape(26.dp)),
-                label = tr(lang, "Hero image", "Pangunahing larawan"),
-            )
+        val hero = illus.heroPath(topic.key)
+        if (hero != null) {
+            item {
+                ImageSlot(
+                    hero, cat.tint, cat.icon,
+                    Modifier.padding(horizontal = G).fillMaxWidth().height(240.dp).clip(RoundedCornerShape(26.dp)),
+                )
+            }
         }
         item {
             Column(Modifier.padding(horizontal = G), verticalArrangement = Arrangement.spacedBy(Space.md.dp)) {
@@ -273,23 +274,16 @@ fun TopicScreen(
         items(steps.size) { i ->
             StepCard(i + 1, steps[i], stepImg[i + 1], cat)
         }
-        item {
-            Column(verticalArrangement = Arrangement.spacedBy(Space.md.dp)) {
-                Text(
-                    tr(lang, "Reference images", "Mga larawang gabay"), style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(horizontal = G),
-                )
-                LazyRow(contentPadding = PaddingValues(horizontal = G), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                    if (refs.isNotEmpty()) {
+        if (refs.isNotEmpty()) {
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(Space.md.dp)) {
+                    Text(
+                        tr(lang, "Reference images", "Mga larawang gabay"), style = MaterialTheme.typography.headlineSmall,
+                        modifier = Modifier.padding(horizontal = G),
+                    )
+                    LazyRow(contentPadding = PaddingValues(horizontal = G), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                         items(refs) { p ->
                             ImageSlot(p, cat.tint, cat.icon, Modifier.width(260.dp).height(190.dp).clip(RoundedCornerShape(22.dp)))
-                        }
-                    } else {
-                        items(listOf(1, 2)) { n ->
-                            ImageSlot(
-                                null, cat.tint, cat.icon, Modifier.width(260.dp).height(190.dp).clip(RoundedCornerShape(22.dp)),
-                                label = tr(lang, "Reference image $n", "Larawan $n"),
-                            )
                         }
                     }
                 }

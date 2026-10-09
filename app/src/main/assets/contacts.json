@@ -1,960 +1,221 @@
 {
- "_note": "PLACEHOLDER MVP DATA. number=null means 'not added yet'. Fill per barangay; the app shows these under Contacts and in chat.",
+ "_note": "SAMPLE DATA for the MVP. Entries with sample=true are placeholders and show a 'Sample' badge in the app. number=null entries are hidden. Replace with official numbers per area; add new areas freely (the app only shows areas it has data for).",
  "national": [
   {
+   "kind": "emergency",
    "label": "Emergency Hotline",
    "labelTl": "Pang-emergency na Hotline",
    "number": "911",
-   "note": "PNP / BFP / EMS — national"
+   "note": "PNP / BFP / EMS — national",
+   "sample": false
   },
   {
+   "kind": "redcross",
    "label": "Philippine Red Cross",
    "labelTl": "Philippine Red Cross",
    "number": "143",
-   "note": "Hotline 143"
+   "note": "Hotline 143",
+   "sample": false
   }
  ],
- "city": "San Pablo City, Laguna",
- "cityContacts": [
+ "areas": [
   {
-   "label": "City DRRMO",
-   "labelTl": "City DRRMO",
-   "number": null
-  },
-  {
-   "label": "City Hospital / ER",
-   "labelTl": "Ospital ng Lungsod / ER",
-   "number": null
-  },
-  {
-   "label": "Bureau of Fire Protection (BFP)",
-   "labelTl": "Bureau of Fire Protection (BFP)",
-   "number": null
-  },
-  {
-   "label": "PNP Station",
-   "labelTl": "PNP Station",
-   "number": null
-  }
- ],
- "barangays": [
-  {
-   "name": "Atisan",
+   "id": "makati",
+   "name": "Makati City",
+   "aliases": [
+    "makati"
+   ],
    "contacts": [
     {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
+     "kind": "drrmo",
+     "label": "Makati DRRMO",
+     "labelTl": "Makati DRRMO",
+     "number": "(02) 8555-0101",
+     "note": "",
+     "sample": true
     },
     {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
+     "kind": "fire",
+     "label": "Makati Fire Station",
+     "labelTl": "Makati Fire Station",
+     "number": "(02) 8555-0102",
+     "note": "",
+     "sample": true
     },
     {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
+     "kind": "police",
+     "label": "Makati Police (PNP)",
+     "labelTl": "Makati Police (PNP)",
+     "number": "(02) 8555-0103",
+     "note": "",
+     "sample": true
+    },
+    {
+     "kind": "hospital",
+     "label": "Makati Hospital / ER",
+     "labelTl": "Ospital ng Makati / ER",
+     "number": "(02) 8555-0104",
+     "note": "",
+     "sample": true
+    },
+    {
+     "kind": "ambulance",
+     "label": "Makati Rescue / Ambulance",
+     "labelTl": "Makati Rescue / Ambulansya",
+     "number": "(02) 8555-0105",
+     "note": "",
+     "sample": true
+    }
+   ],
+   "barangays": [
+    {
+     "name": "Poblacion",
+     "aliases": [
+      "poblacion"
+     ],
+     "contacts": [
+      {
+       "kind": "barangay_hall",
+       "label": "Barangay Hall",
+       "labelTl": "Barangay Hall",
+       "number": "(02) 8555-0111",
+       "note": "",
+       "sample": true
+      },
+      {
+       "kind": "health",
+       "label": "Barangay Health Center",
+       "labelTl": "Barangay Health Center",
+       "number": "(02) 8555-0112",
+       "note": "",
+       "sample": true
+      }
+     ]
+    },
+    {
+     "name": "Bel-Air",
+     "aliases": [
+      "bel-air",
+      "bel air",
+      "belair"
+     ],
+     "contacts": [
+      {
+       "kind": "barangay_hall",
+       "label": "Barangay Hall",
+       "labelTl": "Barangay Hall",
+       "number": "(02) 8555-0121",
+       "note": "",
+       "sample": true
+      },
+      {
+       "kind": "tanod",
+       "label": "Barangay Tanod",
+       "labelTl": "Barangay Tanod",
+       "number": "(02) 8555-0122",
+       "note": "",
+       "sample": true
+      }
+     ]
+    },
+    {
+     "name": "Guadalupe Nuevo",
+     "aliases": [
+      "guadalupe nuevo"
+     ],
+     "contacts": [
+      {
+       "kind": "barangay_hall",
+       "label": "Barangay Hall",
+       "labelTl": "Barangay Hall",
+       "number": "(02) 8555-0131",
+       "note": "",
+       "sample": true
+      }
+     ]
     }
    ]
   },
   {
-   "name": "Bautista",
+   "id": "san_pablo",
+   "name": "San Pablo City, Laguna",
+   "aliases": [
+    "san pablo"
+   ],
    "contacts": [
     {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
+     "kind": "drrmo",
+     "label": "San Pablo CDRRMO",
+     "labelTl": "San Pablo CDRRMO",
+     "number": "(049) 555-0101",
+     "note": "",
+     "sample": true
     },
     {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
+     "kind": "fire",
+     "label": "San Pablo Fire Station",
+     "labelTl": "San Pablo Fire Station",
+     "number": "(049) 555-0102",
+     "note": "",
+     "sample": true
     },
     {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
+     "kind": "police",
+     "label": "San Pablo Police (PNP)",
+     "labelTl": "San Pablo Police (PNP)",
+     "number": "(049) 555-0103",
+     "note": "",
+     "sample": true
+    },
+    {
+     "kind": "hospital",
+     "label": "San Pablo City Hospital / ER",
+     "labelTl": "Ospital ng San Pablo / ER",
+     "number": "(049) 555-0104",
+     "note": "",
+     "sample": true
     }
-   ]
-  },
-  {
-   "name": "Concepcion",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Del Remedio",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Dolores",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Antonio 1",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Antonio 2",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Bartolome",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Buenaventura",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Crispin",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Diego",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Francisco",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Gabriel",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Gregorio",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Ignacio",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Isidro",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Joaquin",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Jose",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Juan",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Lorenzo",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Lucas 1",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Lucas 2",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Marcos",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Mateo",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Miguel",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Nicolas",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Pedro",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Rafael",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Roque",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "San Vicente",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santa Ana",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santa Catalina",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santa Cruz",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santa Elena",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santa Filomena",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santa Isabel",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santa Maria",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santa Monica",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santa Veronica",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santiago 1",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santiago 2",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santisimo Rosario",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santo Angel",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santo Cristo",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Santo Nino",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
-    }
-   ]
-  },
-  {
-   "name": "Soledad",
-   "contacts": [
-    {
-     "label": "Barangay Hall",
-     "labelTl": "Barangay Hall",
-     "number": null
-    },
-    {
-     "label": "Health Center / BHW",
-     "labelTl": "Barangay Health Center",
-     "number": null
-    },
-    {
-     "label": "Barangay Tanod / Peacekeeping",
-     "labelTl": "Barangay Tanod",
-     "number": null
+   ],
+   "barangays": [
+    {
+     "name": "San Ignacio",
+     "aliases": [
+      "san ignacio"
+     ],
+     "contacts": [
+      {
+       "kind": "barangay_hall",
+       "label": "Barangay Hall",
+       "labelTl": "Barangay Hall",
+       "number": "(049) 555-0111",
+       "note": "",
+       "sample": true
+      },
+      {
+       "kind": "health",
+       "label": "Barangay Health Center",
+       "labelTl": "Barangay Health Center",
+       "number": "(049) 555-0112",
+       "note": "",
+       "sample": true
+      }
+     ]
+    },
+    {
+     "name": "San Nicolas",
+     "aliases": [
+      "san nicolas"
+     ],
+     "contacts": [
+      {
+       "kind": "barangay_hall",
+       "label": "Barangay Hall",
+       "labelTl": "Barangay Hall",
+       "number": "(049) 555-0121",
+       "note": "",
+       "sample": true
+      }
+     ]
     }
    ]
   }

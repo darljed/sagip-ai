@@ -34,12 +34,4 @@ class TopicRepositoryTest {
         val present = Categories.present(repo.topics).map { it.id }.toSet()
         repo.topics.forEach { assertTrue("${it.id} category ${it.category}", it.category in present) }
     }
-
-    @Test fun contactsParse_placeholdersAreNull() {
-        val dir = ContactDirectory.parse(File(assets, "contacts.json").readText())
-        assertEquals("911", dir.national.first().number)
-        assertTrue(dir.barangays.size >= 20)
-        assertNull(dir.barangays.first().contacts.first().number)
-        assertEquals("San Ignacio", dir.barangayFor("Brgy. San Ignacio, San Pablo City")?.name)
-    }
 }

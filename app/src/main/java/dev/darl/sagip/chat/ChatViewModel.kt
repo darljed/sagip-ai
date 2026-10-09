@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.darl.sagip.data.Chunk
+import dev.darl.sagip.data.ContactEntry
 import dev.darl.sagip.data.ContactDirectory
 import dev.darl.sagip.data.Lang
 import dev.darl.sagip.data.PromptBuilder
@@ -35,7 +36,7 @@ enum class ModelStatus { LOADING, READY, MOCK, ERROR }
 data class RelatedGuide(val topicId: String, val title: String, val severity: Severity)
 
 /** A chat-level contact chip (personal contact, barangay…). 911 lives in the top bar, not here. */
-data class ContactChip(val label: String, val number: String)
+data class ContactChip(val label: String, val number: String, val sample: Boolean = false)
 
 data class Message(
     val role: Role,
@@ -52,6 +53,8 @@ data class ChatState(
     val modelStatus: ModelStatus = ModelStatus.LOADING,
     val modelName: String = "",
     val backend: String = "",
+    val sessions: List<ChatSession> = emptyList(),
+    val currentId: String = "",
 )
 
 /**
@@ -64,13 +67,66 @@ class ChatViewModel(
     private val retriever: Retriever,
     private val topics: TopicRepository,
     private val directory: ContactDirectory,
-    private val profile: UserProfile,
+    private val profileProvider: () -> UserProfile,
+    /** Free text describing where the user is right now (GPS address); may be empty. */
+    private val placeProvider: () -> String = { "" },
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(ChatState())
+    private val profile: UserProfile get() = profileProvider()
+
+    private val store = SessionStore(appContext)
+    private var sessions: MutableList<ChatSession> = store.load().toMutableList()
+
+
+    private fun place() = directory.placeFor(placeProvider()) ?: directory.placeFor(profile.home)
+
+    private val _state = MutableStateFlow(ChatState(sessions = emptyList(), currentId = newId()))
     val state: StateFlow<ChatState> = _state.asStateFlow()
 
     @Volatile private var engine: LlmEngine? = null
+
+    init { _state.value = _state.value.copy(sessions = sessions.toList()) }
+
+    private fun newId() = java.util.UUID.randomUUID().toString()
+
+    /** Persist the current conversation (only if it has at least one finished exchange). */
+    private fun persist() {
+        val msgs = _state.value.messages.filter { !it.streaming }
+        val firstUser = msgs.firstOrNull { it.role == Role.USER }?.text ?: return
+        val id = _state.value.currentId
+        val s = ChatSession(id, firstUser.take(48), System.currentTimeMillis(), msgs)
+        sessions.removeAll { it.id == id }
+        sessions.add(0, s)
+        _state.value = _state.value.copy(sessions = sessions.toList())
+        val snapshot = sessions.toList()
+        viewModelScope.launch(Dispatchers.IO) { store.save(snapshot) }
+    }
+
+    /** Start a fresh conversation; the previous one stays in history. */
+    fun newChat() {
+        if (_state.value.busy) return
+        _state.value = _state.value.copy(messages = emptyList(), currentId = newId())
+    }
+
+    fun openSession(id: String) {
+        if (_state.value.busy) return
+        val s = sessions.firstOrNull { it.id == id } ?: return
+        _state.value = _state.value.copy(messages = s.messages, currentId = s.id)
+    }
+
+    fun deleteSession(id: String) {
+        sessions.removeAll { it.id == id }
+        if (_state.value.currentId == id) _state.value = _state.value.copy(messages = emptyList(), currentId = newId())
+        _state.value = _state.value.copy(sessions = sessions.toList())
+        val snapshot = sessions.toList()
+        viewModelScope.launch(Dispatchers.IO) { store.save(snapshot) }
+    }
+
+    fun clearHistory() {
+        sessions.clear()
+        _state.value = _state.value.copy(messages = emptyList(), currentId = newId(), sessions = emptyList())
+        viewModelScope.launch(Dispatchers.IO) { store.save(emptyList()) }
+    }
 
     /** Load the model off the main thread; the UI works (pack fallback) while it loads. */
     fun initEngine() {
@@ -114,17 +170,24 @@ class ChatViewModel(
         val withUser = _state.value.messages + Message(Role.USER, text)
         _state.value = _state.value.copy(messages = withUser, busy = true)
 
+        // Phone-number requests are answered from the contact directory — never by the model.
+        QuickIntents.detect(text)?.let { intent ->
+            replyWithContacts(withUser, intent, lang, text)
+            return
+        }
+
         val idx = withUser.size
 
         if (chunks.isEmpty()) {
             val msg = if (lang == Lang.TL)
-                "Wala akong nakitang gabay na tumutugma dito sa mga offline na pack. Subukan mong hanapin ito sa Maghanap o i-rephrase ang tanong. Kung may panganib ngayon, i-tap ang SOS sa itaas."
+                "Wala akong nakitang gabay para diyan. Ang SAGIP ay para sa mga emergency, first aid, kaligtasan, sakuna at survival — subukan ang Maghanap o gumamit ng ibang salita. Kung may panganib ngayon, i-tap ang SOS sa itaas."
             else
-                "I couldn't find a guide that matches this in the offline packs. Try Search or rephrase your question. If anyone is in danger right now, tap SOS at the top."
+                "I couldn't find a guide for that. SAGIP helps with emergencies, first aid, safety, disasters and survival — try Search or different words. If anyone is in danger now, tap SOS at the top."
             _state.value = _state.value.copy(
-                messages = withUser + Message(Role.ASSISTANT, msg, contacts = personalContacts()),
+                messages = withUser + Message(Role.ASSISTANT, msg),
                 busy = false,
             )
+            persist()
             return
         }
 
@@ -155,8 +218,15 @@ class ChatViewModel(
             } catch (t: Throwable) {
                 android.util.Log.e("SagipGen", "generation crashed: ${t.message}")
             }
-            update(idx, finalText, streaming = false)
+            if (isOffTopic(finalText)) {
+                // Guardrail: the model judged the message out of scope — drop the guides/contacts
+                // that retrieval attached by accident and show the fixed scope message.
+                setMessage(idx, Message(Role.ASSISTANT, scopeMessage(lang)))
+            } else {
+                update(idx, finalText, streaming = false)
+            }
             _state.value = _state.value.copy(busy = false)
+            persist()
         }
     }
 
@@ -192,13 +262,16 @@ class ChatViewModel(
                         !done && raw.length > 2200 -> finish(trimRepetitionTail(raw).trim().ifBlank { fallback })
                         done -> {
                             android.util.Log.i("SagipGen", "TOTAL ${System.currentTimeMillis() - t0}ms chars=${raw.length}")
-                            if (raw.length < 20 && attempt == 0) {
+                            if (isOffTopic(raw)) {
+                                finish(raw, natural = true)   // guardrail verdict, not an empty answer
+                            } else if (raw.length < 20 && attempt == 0) {
                                 android.util.Log.w("SagipGen", "empty answer, retrying once")
                                 retryable.set(true)
                                 finish("", natural = true)
                             } else finish(if (raw.length < 20) fallback else raw, natural = true)
                         }
-                        else -> viewModelScope.launch(Dispatchers.Main) { if (!stopped.get()) update(idx, raw, streaming = true) }
+                        // Hold the first tokens back while they could still become "OFF_TOPIC".
+                        else -> if (!couldBeOffTopic(raw)) viewModelScope.launch(Dispatchers.Main) { if (!stopped.get()) update(idx, raw, streaming = true) }
                     }
                 }
             }.onFailure {
@@ -222,13 +295,55 @@ class ChatViewModel(
         return finished.await() to retryable.get()
     }
 
-    /** Chat-level contacts: the person's own emergency contact + their barangay hall if known. */
+    /** Chat-level contacts: the person's own emergency contact + their local barangay/city contact. */
     private fun personalContacts(): List<ContactChip> = buildList {
         if (profile.hasEmergencyContact) add(ContactChip(profile.emergencyContactName, profile.emergencyContactNumber))
-        directory.barangayFor(profile.home)?.contacts?.firstOrNull { it.number != null }?.let {
-            add(ContactChip(it.label(profile.preferredLanguage), it.number!!))
-        }
+        directory.localContacts(place()).firstOrNull()?.let { add(it.toChip(profile.preferredLanguage)) }
     }
+
+    private fun ContactEntry.toChip(lang: Lang) = ContactChip(label(lang), number!!, sample)
+
+    private fun replyWithContacts(withUser: List<Message>, intent: QuickIntent, lang: Lang, asked: String) {
+        val tl = lang == Lang.TL
+        val (text, chips) = when (intent) {
+            is QuickIntent.CallFamily ->
+                if (profile.hasEmergencyContact)
+                    (if (tl) "Sige, i-tap ang button para tawagan si ${profile.emergencyContactName}."
+                     else "Sure — tap the button to call ${profile.emergencyContactName}.") to
+                        listOf(ContactChip(profile.emergencyContactName, profile.emergencyContactNumber))
+                else
+                    (if (tl) "Wala ka pang naka-save na emergency contact. Pumunta sa Contact tab at i-tap ang I-edit para idagdag ito."
+                     else "You haven't saved an emergency contact yet. Open the Contacts tab and tap Edit to add one.") to emptyList()
+            is QuickIntent.FindContacts -> {
+                // An area named in the question wins ("ospital sa makati"); else GPS / saved home.
+                val place = directory.placeFor(asked) ?: place()
+                val found = directory.find(intent.kinds, place).distinctBy { it.number }.take(6)
+                val where = place?.title
+                val msg = when {
+                    found.isEmpty() -> if (tl) "Wala pa akong numerong naka-save para diyan${where?.let { " sa $it" }.orEmpty()}. Tumawag sa 911 para sa agarang tulong."
+                        else "I don't have a saved number for that${where?.let { " in $it" }.orEmpty()} yet. Call 911 for urgent help."
+                    where != null -> if (tl) "Narito ang mga numerong maaari mong tawagan malapit sa $where:" else "Here are numbers you can call near $where:"
+                    else -> if (tl) "Narito ang mga numerong maaari mong tawagan. (Wala pa akong lokal na numero para sa lugar mo.)"
+                        else "Here are numbers you can call. (I don't have local numbers for your area yet.)"
+                }
+                val list = found.ifEmpty { directory.national.filter { it.kind == "emergency" } }
+                msg to list.map { it.toChip(lang) }
+            }
+        }
+        _state.value = _state.value.copy(messages = withUser + Message(Role.ASSISTANT, text, contacts = chips), busy = false)
+        persist()
+    }
+
+    private fun setMessage(index: Int, m: Message) {
+        val msgs = _state.value.messages.toMutableList()
+        if (index in msgs.indices) { msgs[index] = m; _state.value = _state.value.copy(messages = msgs) }
+    }
+
+    private fun scopeMessage(lang: Lang) = if (lang == Lang.TL)
+        "Pasensya na, ang SAGIP ay para lang sa mga emergency, first aid, kaligtasan, sakuna at survival. May maitutulong ba ako sa mga ito? Kung may panganib ngayon, i-tap ang SOS sa itaas."
+    else
+        "Sorry, SAGIP only helps with emergencies, first aid, safety, disasters and survival. Is there something like that I can help with? If anyone is in danger now, tap SOS at the top."
+
 
     /** Authoritative pack steps (title + numbered list) used when the model fails or stalls. */
     private fun packFallback(chunks: List<Chunk>): String =
@@ -248,6 +363,15 @@ class ChatViewModel(
     }
 
     companion object {
+        /** True once the reply is the out-of-scope sentinel the prompt asks the model to emit. */
+        fun isOffTopic(text: String) = text.trim().uppercase().replace(" ", "_").startsWith("OFF_TOPIC") ||
+            (text.length < 40 && text.uppercase().contains("OFF_TOPIC"))
+        /** While streaming: could this short prefix still turn into OFF_TOPIC? Then don't show it. */
+        fun couldBeOffTopic(raw: String): Boolean {
+            val t = raw.trim().uppercase().replace(" ", "_")
+            return t.length < 10 && "OFF_TOPIC".startsWith(t) && t.isNotEmpty()
+        }
+
         private const val STALL_MS = 15_000L
         private const val PREFILL_MS = 30_000L
         private const val HARD_CAP_MS = 60_000L

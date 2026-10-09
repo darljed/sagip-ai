@@ -221,3 +221,16 @@ Entire app except inference, test-backed:
 ---
 
 *SAGIP — Architected in the Philippines, for Filipinos, offline-first.*
+
+---
+
+## Update 2026-10-10 — pivot + fine-tuning
+
+* Runtime: LiteRT-LM (`litertlm-android` 0.14.0, Kotlin 2.2.21) + **Gemma 4 E2B** on GPU (TTFT < 1 s, 6–10 s answers). MediaPipe tasks-genai removed.
+* Product: packs are browsable (Home → categories → guides → detail), Search, and **Ask** is a grounded support agent
+  with related-guide cards, chat history (local, delete/clear), and an animated typing bubble.
+* Guardrails: retrieval floor + stem rules; prompt SCOPE gate → `OFF_TOPIC` sentinel → fixed refusal; phone-number
+  requests answered from `contacts.json` (never by the model); "call my mom/wife" dials the saved emergency contact.
+* Contacts: area-based (`contacts.json` → `areas[]`), current area = GPS/saved home, only entries with numbers shown,
+  `sample:true` entries badged. Samples exist for Makati and San Pablo. Replace with official numbers.
+* Debug: `adb shell am broadcast -a dev.darl.sagip.DEBUG_ASK --es q "<question>" -p dev.darl.sagip` (and `--es to home|ask|contacts|sos|category:<id>|topic:<pack:topic>`), logs tag `SagipTest`/`SagipGen`.

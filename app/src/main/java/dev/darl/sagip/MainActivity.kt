@@ -173,7 +173,10 @@ private fun SagipApp(activity: MainActivity) {
                 start = { tag, p, f, st, er -> activity.startVoiceInput(tag, p, f, st, er) },
                 stop = { activity.stopVoiceInput() },
                 openDownloadSettings = { activity.openVoiceDownloadSettings() },
+                pickContact = { cb -> activity.pickContact { n, num -> cb(n, num) } },
+                locate = { cb -> activity.useMyLocation { cb(it) } },
             ),
+            onProfileChange = { updated -> store.save(updated); profile = updated },
         )
 
         savedProfile != null -> OnboardingSuccessScreen(

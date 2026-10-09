@@ -149,3 +149,6 @@ png / webp / jpg are picked up automatically; a missing file shows a placeholder
 | workplace | `worksite_injury` | Injury at a worksite (shop, factory, construction) | urgent | 5 | ⬜ | — |
 
 **112 topics · 6 heroes done · 106 missing.**
+> **Images are optional per guide.** Only a few guides will get art. A guide without a hero shows a compact
+> icon badge (no empty image box); the "Reference images" row and step images appear only when files exist.
+> Map images to guides once everything else is complete.

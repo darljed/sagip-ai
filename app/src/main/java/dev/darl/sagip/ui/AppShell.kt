@@ -87,20 +87,34 @@ class VoiceHooks(
     val start: (languageTag: String, onPartial: (String) -> Unit, onFinal: (String) -> Unit, onState: (Boolean) -> Unit, onError: (String) -> Unit) -> Unit,
     val stop: () -> Unit,
     val openDownloadSettings: () -> Unit,
+    val pickContact: ((name: String, number: String) -> Unit) -> Unit,
+    /** Resolve the user's current place text (only called when location permission is already granted). */
+    val locate: ((String) -> Unit) -> Unit,
 )
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun MainShell(profile: UserProfile, voice: VoiceHooks) {
+fun MainShell(initialProfile: UserProfile, voice: VoiceHooks, onProfileChange: (UserProfile) -> Unit) {
     val context = LocalContext.current.applicationContext
+    var profile by remember { mutableStateOf(initialProfile) }
     val lang = profile.preferredLanguage
+    // Where the user is right now (GPS address) — defaults to the saved home area.
+    var gpsPlace by remember { mutableStateOf("") }
+    val placeText = gpsPlace.ifBlank { profile.home }
+    androidx.compose.runtime.LaunchedEffect(Unit) {
+        val granted = androidx.core.content.ContextCompat.checkSelfPermission(
+            context, android.Manifest.permission.ACCESS_FINE_LOCATION,
+        ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+        if (granted) voice.locate { if (it.isNotBlank()) gpsPlace = it }
+    }
 
     val packs = remember { PackRepository.fromAssets(context) }
     val topics = remember(packs) { TopicRepository(packs) }
     val illus = remember { Illustrations(context) }
     val directory = remember { ContactDirectory.fromAssets(context) }
-    val vm = remember(profile) {
-        ChatViewModel(context, KeywordRetriever(packs), topics, directory, profile).also { it.initEngine() }
+    val vm = remember {
+        ChatViewModel(context, KeywordRetriever(packs), topics, directory, { profile }, { gpsPlace.ifBlank { profile.home } })
+            .also { it.initEngine() }
     }
     val chat by vm.state.collectAsState()
 
@@ -174,6 +188,10 @@ fun MainShell(profile: UserProfile, voice: VoiceHooks) {
                                 onOpenTopic = { open(Detail.TopicDetail(it)) },
                                 voiceHint = voiceHint,
                                 onVoiceHintClick = if (voiceNeedsPack) ({ voice.openDownloadSettings() }) else null,
+                                onNewChat = { vm.newChat() },
+                                onOpenSession = { vm.openSession(it) },
+                                onDeleteSession = { vm.deleteSession(it) },
+                                onClearHistory = { vm.clearHistory() },
                                 onMic = {
                                     if (listening) { voice.stop(); listening = false } else {
                                         voiceHint = null; voiceNeedsPack = false
@@ -190,7 +208,14 @@ fun MainShell(profile: UserProfile, voice: VoiceHooks) {
                                     }
                                 },
                             )
-                            Tab.CONTACTS -> ContactsScreen(directory, profile)
+                            Tab.CONTACTS -> ContactsScreen(
+                                directory, profile, placeText,
+                                onSaveEmergencyContact = { n, num ->
+                                    profile = profile.copy(emergencyContactName = n, emergencyContactNumber = num)
+                                    onProfileChange(profile)
+                                },
+                                onPickPhoneContact = { cb -> voice.pickContact(cb) },
+                            )
                         }
                     }
                 }
@@ -201,7 +226,7 @@ fun MainShell(profile: UserProfile, voice: VoiceHooks) {
             }
 
             if (showSos) {
-                SosSheet(directory, profile, onDismiss = { showSos = false }, onAllContacts = { showSos = false; stack.clear(); tab = Tab.CONTACTS })
+                SosSheet(directory, profile, placeText, onDismiss = { showSos = false }, onAllContacts = { showSos = false; stack.clear(); tab = Tab.CONTACTS })
             }
         }
     }
@@ -236,9 +261,9 @@ private fun TopBar(model: String, status: ModelStatus, backend: String, onSos: (
                 Text("sagip", style = MaterialTheme.typography.headlineSmall)
             }
             val s = when (status) {
-                ModelStatus.READY -> tr(lang, "Offline · $model${if (backend.isNotEmpty()) " · $backend" else ""}", "Offline · $model${if (backend.isNotEmpty()) " · $backend" else ""}")
-                ModelStatus.LOADING -> tr(lang, "Offline · loading $model…", "Offline · nilo-load ang $model…")
-                else -> tr(lang, "Offline · guides only", "Offline · mga gabay lang")
+                ModelStatus.READY -> "Offline mode · $model${if (backend.isNotEmpty()) " · $backend" else ""}"
+                ModelStatus.LOADING -> tr(lang, "Offline mode · loading $model…", "Offline mode · nilo-load ang $model…")
+                else -> tr(lang, "Offline mode · guides only", "Offline mode · mga gabay lang")
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.size(7.dp).clip(CircleShape).background(if (status == ModelStatus.READY) SagipColors.Ok else SagipColors.Muted))
