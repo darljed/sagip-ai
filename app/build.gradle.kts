@@ -58,6 +58,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.6")
 
     // On-device LLM inference (Gemma 3 1B INT4 / Gemma 4 E2B) — LiteRT-LM runtime.
     // API optimized for Samsung S23+ per Google's docs.
