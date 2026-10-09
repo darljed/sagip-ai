@@ -1,0 +1,186 @@
+[
+  {
+    "id": "volcano.eruption.evacuate.001",
+    "pack": "volcano",
+    "topic": "volcano_eruption",
+    "lang": "en",
+    "title": "Volcanic eruption — evacuate",
+    "severity": "critical",
+    "tags": [
+      "volcano",
+      "bulkan",
+      "eruption",
+      "pagsabog",
+      "lava",
+      "lahar",
+      "evacuate",
+      "ashfall",
+      "abo",
+      "Mayon",
+      "Taal",
+      "lumikas"
+    ],
+    "text": "1. If PHIVOLCS raises the alert level or your LGU orders evacuation, leave immediately for the designated center. Bring your go-bag and masks.\n2. Avoid river valleys and low areas — fast-moving hot flows and mudflows (lahar) travel through them. Never go sightseeing near the volcano.\n3. If caught outdoors during an explosion or heavy ashfall, cover your nose and mouth with a mask or wet cloth, protect your eyes, and move crosswind away from the ash.\n4. Help children, elderly, and PWDs move. Bring livestock to shelter if time allows.\n5. Stay evacuated until officials declare it safe. Do NOT return for belongings during the eruption.",
+    "source": "PHIVOLCS / NDRRMC Volcano Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "volcano.eruption.evacuate.001",
+    "pack": "volcano",
+    "topic": "volcano_eruption",
+    "lang": "tl",
+    "title": "Pagsabog ng bulkan — lumikas",
+    "severity": "critical",
+    "tags": [
+      "volcano",
+      "bulkan",
+      "eruption",
+      "pagsabog",
+      "lava",
+      "lahar",
+      "evacuate",
+      "ashfall",
+      "abo",
+      "Mayon",
+      "Taal",
+      "lumikas"
+    ],
+    "text": "1. Kung itinaas ng PHIVOLCS ang alert level o may utos ang LGU na lumikas, umalis agad papunta sa itinakdang center. Dalhin ang go-bag at mask.\n2. Iwasan ang mga lambak ng ilog at mababang lugar — dumadaan doon ang mabilis na mainit na agos at lahar. Huwag mamasyal malapit sa bulkan.\n3. Kung naabutan sa labas habang may pagsabog o makapal na ashfall, takpan ang ilong at bibig ng mask o basang tela, protektahan ang mata, at gumalaw palayo sa abo.\n4. Tulungan ang bata, matanda, at PWD na lumikas. Isilong ang mga alagang hayop kung may oras pa.\n5. Manatiling lumikas hangga't hindi idinedeklarang ligtas. HUWAG bumalik para sa gamit habang may pagsabog.",
+    "source": "PHIVOLCS / NDRRMC Volcano Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "volcano.ashfall.safety.001",
+    "pack": "volcano",
+    "topic": "ashfall",
+    "lang": "en",
+    "title": "Ashfall — stay safe indoors and outdoors",
+    "severity": "urgent",
+    "tags": [
+      "ashfall",
+      "abo",
+      "ash",
+      "bulkan",
+      "mask",
+      "ubo",
+      "hirap huminga",
+      "bubong",
+      "roof",
+      "volcano",
+      "mata",
+      "eyes"
+    ],
+    "text": "1. Stay indoors with windows and doors closed. Seal gaps with damp towels and turn off fans or air conditioners pulling outside air.\n2. If you must go out, wear a mask, goggles, long sleeves, and shoes. Keep skin covered.\n3. Protect drinking water and food from ash. Bring pets and livestock under shelter.\n4. Clear only light ash from roofs and gutters when it is safe — wet ash is very heavy and can collapse roofs. Never climb during the eruption.\n5. Seek care for breathing difficulty, eye pain, or persistent cough — infants, elderly, and people with asthma are most at risk.",
+    "source": "PHIVOLCS / DOH Ashfall Health Advisory",
+    "personalize": [
+      "conditions",
+      "household_infant",
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "volcano.ashfall.safety.001",
+    "pack": "volcano",
+    "topic": "ashfall",
+    "lang": "tl",
+    "title": "Ashfall — manatiling ligtas sa loob at labas",
+    "severity": "urgent",
+    "tags": [
+      "ashfall",
+      "abo",
+      "ash",
+      "bulkan",
+      "mask",
+      "ubo",
+      "hirap huminga",
+      "bubong",
+      "roof",
+      "volcano",
+      "mata",
+      "eyes"
+    ],
+    "text": "1. Manatili sa loob ng bahay nang nakasara ang bintana at pinto. Takpan ng basang tuwalya ang mga siwang at patayin ang bentilador o aircon na humihigop ng hangin sa labas.\n2. Kung kailangang lumabas, magsuot ng mask, salaming proteksyon, mahabang manggas, at sapatos. Takpan ang balat.\n3. Protektahan ang tubig na iinumin at pagkain mula sa abo. Isilong ang mga alagang hayop.\n4. Mag-alis lang ng magaang abo sa bubong at alulod kapag ligtas na — mabigat ang basang abo at puwedeng magpaguho ng bubong. Huwag umakyat habang may pagsabog.\n5. Magpatingin kung may hirap sa paghinga, sakit sa mata, o paulit-ulit na ubo — pinakananganganib ang sanggol, matanda, at may hika.",
+    "source": "PHIVOLCS / DOH Ashfall Health Advisory",
+    "personalize": [
+      "conditions",
+      "household_infant",
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "volcano.vog.health.001",
+    "pack": "volcano",
+    "topic": "vog",
+    "lang": "en",
+    "title": "Volcanic smog (vog) — health protection",
+    "severity": "caution",
+    "tags": [
+      "vog",
+      "volcanic smog",
+      "usok ng bulkan",
+      "Taal",
+      "asupre",
+      "sulfur",
+      "ubo",
+      "hika",
+      "mask",
+      "amoy asupre",
+      "smog",
+      "gas"
+    ],
+    "text": "1. Vog is volcanic gas and haze — it irritates eyes, nose, throat, and lungs. Stay indoors and close windows and doors when PHIVOLCS reports vog.\n2. Limit outdoor activity. If you must go out, wear a mask and goggles.\n3. Protect infants, elderly, pregnant women, and people with asthma or heart disease most — they should stay indoors.\n4. Drink water for throat irritation. Do NOT smoke or light fires that add to the haze.\n5. Seek care for breathing difficulty, chest tightness, or eye pain that does not ease indoors.",
+    "source": "PHIVOLCS / DOH Vog Health Advisory",
+    "personalize": [
+      "conditions",
+      "household_infant",
+      "household_elderly",
+      "household_pregnant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "volcano.vog.health.001",
+    "pack": "volcano",
+    "topic": "vog",
+    "lang": "tl",
+    "title": "Volcanic smog (vog) — pangangalaga sa kalusugan",
+    "severity": "caution",
+    "tags": [
+      "vog",
+      "volcanic smog",
+      "usok ng bulkan",
+      "Taal",
+      "asupre",
+      "sulfur",
+      "ubo",
+      "hika",
+      "mask",
+      "amoy asupre",
+      "smog",
+      "gas"
+    ],
+    "text": "1. Ang vog ay gas at ulap mula sa bulkan — nakakairita ito sa mata, ilong, lalamunan, at baga. Manatili sa loob ng bahay at isara ang bintana at pinto kapag nag-ulat ng vog ang PHIVOLCS.\n2. Bawasan ang aktibidad sa labas. Kung kailangang lumabas, magsuot ng mask at salaming proteksyon.\n3. Pinakaingatan ang sanggol, matanda, buntis, at may hika o sakit sa puso — manatili sila sa loob.\n4. Uminom ng tubig para sa iritasyon ng lalamunan. HUWAG manigarilyo o magsiga na dadagdag sa ulap.\n5. Magpatingin kung may hirap sa paghinga, paninikip ng dibdib, o sakit sa mata na hindi nawawala sa loob.",
+    "source": "PHIVOLCS / DOH Vog Health Advisory",
+    "personalize": [
+      "conditions",
+      "household_infant",
+      "household_elderly",
+      "household_pregnant"
+    ],
+    "call_emergency": false
+  }
+]

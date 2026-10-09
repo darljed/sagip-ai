@@ -27,30 +27,38 @@ class PromptBuilderTest {
 
     @Test fun guidanceStepsAreFrontAndCenter() {
         val p = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(bleedingCritical))
-        // The actual steps + title must be in the prompt, under the "Use ONLY these steps" lead.
-        assertTrue(p.contains("Use ONLY these official steps"))
+        // The reference guidance + title must be present, above the output instruction.
+        assertTrue(p.contains("Reference guidance from trusted sources"))
         assertTrue(p.contains("Severe bleeding (hemorrhage)"))
         assertTrue(p.contains("Apply firm pressure"))
-        // Guidance should appear BEFORE the output-format instruction (front-and-center).
-        assertTrue(p.indexOf("Apply firm pressure") < p.indexOf("numbered list"))
+        assertTrue(p.indexOf("Apply firm pressure") < p.indexOf("Answer the person's actual question"))
     }
 
-    @Test fun outputFormatInstructsNumberedSteps() {
+    @Test fun outputInstructsGroundedAnswer() {
         val p = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(bleedingCritical))
-        assertTrue(p.contains("numbered list"))
+        // Grounded generation: model answers the actual question, grounded in guidance.
+        assertTrue(p.contains("Answer the person's actual question"))
+        assertTrue(p.contains("Base your answer on the reference guidance"))
+        assertTrue(p.contains("Do not invent medical facts"))
     }
 
     @Test fun languageInstructionIsLast_forRecency() {
         val p = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(bleedingCritical))
-        // DEMO prefers TL; the language line must come near the very end (just before "Answer:").
         val langIdx = p.indexOf("entire answer in Tagalog")
         assertTrue("language instruction present", langIdx > 0)
         assertTrue("language instruction is near the end", langIdx > p.length - 120)
     }
 
-    @Test fun allergyNoteInjected_whenFlagged() {
-        val p = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(bleedingCritical))
+    @Test fun allergyNoteInjected_whenFlaggedAndGuidanceInvolvesMedicine() {
+        val withMed = bleedingCritical.copy(text = "1. Give one adult aspirin to chew.")
+        val p = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(withMed))
         assertTrue(p.contains("Allergic to penicillin"))
+    }
+
+    @Test fun allergyNoteOmitted_whenGuidanceHasNoMedicine() {
+        // Prevents small-model nonsense like "seafood allergy" inside a snake answer.
+        val p = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(bleedingCritical))
+        assertFalse(p.contains("Allergic to"))
     }
 
     @Test fun householdNoteInjected_whenFlagged() {
@@ -64,24 +72,15 @@ class PromptBuilderTest {
     }
 
     @Test fun criticalAddsEmergencyLeadInstruction() {
-        // DEMO is TL -> lead-in asks for a Tagalog warning line.
         val tl = PromptBuilder.build("bleeding", UserProfile.DEMO, listOf(bleedingCritical))
-        assertTrue(tl.contains("life-threatening emergency"))
-        // EN profile -> English lead-in.
+        assertTrue(tl.contains("life-threatening"))
         val en = PromptBuilder.build("bleeding", UserProfile.DEMO.copy(preferredLanguage = Lang.EN), listOf(bleedingCritical))
-        assertTrue(en.contains("this is an emergency"))
+        assertTrue(en.contains("life-threatening"))
     }
 
-    @Test fun groundingPresent_butTerse() {
+    @Test fun instructsAgainstRepeating() {
         val p = PromptBuilder.build("x", UserProfile.DEMO, listOf(bleedingCritical))
-        assertTrue(p.contains("Copy the actual instructions"))
-        assertTrue(p.contains("don't have that info"))
-    }
-
-    @Test fun instructsAgainstChantingAndRepeating() {
-        val p = PromptBuilder.build("x", UserProfile.DEMO, listOf(bleedingCritical))
-        assertTrue("warns against keyword/slogan collapse", p.contains("do NOT shorten them to keywords"))
-        assertTrue("warns against repetition", p.contains("do NOT repeat a line"))
+        assertTrue("warns against repetition", p.contains("Do not repeat any line"))
     }
 
     @Test fun sourceNamed() {
@@ -105,7 +104,7 @@ class PromptBuilderTest {
 
     @Test fun emptyProfile_noPersonalBlock_butStillGrounded() {
         val p = PromptBuilder.build("bleeding", UserProfile(), listOf(bleedingCritical))
-        assertFalse(p.contains("Personalise for this person"))
-        assertTrue(p.contains("Copy the actual instructions"))
+        assertFalse(p.contains("Personal facts about this person"))
+        assertTrue(p.contains("Reference guidance from trusted sources"))
     }
 }

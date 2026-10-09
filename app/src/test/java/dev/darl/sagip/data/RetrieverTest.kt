@@ -84,4 +84,54 @@ class RetrieverTest {
         val hits = retriever.retrieve("earthquake fire flood bleeding water gas", Lang.EN, k = 2)
         assertTrue("should return at most k", hits.size <= 2)
     }
+
+    @Test fun tagalogConjugation_lumilindol_matchesEarthquake() {
+        // Real demo miss: "lumilindol" shares the stem "lindol" with the earthquake
+        // tag but is not a whole-word match. It must NOT fall through to flood.
+        val hits = retriever.retrieve("lumilindol anong gagawin ko", Lang.TL)
+        assertEquals("during_earthquake", hits.first().topic)
+    }
+
+    @Test fun tagalogConjugation_makuryente_matchesElectrical() {
+        val hits = retriever.retrieve("may nabubag na poste ng kuryente baka makuryente", Lang.TL)
+        assertEquals("electrical_hazard", hits.first().topic)
+    }
+
+    @Test fun unmatchedTopic_returnsEmpty_notWrongPack() {
+        // "falling tree" has NO pack. It must return empty (→ 911 fallback), NOT a
+        // weak spurious match (previously grabbed the flood pack via "puno"/"dapat").
+        val hits = retriever.retrieve("ah may bumabagsak na puno anong dapat gawin", Lang.TL)
+        assertTrue("no genuine match returns empty", hits.isEmpty())
+    }
+
+    @Test fun weakSingleWordOverlap_doesNotPassFloor() {
+        // A query that only grazes a body word must not surface a pack.
+        val hits = retriever.retrieve("puno dapat", Lang.TL)
+        assertTrue("below score floor returns empty", hits.isEmpty())
+    }
+
+    @Test fun snakeSighting_notBitten_routesToEncounter_notSnakebite() {
+        val hits = retriever.retrieve("hindi ako nakagat ng ahas nakakita lang ako", Lang.TL)
+        // Keyword retrieval can't read negation, so both snake topics may surface; the
+        // sighting topic must rank FIRST and the LLM (grounded prompt) picks the fit.
+        assertEquals("snake_encounter", hits.first().topic)
+    }
+
+    @Test fun snakeSighting_english() {
+        val hits = retriever.retrieve("I saw a snake what should I do", Lang.EN)
+        assertEquals("snake_encounter", hits.first().topic)
+    }
+
+    @Test fun snakeBite_ranksSnakebiteFirst() {
+        for (q in listOf("kinagat ako ng ahas", "nakagat ako ng ahas", "snake bit me", "snakebite")) {
+            val hits = retriever.retrieve(q, Lang.TL)
+            assertEquals("query: $q", "snakebite", hits.first().topic)
+        }
+    }
+
+    @Test fun fainting_doesNotMatchEyeInjury_viaMidWordSubstring() {
+        // "nahimatay" contains "mata" mid-word; must not route to the eye-injury chunk.
+        val hits = retriever.retrieve("may nahimatay", Lang.TL)
+        assertTrue("eye chunk must not match", hits.none { it.topic.contains("eye") })
+    }
 }

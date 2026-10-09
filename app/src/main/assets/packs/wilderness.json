@@ -1,0 +1,318 @@
+[
+  {
+    "id": "wild.lost.trail.001",
+    "pack": "wilderness",
+    "topic": "lost_on_trail",
+    "lang": "en",
+    "title": "Lost while hiking — STOP",
+    "severity": "urgent",
+    "tags": [
+      "lost",
+      "nawawala",
+      "hiking",
+      "bundok",
+      "trail",
+      "naligaw",
+      "mountain",
+      "akyat",
+      "halo",
+      "guide",
+      "ligaw"
+    ],
+    "text": "1. STOP: Stop, Think, Observe, Plan. Do NOT keep walking blindly — most lost hikers make it worse by moving.\n2. If unsure of the way, especially near dark or rain, stay put and find nearby shelter from wind and rain.\n3. Signal for help: 3 whistle blasts or 3 light flashes, repeated — the international distress signal. Wear or wave bright clothing.\n4. Conserve your phone: send ONE text with your last known location to your emergency contact, then turn off data. Texts go through when calls fail.\n5. Ration water, mark your spot with stone or branch arrows, and stay where rescuers can find you.",
+    "source": "DENR / NDRRMC Hiking Safety Guidelines",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "wild.lost.trail.001",
+    "pack": "wilderness",
+    "topic": "lost_on_trail",
+    "lang": "tl",
+    "title": "Naligaw sa hiking — HUMINTO",
+    "severity": "urgent",
+    "tags": [
+      "lost",
+      "nawawala",
+      "hiking",
+      "bundok",
+      "trail",
+      "naligaw",
+      "mountain",
+      "akyat",
+      "halo",
+      "guide",
+      "ligaw"
+    ],
+    "text": "1. HUMINTO: Hinto, Mag-isip, Magmasid, Magplano. HUWAG magpatuloy nang bulag — kadalasan lumalala ang sitwasyon ng naliligaw kapag gumagalaw pa.\n2. Kung hindi sigurado sa daan, lalo na kung padilim o umuulan, manatili sa puwesto at humanap ng masisilungan sa hangin at ulan.\n3. Sumenyas ng tulong: 3 pito o 3 kislap ng ilaw, nang paulit-ulit — ito ang international distress signal. Magsuot o ikaway ng matingkad na damit.\n4. Tipirin ang cellphone: magpadala ng ISANG text na may huling alam na lokasyon sa emergency contact, saka patayin ang data. Nakakalusot ang text kahit hindi ang tawag.\n5. Tipirin ang tubig, markahan ang puwesto ng arrow na bato o sanga, at manatili kung saan ka mahahanap ng rescuer.",
+    "source": "DENR / NDRRMC Hiking Safety Guidelines",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "wild.nosignal.sos.001",
+    "pack": "wilderness",
+    "topic": "no_signal_sos",
+    "lang": "en",
+    "title": "No signal — how to call for help offline",
+    "severity": "urgent",
+    "tags": [
+      "no signal",
+      "walang signal",
+      "offline",
+      "sos",
+      "distress",
+      "tulong",
+      "battery",
+      "lobat",
+      "text",
+      "whistle",
+      "pito",
+      "bundok"
+    ],
+    "text": "1. Prevention first: ALWAYS tell someone your route and expected return time before any trip — rescue starts when you are overdue.\n2. Try SMS, not calls — texts go through on weak signal. Include your location, landmarks, number of people, and battery level.\n3. Climb to high, open ground for signal. Save battery: dim the screen, turn on airplane mode between tries.\n4. With no signal at all: give 3 whistle blasts or 3 light flashes, repeated every minute — the distress signal. Make big ground marks (X, arrows) visible from the air.\n5. Once you have signaled, stay put, stay warm and dry, and call 911 the moment any signal appears.",
+    "source": "NDRRMC / Philippine Red Cross Remote Rescue Guidance",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "wild.nosignal.sos.001",
+    "pack": "wilderness",
+    "topic": "no_signal_sos",
+    "lang": "tl",
+    "title": "Walang signal — paano humingi ng tulong offline",
+    "severity": "urgent",
+    "tags": [
+      "no signal",
+      "walang signal",
+      "offline",
+      "sos",
+      "distress",
+      "tulong",
+      "battery",
+      "lobat",
+      "text",
+      "whistle",
+      "pito",
+      "bundok"
+    ],
+    "text": "1. Pag-iwas muna: LAGING sabihin sa maiiwan ang ruta at inaasahang oras ng balik bago umalis — doon nagsisimula ang rescue kapag na-late ka.\n2. Subukan ang SMS, hindi tawag — nakakalusot ang text sa mahinang signal. Isama ang lokasyon, palatandaan, bilang ng tao, at battery level.\n3. Umakyat sa mataas at bukas na lugar para sa signal. Tipirin ang baterya: hinaan ang screen, i-airplane mode sa pagitan ng subok.\n4. Kung talagang walang signal: magbigay ng 3 pito o 3 kislap ng ilaw, kada minuto — ito ang distress signal. Gumawa ng malalaking marka sa lupa (X, arrow) na kita mula sa himpapawid.\n5. Kapag nakapag-senyas na, manatili sa puwesto, panatilihing mainit at tuyo ang katawan, at tumawag sa 911 sa sandaling magkaroon ng signal.",
+    "source": "NDRRMC / Philippine Red Cross Remote Rescue Guidance",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "wild.hypothermia.trail.001",
+    "pack": "wilderness",
+    "topic": "trail_hypothermia",
+    "lang": "en",
+    "title": "Hypothermia on the trail (too cold)",
+    "severity": "urgent",
+    "tags": [
+      "hypothermia",
+      "lamig",
+      "nanginginig",
+      "Pulag",
+      "bundok",
+      "ginaw",
+      "malamig",
+      "shivering",
+      "hiking",
+      "cold",
+      "nagyeyelo"
+    ],
+    "text": "1. Know the signs: violent shivering, clumsiness, confusion, drowsiness. When shivering STOPS, it is critical — warm and evacuate urgently.\n2. Get out of wind and rain. Insulate from the cold ground — sit on a pack or dry leaves. Change into dry clothes if possible.\n3. Warm slowly: blankets or sleeping bag, warm (not hot) sweet drinks if conscious, and buddy body heat inside the same bag.\n4. Do NOT give alcohol. Do NOT rub limbs or apply sudden strong heat like fire directly on skin.\n5. Keep the person awake and monitored. Evacuate to medical care — mountain cold can kill even above freezing.",
+    "source": "Philippine Red Cross / DOH Cold Exposure Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "wild.hypothermia.trail.001",
+    "pack": "wilderness",
+    "topic": "trail_hypothermia",
+    "lang": "tl",
+    "title": "Hypothermia sa trail (sobrang lamig)",
+    "severity": "urgent",
+    "tags": [
+      "hypothermia",
+      "lamig",
+      "nanginginig",
+      "Pulag",
+      "bundok",
+      "ginaw",
+      "malamig",
+      "shivering",
+      "hiking",
+      "cold",
+      "nagyeyelo"
+    ],
+    "text": "1. Alamin ang mga senyales: malakas na panginginig, pagkaclumsy, pagkalito, pagkaantok. Kapag TUMIGIL ang panginginig, kritikal na — painitin at ilikas agad.\n2. Lumayo sa hangin at ulan. Maglagay ng insulation mula sa malamig na lupa — umupo sa bag o tuyong dahon. Magpalit ng tuyong damit kung kaya.\n3. Painitin nang dahan-dahan: kumot o sleeping bag, maligamgam (hindi mainit) na matamis na inumin kung gising, at init ng katawan ng kasama sa iisang bag.\n4. HUWAG bigyan ng alak. HUWAG kuskusin ang mga paa't kamay o biglain ng matinding init tulad ng apoy direkta sa balat.\n5. Panatilihing gising at bantayan. Ilikas para magpagamot — nakamamatay ang lamig sa bundok kahit hindi nagyeyelo.",
+    "source": "Philippine Red Cross / DOH Cold Exposure Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "wild.cave.emergency.001",
+    "pack": "wilderness",
+    "topic": "cave_emergency",
+    "lang": "en",
+    "title": "Cave emergency (lost, flood, or injury)",
+    "severity": "urgent",
+    "tags": [
+      "cave",
+      "yungib",
+      "kuweba",
+      "spelunking",
+      "baha",
+      "flood",
+      "nawawala",
+      "madilim",
+      "flashlight",
+      "trapped",
+      "naligaw"
+    ],
+    "text": "1. Before entering any cave, tell someone outside your plan and expected exit time. Never explore caves alone.\n2. Bring 3 light sources each plus spare batteries. Mark your path with chalk or tape at every junction.\n3. If it rains outside, LEAVE at once — caves flash-flood in minutes. Never cross rising underground water.\n4. If lost: stay put, switch off spare lights to save battery, and shout or tap rocks at intervals — sound carries far in caves.\n5. If someone is hurt: keep them warm and still; one person stays while others go out for help with the exact cave location.",
+    "source": "DENR Caves Management / NDRRMC Outdoor Safety",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "wild.cave.emergency.001",
+    "pack": "wilderness",
+    "topic": "cave_emergency",
+    "lang": "tl",
+    "title": "Emergency sa yungib (naligaw, baha, o sugat)",
+    "severity": "urgent",
+    "tags": [
+      "cave",
+      "yungib",
+      "kuweba",
+      "spelunking",
+      "baha",
+      "flood",
+      "nawawala",
+      "madilim",
+      "flashlight",
+      "trapped",
+      "naligaw"
+    ],
+    "text": "1. Bago pumasok sa anumang yungib, sabihin sa nasa labas ang plano at inaasahang oras ng labas. Huwag mag-isa sa yungib.\n2. Magdala ng 3 ilaw bawat isa plus reserbang baterya. Markahan ng chalk o tape ang daan sa bawat sangandaan.\n3. Kung umulan sa labas, LUMABAS agad — mabilis bumaha ang yungib sa loob ng ilang minuto. Huwag tumawid sa tumataas na tubig sa loob.\n4. Kung naligaw: manatili sa puwesto, patayin ang reserbang ilaw para makatipid, at sumigaw o kumatok sa bato nang paulit-ulit — malayo ang nararating ng tunog sa yungib.\n5. Kung may nasaktan: panatilihing mainit at hindi gumagalaw; may maiiwan na isa habang ang iba ay hihingi ng tulong dala ang eksaktong lokasyon ng yungib.",
+    "source": "DENR Caves Management / NDRRMC Outdoor Safety",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "wild.openfield.storm.001",
+    "pack": "wilderness",
+    "topic": "open_field_storm",
+    "lang": "en",
+    "title": "Caught in an open field during a storm",
+    "severity": "urgent",
+    "tags": [
+      "open field",
+      "parang",
+      "bukid",
+      "storm",
+      "kidlat",
+      "lightning",
+      "kulog",
+      "ulan",
+      "no shelter",
+      "palayan",
+      "thunder"
+    ],
+    "text": "1. Leave ridges, lone trees, water, and metal fences or bikes at once — lightning strikes the tallest and the wettest first.\n2. Spread the group out so not everyone is in one spot. Drop metal objects.\n3. If no shelter is reachable, crouch low with feet together and cover your ears. Do NOT lie flat — ground current travels through soil.\n4. The safest shelters are a sturdy building, then a hard-topped vehicle. Open sheds and picnic huts are NOT safe.\n5. Wait 30 minutes after the last thunder before moving on. If flood water rises in the field, head uphill (see flood topics).",
+    "source": "PAGASA / Philippine Red Cross Lightning Safety",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "wild.openfield.storm.001",
+    "pack": "wilderness",
+    "topic": "open_field_storm",
+    "lang": "tl",
+    "title": "Naabutan ng bagyo sa bukas na parang",
+    "severity": "urgent",
+    "tags": [
+      "open field",
+      "parang",
+      "bukid",
+      "storm",
+      "kidlat",
+      "lightning",
+      "kulog",
+      "ulan",
+      "no shelter",
+      "palayan",
+      "thunder"
+    ],
+    "text": "1. Layuan agad ang tuktok ng burol, nag-iisang puno, tubig, at metal na bakod o bisikleta — unang tinatamaan ng kidlat ang pinakamataas at pinakabasa.\n2. Maghiwa-hiwalay ang grupo para hindi magkumpol sa isang lugar. Ibaba ang mga metal na gamit.\n3. Kung walang masisilungan, yumukod nang mababa nang magkadikit ang mga paa at takpan ang tainga. HUWAG humiga — dumadaloy sa lupa ang kuryente.\n4. Pinakaligtas ang matibay na gusali, saka ang sasakyang may matigas na bubong. HINDI ligtas ang bukas na kubo o picnic hut.\n5. Maghintay ng 30 minuto pagkatapos ng huling kulog bago magpatuloy. Kung tumataas ang baha sa parang, pumunta sa mataas (tingnan ang topics sa baha).",
+    "source": "PAGASA / Philippine Red Cross Lightning Safety",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "wild.altitude.sickness.001",
+    "pack": "wilderness",
+    "topic": "altitude_sickness",
+    "lang": "en",
+    "title": "Altitude sickness (high mountains)",
+    "severity": "urgent",
+    "tags": [
+      "altitude",
+      "Pulag",
+      "bundok",
+      "hilo",
+      "headache",
+      "sakit ng ulo",
+      "nausea",
+      "nasusuka",
+      "hingal",
+      "high altitude",
+      "mountaineering",
+      "summit"
+    ],
+    "text": "1. Know the early signs above about 2,500 m (Mt. Pulag summit): headache, nausea, dizziness, and unusual fatigue.\n2. Stop ascending and rest. Drink water often. Do NOT climb higher while symptoms persist.\n3. NEVER drink alcohol or take sleeping pills at altitude — both worsen breathing.\n4. Descend at once if symptoms worsen, or with confusion, loss of balance, or breathlessness at rest — these signal life-threatening brain or lung swelling. Call for emergency help.",
+    "source": "Wilderness Medical Society Altitude Guidelines / DENR",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "wild.altitude.sickness.001",
+    "pack": "wilderness",
+    "topic": "altitude_sickness",
+    "lang": "tl",
+    "title": "Altitude sickness (mataas na bundok)",
+    "severity": "urgent",
+    "tags": [
+      "altitude",
+      "Pulag",
+      "bundok",
+      "hilo",
+      "headache",
+      "sakit ng ulo",
+      "nausea",
+      "nasusuka",
+      "hingal",
+      "high altitude",
+      "mountaineering",
+      "summit"
+    ],
+    "text": "1. Alamin ang mga maagang senyales lampas mga 2,500 m (tuktok ng Mt. Pulag): sakit ng ulo, pagduduwal, pagkahilo, at kakaibang pagkapagod.\n2. Huminto sa pag-akyat at magpahinga. Uminom ng tubig nang madalas. HUWAG umakyat pa habang may sintomas.\n3. HUWAG kailanman uminom ng alak o uminom ng pampatulog sa mataas na lugar — parehong nagpapalala sa paghinga.\n4. Bumaba agad kung lumala ang sintomas, o kung may pagkalito, kawalan ng balanse, o hingal kahit nagpapahinga — senyales ito ng nakamamatay na pamamaga ng utak o baga. Humingi ng tulong medikal.",
+    "source": "Wilderness Medical Society Altitude Guidelines / DENR",
+    "personalize": [],
+    "call_emergency": false
+  }
+]

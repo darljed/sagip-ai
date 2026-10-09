@@ -46,6 +46,13 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
         }
         val ranked = bestByTopic.values.sortedByDescending { it.second }
 
+        // Absolute relevance floor: a real match lands a tag hit (5) or topic hit (4);
+        // incidental body-word overlap (e.g. a falling-tree query grazing "puno"/"dapat"
+        // in the flood chunk) scores ~2. If even the TOP hit is below MIN_SCORE, we have
+        // no genuine guidance — return empty so the UI shows a safe "call 911" fallback
+        // instead of confidently rendering the wrong pack. Critical for an emergency app.
+        if (ranked.first().second < MIN_SCORE) return emptyList()
+
         // Relevance gate: a secondary topic rides along ONLY if it's nearly as strong
         // as the top hit (>= RELEVANCE_RATIO of it). This makes a dominant match return
         // ALONE — important for a small (1B) model, which gets confused and starts
@@ -71,12 +78,37 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
         val bodySet = tokenize(c.text)
         var s = 0
         for (t in terms) {
-            if (t in tagSet) s += 5
-            if (t in topicSet) s += 4
-            if (t in titleSet) s += 2
-            if (t in bodySet) s += 1
+            if (hit(t, tagSet)) s += 5
+            if (hit(t, topicSet)) s += 4
+            if (hit(t, titleSet)) s += 2
+            if (hit(t, bodySet)) s += 1
         }
         return s
+    }
+
+    /**
+     * A query term "hits" a pool word on exact match OR substring containment either
+     * way, provided the shorter token is >= 4 chars. This is a cheap stemmer: Tagalog
+     * conjugations/affixes share a stem with the tag (lumi-LINDOL -> "lindol",
+     * ma-KURYENTE -> "kuryente", nag-yayanig -> "yanig"), which exact whole-word
+     * matching misses. The length guard stops short tokens from false-matching.
+     *
+     * ponytail: substring is a poor-man's stemmer; the real upgrade is a proper
+     * stemmer or EmbeddingGemma semantic retrieval, but this fixes the common
+     * conjugation misses for ~zero cost.
+     */
+    private fun hit(term: String, pool: Set<String>): Boolean {
+        if (term in pool) return true
+        return pool.any { w ->
+            val shorter = minOf(term.length, w.length)
+            when {
+                shorter >= 5 -> term.contains(w) || w.contains(term)
+                // 4-letter stems (mata, dugo, hika) must sit at a word edge — otherwise
+                // "nahi-MATA-y" (fainted) wrongly matches the eye-injury tag "mata".
+                shorter == 4 -> term.startsWith(w) || term.endsWith(w) || w.startsWith(term) || w.endsWith(term)
+                else -> false
+            }
+        }
     }
 
     private fun tokenize(s: String): Set<String> =
@@ -89,6 +121,10 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
         // A secondary topic rides along only if it scores >= 80% of the top hit.
         // High on purpose: a small model does best with ONE focused topic.
         private const val RELEVANCE_RATIO = 0.8
+        // Absolute floor for the top hit. A genuine match scores >= 4 (one topic hit)
+        // or >= 5 (one tag hit); spurious body-only overlap scores ~1–2. Below this =
+        // "no guidance for this query" → UI shows the safe 911 fallback.
+        private const val MIN_SCORE = 4
         // Minimal EN+TL stopwords so short function words don't create noise.
         private val STOPWORDS = setOf(
             "the", "and", "for", "are", "was", "with", "what", "how", "when", "who",

@@ -8,6 +8,7 @@ local.properties
 *.aab
 captures/
 .cxx/
+sagip*.png
 
 # Models — too large for git; pushed to device directly
 *.task
@@ -26,5 +27,8 @@ huggingface
 
 # Playwright reference captures (keep the design ref image, ignore run logs)
 .playwright-mcp/
+
+# Dev debug screenshots pulled from device during build
+sagip-*.png
 
 # Keep: PLAN.md, docs/, app/src, knowledge packs

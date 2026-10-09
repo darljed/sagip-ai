@@ -6,10 +6,24 @@
     "lang": "en",
     "title": "Before a typhoon — prepare",
     "severity": "caution",
-    "tags": ["typhoon","bagyo","prepare","go bag","signal","warning","before","paghahanda"],
+    "tags": [
+      "typhoon",
+      "bagyo",
+      "prepare",
+      "go bag",
+      "signal",
+      "warning",
+      "before",
+      "paghahanda"
+    ],
     "text": "1. Prepare a go-bag: drinking water, food, flashlight, power bank, whistle, first-aid kit, important documents in a plastic bag, and medicines.\n2. Charge all phones and power banks now while there is still electricity.\n3. Store clean drinking water in clean containers.\n4. Know your nearest evacuation center and the safest route to it.\n5. Listen to PAGASA warnings. Move valuables and appliances to higher ground.",
     "source": "NDRRMC / PAGASA Typhoon Preparedness",
-    "personalize": ["home","household_infant","household_elderly","medications"],
+    "personalize": [
+      "home",
+      "household_infant",
+      "household_elderly",
+      "medications"
+    ],
     "call_emergency": false
   },
   {
@@ -19,10 +33,24 @@
     "lang": "tl",
     "title": "Bago ang bagyo — maghanda",
     "severity": "caution",
-    "tags": ["typhoon","bagyo","prepare","go bag","signal","warning","before","paghahanda"],
+    "tags": [
+      "typhoon",
+      "bagyo",
+      "prepare",
+      "go bag",
+      "signal",
+      "warning",
+      "before",
+      "paghahanda"
+    ],
     "text": "1. Maghanda ng go-bag: tubig na maiinom, pagkain, flashlight, power bank, pito, first-aid kit, mahahalagang dokumento sa plastik, at gamot.\n2. I-charge na ang lahat ng cellphone at power bank habang may kuryente pa.\n3. Mag-imbak ng malinis na tubig na maiinom sa malinis na lalagyan.\n4. Alamin ang pinakamalapit na evacuation center at ang pinakaligtas na daan papunta rito.\n5. Makinig sa babala ng PAGASA. Ilipat sa mataas na lugar ang mahahalaga at appliances.",
     "source": "NDRRMC / PAGASA Typhoon Preparedness",
-    "personalize": ["home","household_infant","household_elderly","medications"],
+    "personalize": [
+      "home",
+      "household_infant",
+      "household_elderly",
+      "medications"
+    ],
     "call_emergency": false
   },
   {
@@ -32,10 +60,23 @@
     "lang": "en",
     "title": "Flood water entering the house — what to do",
     "severity": "urgent",
-    "tags": ["flood","baha","water rising","evacuate","lumalaki ang tubig","papasok","bahay"],
+    "tags": [
+      "flood",
+      "baha",
+      "water rising",
+      "evacuate",
+      "lumalaki ang tubig",
+      "papasok",
+      "bahay"
+    ],
     "text": "1. Turn off the main electrical switch and gas before water reaches outlets — only if you can reach it safely and dryly.\n2. Move to the highest safe floor or area with your go-bag. Bring infants, elderly, and PWDs first.\n3. Do NOT wade or walk through moving flood water — 15 cm of moving water can knock you down.\n4. If water keeps rising, evacuate to the designated center immediately; do not wait for it to get dark.\n5. Avoid flood water on your skin — it carries sewage and risk of leptospirosis. Wash and cover any wounds.",
     "source": "NDRRMC Flood Safety / DOH Leptospirosis Advisory",
-    "personalize": ["household_infant","household_elderly","household_pwd","home"],
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "home"
+    ],
     "call_emergency": true
   },
   {
@@ -45,10 +86,23 @@
     "lang": "tl",
     "title": "Pumapasok na ang baha sa bahay — ano ang gagawin",
     "severity": "urgent",
-    "tags": ["flood","baha","water rising","evacuate","lumalaki ang tubig","papasok","bahay"],
+    "tags": [
+      "flood",
+      "baha",
+      "water rising",
+      "evacuate",
+      "lumalaki ang tubig",
+      "papasok",
+      "bahay"
+    ],
     "text": "1. Patayin ang pangunahing switch ng kuryente at gas bago umabot ang tubig sa saksakan — kung ligtas at tuyo mong maaabot.\n2. Lumipat sa pinakamataas na ligtas na palapag kasama ang go-bag. Unahin ang sanggol, matanda, at PWD.\n3. HUWAG lumusong o maglakad sa umaagos na baha — kayang itumba ka ng 15 cm na umaagos na tubig.\n4. Kung patuloy na tumataas ang tubig, lumikas agad sa evacuation center; huwag hintayin na dumilim.\n5. Iwasang madikitan ng baha ang balat — may dumi at panganib ng leptospirosis. Hugasan at takpan ang anumang sugat.",
     "source": "NDRRMC Flood Safety / DOH Leptospirosis Advisory",
-    "personalize": ["household_infant","household_elderly","household_pwd","home"],
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "home"
+    ],
     "call_emergency": true
   },
   {
@@ -58,7 +112,16 @@
     "lang": "en",
     "title": "Downed power lines and electrical hazards",
     "severity": "critical",
-    "tags": ["electric","power line","kuryente","kuryenteng linya","shock","wire","nakuryente","kable"],
+    "tags": [
+      "electric",
+      "power line",
+      "kuryente",
+      "kuryenteng linya",
+      "shock",
+      "wire",
+      "nakuryente",
+      "kable"
+    ],
     "text": "1. Assume every fallen wire is LIVE. Stay at least 10 meters away.\n2. Never touch flood water that may be in contact with a downed line.\n3. If a wire falls on your vehicle, stay inside and call for help; only exit if there is fire, then jump clear without touching car and ground at once.\n4. Do not touch a person being electrocuted with bare hands — cut power first or use dry wood/plastic to separate them.\n5. Report downed lines to the electric utility and barangay when possible.",
     "source": "NDRRMC / Electric Utility Safety Advisory",
     "personalize": [],
@@ -71,7 +134,16 @@
     "lang": "tl",
     "title": "Nalaglag na linya ng kuryente at panganib sa koryente",
     "severity": "critical",
-    "tags": ["electric","power line","kuryente","kuryenteng linya","shock","wire","nakuryente","kable"],
+    "tags": [
+      "electric",
+      "power line",
+      "kuryente",
+      "kuryenteng linya",
+      "shock",
+      "wire",
+      "nakuryente",
+      "kable"
+    ],
     "text": "1. Ituring na BUHAY ang bawat nalaglag na kable. Lumayo nang hindi bababa sa 10 metro.\n2. Huwag kailanman hawakan ang baha na maaaring may dumidikit na nalaglag na linya.\n3. Kung may kableng bumagsak sa sasakyan mo, manatili sa loob at tumawag ng tulong; lumabas lang kung may apoy, saka tumalon nang malayo na hindi sabay nahahawakan ang kotse at lupa.\n4. Huwag hawakan ng kamay ang taong nakukuryente — patayin muna ang kuryente o gumamit ng tuyong kahoy/plastik para ihiwalay siya.\n5. Iulat ang nalaglag na linya sa kompanya ng kuryente at barangay kapag kaya na.",
     "source": "NDRRMC / Electric Utility Safety Advisory",
     "personalize": [],
@@ -84,10 +156,21 @@
     "lang": "en",
     "title": "Safe drinking water after a typhoon",
     "severity": "caution",
-    "tags": ["water","drinking water","tubig","inumin","boil","contaminated","malinis na tubig","sakit"],
+    "tags": [
+      "water",
+      "drinking water",
+      "tubig",
+      "inumin",
+      "boil",
+      "contaminated",
+      "malinis na tubig",
+      "sakit"
+    ],
     "text": "1. Assume tap and well water may be contaminated after flooding.\n2. Boil water at a rolling boil for at least 1 minute before drinking or cooking.\n3. If you cannot boil, disinfect clear water with household bleach: 2 drops of unscented bleach per liter, mix, wait 30 minutes.\n4. Store treated water in clean, covered containers.\n5. Do not use flood water for drinking, brushing teeth, or washing dishes.",
     "source": "DOH / WHO Water Safety Guidelines",
-    "personalize": ["household_infant"],
+    "personalize": [
+      "household_infant"
+    ],
     "call_emergency": false
   },
   {
@@ -97,10 +180,21 @@
     "lang": "tl",
     "title": "Ligtas na tubig na maiinom pagkatapos ng bagyo",
     "severity": "caution",
-    "tags": ["water","drinking water","tubig","inumin","boil","contaminated","malinis na tubig","sakit"],
+    "tags": [
+      "water",
+      "drinking water",
+      "tubig",
+      "inumin",
+      "boil",
+      "contaminated",
+      "malinis na tubig",
+      "sakit"
+    ],
     "text": "1. Ituring na maaaring kontaminado ang gripo at balon pagkatapos ng baha.\n2. Pakuluan ang tubig nang hindi bababa sa 1 minuto bago inumin o iluto.\n3. Kung hindi makapagpakulo, i-disinfect ang malinaw na tubig gamit ang bleach: 2 patak ng walang pabangong bleach kada litro, haluin, hintayin ng 30 minuto.\n4. Itago ang nilinis na tubig sa malinis at nakatakip na lalagyan.\n5. Huwag gamitin ang baha para inumin, magsipilyo, o maghugas ng pinggan.",
     "source": "DOH / WHO Water Safety Guidelines",
-    "personalize": ["household_infant"],
+    "personalize": [
+      "household_infant"
+    ],
     "call_emergency": false
   },
   {
@@ -110,10 +204,23 @@
     "lang": "en",
     "title": "When and how to evacuate",
     "severity": "urgent",
-    "tags": ["evacuate","lumikas","evacuation center","leave","kailan lumikas","signal no 4"],
+    "tags": [
+      "evacuate",
+      "lumikas",
+      "evacuation center",
+      "leave",
+      "kailan lumikas",
+      "signal no 4"
+    ],
     "text": "1. Evacuate immediately if local officials order it, if water is rising fast, or if your house is near a river, coast, or landslide-prone slope.\n2. Bring only your go-bag and essential medicines — do not waste time on belongings.\n3. Wear closed shoes and bring a whistle to signal for help.\n4. Follow the pre-planned route to the nearest evacuation center; avoid flooded roads and bridges.\n5. Tell a neighbor or family member where you are going. Keep infants, elderly, and PWDs with an assigned adult.",
     "source": "NDRRMC Evacuation Guidelines",
-    "personalize": ["home","household_infant","household_elderly","household_pwd","emergency_contact"],
+    "personalize": [
+      "home",
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
     "call_emergency": true
   },
   {
@@ -123,10 +230,649 @@
     "lang": "tl",
     "title": "Kailan at paano lumikas",
     "severity": "urgent",
-    "tags": ["evacuate","lumikas","evacuation center","leave","kailan lumikas","signal no 4"],
+    "tags": [
+      "evacuate",
+      "lumikas",
+      "evacuation center",
+      "leave",
+      "kailan lumikas",
+      "signal no 4"
+    ],
     "text": "1. Lumikas agad kung may utos ang mga opisyal, kung mabilis tumataas ang tubig, o kung malapit ang bahay sa ilog, dagat, o guho-prone na bundok.\n2. Dalhin lamang ang go-bag at mahahalagang gamot — huwag mag-aksaya ng oras sa gamit.\n3. Magsuot ng saradong sapatos at magdala ng pito para sumenyas ng tulong.\n4. Sundin ang naunang plano na ruta papunta sa pinakamalapit na evacuation center; iwasan ang bahang kalsada at tulay.\n5. Sabihin sa kapitbahay o pamilya kung saan ka pupunta. Panatilihin ang sanggol, matanda, at PWD na may kasamang itinalagang adulto.",
     "source": "NDRRMC Evacuation Guidelines",
-    "personalize": ["home","household_infant","household_elderly","household_pwd","emergency_contact"],
+    "personalize": [
+      "home",
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.during.shelter.001",
+    "pack": "typhoon_flood",
+    "topic": "during_typhoon",
+    "lang": "en",
+    "title": "During a typhoon — shelter in place",
+    "severity": "urgent",
+    "tags": [
+      "typhoon",
+      "bagyo",
+      "during",
+      "habagat",
+      "shelter",
+      "signal",
+      "malakas na hangin",
+      "stay indoors",
+      "huwag lumabas"
+    ],
+    "text": "1. Stay indoors and away from windows, glass doors, and outside walls. Move to the strongest, smallest interior room.\n2. Listen to PAGASA warnings and your LGU or barangay on battery radio or phone. Follow evacuation orders at once.\n3. Turn off LPG tanks and unplug appliances if flooding or brownouts threaten. Use flashlights, not candles.\n4. Do NOT go outside during the storm, including during the calm eye — violent winds return suddenly.\n5. Keep your go-bag, drinking water, and whistle with you. Check on infants, elderly, and PWDs in your home.",
+    "source": "NDRRMC / PAGASA Typhoon Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.during.shelter.001",
+    "pack": "typhoon_flood",
+    "topic": "during_typhoon",
+    "lang": "tl",
+    "title": "Habang may bagyo — manatili sa bahay",
+    "severity": "urgent",
+    "tags": [
+      "typhoon",
+      "bagyo",
+      "during",
+      "habagat",
+      "shelter",
+      "signal",
+      "malakas na hangin",
+      "stay indoors",
+      "huwag lumabas"
+    ],
+    "text": "1. Manatili sa loob ng bahay at lumayo sa bintana, salaming pinto, at panlabas na pader. Pumunta sa pinakamatibay at pinakamaliit na kuwarto sa loob.\n2. Makinig sa babala ng PAGASA at ng LGU o barangay sa de-bateryang radyo o cellphone. Sundin agad ang utos na lumikas.\n3. Isara ang tangke ng LPG at bunutin ang appliances kung may banta ng baha o brownout. Gumamit ng flashlight, hindi kandila.\n4. HUWAG lumabas habang may bagyo, kahit sa gitnang kalmado (mata) — biglang bumabalik ang malakas na hangin.\n5. Itabi ang go-bag, tubig na maiinom, at pito. Kumustahin ang sanggol, matanda, at PWD sa bahay.",
+    "source": "NDRRMC / PAGASA Typhoon Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.after.cleanup.001",
+    "pack": "typhoon_flood",
+    "topic": "after_flood",
+    "lang": "en",
+    "title": "After a flood — cleanup and disease prevention",
+    "severity": "caution",
+    "tags": [
+      "after flood",
+      "cleanup",
+      "baha",
+      "pagkatapos ng baha",
+      "leptospirosis",
+      "linis",
+      "diarrhea",
+      "paglilinis",
+      "sakit",
+      "dengue"
+    ],
+    "text": "1. Do NOT return home until officials say it is safe. Watch for weakened structures, live wires, and gas leaks.\n2. Avoid wading in flood water. Wear boots and gloves during cleanup; wash hands and cover wounds — flood water carries leptospirosis and germs.\n3. Throw away food, medicines, and bottled water touched by flood water. Boil or treat drinking water.\n4. Clean and disinfect floors, walls, and utensils. Dry the house fully to prevent mold and mosquitoes.\n5. Watch for fever, diarrhea, or infected wounds in the days after. Seek care early and tell the clinic about flood exposure.",
+    "source": "DOH / NDRRMC Post-Flood Health Advisory",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.after.cleanup.001",
+    "pack": "typhoon_flood",
+    "topic": "after_flood",
+    "lang": "tl",
+    "title": "Pagkatapos ng baha — paglilinis at iwas-sakit",
+    "severity": "caution",
+    "tags": [
+      "after flood",
+      "cleanup",
+      "baha",
+      "pagkatapos ng baha",
+      "leptospirosis",
+      "linis",
+      "diarrhea",
+      "paglilinis",
+      "sakit",
+      "dengue"
+    ],
+    "text": "1. HUWAG bumalik sa bahay hangga't hindi sinasabi ng awtoridad na ligtas na. Mag-ingat sa huminang istraktura, buhay na kable, at tumatagas na gas.\n2. Iwasang lumusong sa baha. Magsuot ng bota at guwantes sa paglilinis; maghugas ng kamay at takpan ang sugat — may leptospirosis at mikrobyo ang baha.\n3. Itapon ang pagkain, gamot, at boteng tubig na nadikit sa baha. Pakuluan o linisin ang tubig na iinumin.\n4. Linisin at i-disinfect ang sahig, pader, at kagamitan. Patuyuin nang husto ang bahay para iwas amag at lamok.\n5. Bantayan ang lagnat, pagtatae, o sugat na namaga sa mga araw pagkatapos. Magpatingin agad at sabihin sa clinic na nalubog sa baha.",
+    "source": "DOH / NDRRMC Post-Flood Health Advisory",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.landslide.safety.001",
+    "pack": "typhoon_flood",
+    "topic": "landslide",
+    "lang": "en",
+    "title": "Landslide warning signs and escape",
+    "severity": "urgent",
+    "tags": [
+      "landslide",
+      "guho",
+      "lupa",
+      "mudslide",
+      "bundok",
+      "pagguho",
+      "evacuate",
+      "slope",
+      "rumbling",
+      "bitak"
+    ],
+    "text": "1. Know the warning signs: new cracks in soil or walls, tilting trees or posts, rumbling sounds, or sudden muddy or rising stream water.\n2. If you suspect a landslide, leave immediately for high, stable ground — move sideways away from the slide path, never along it.\n3. Warn neighbors loudly and bring children, elderly, and PWDs with you. Bring only your go-bag.\n4. If escape is impossible, curl into a tight ball and cover your head and neck.\n5. After the slide, stay away — more slides may follow. Report to the barangay and do not return until cleared.",
+    "source": "NDRRMC / PHIVOLCS Landslide Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.landslide.safety.001",
+    "pack": "typhoon_flood",
+    "topic": "landslide",
+    "lang": "tl",
+    "title": "Senyales ng landslide at pagtakas",
+    "severity": "urgent",
+    "tags": [
+      "landslide",
+      "guho",
+      "lupa",
+      "mudslide",
+      "bundok",
+      "pagguho",
+      "evacuate",
+      "slope",
+      "rumbling",
+      "bitak"
+    ],
+    "text": "1. Alamin ang mga senyales: bagong bitak sa lupa o pader, tumatagilid na puno o poste, ugong, o biglang lumabo o lumakas na tubig sa sapa.\n2. Kung pinaghihinalaan ang landslide, umalis agad papunta sa mataas at matatag na lugar — gumalaw patagilid palayo sa dadaanan ng guho, huwag pasalubong dito.\n3. Balaan nang malakas ang mga kapitbahay at isama ang bata, matanda, at PWD. Dalhin lang ang go-bag.\n4. Kung hindi na makatakas, mamilipit na parang bola at takpan ang ulo at leeg.\n5. Pagkatapos ng guho, huwag lumapit — puwedeng may kasunod pa. Iulat sa barangay at huwag bumalik hangga't hindi pinapayagan.",
+    "source": "NDRRMC / PHIVOLCS Landslide Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.surges.warning.001",
+    "pack": "typhoon_flood",
+    "topic": "storm_surge",
+    "lang": "en",
+    "title": "Storm surge warning (coastal flooding)",
+    "severity": "critical",
+    "tags": [
+      "storm surge",
+      "daluyong",
+      "coastal",
+      "tabing dagat",
+      "alon",
+      "evacuate",
+      "dagat",
+      "baha sa dagat",
+      "surge warning",
+      "lumikas"
+    ],
+    "text": "1. A storm surge is seawater pushed ashore by a typhoon — it arrives fast, with waves and debris. A PAGASA surge warning means leave coastal and low areas NOW.\n2. Evacuate inland to high ground before landfall. Bring your go-bag and help children, elderly, and PWDs.\n3. Never stay behind to guard the house or boats. Do NOT go to the shore to watch the waves.\n4. Stay away from the coast until officials give the all-clear — flood water may keep rising as the typhoon makes landfall.\n5. After the surge, avoid debris-filled water and live wires. Report missing persons to the barangay.",
+    "source": "PAGASA / NDRRMC Storm Surge Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.surges.warning.001",
+    "pack": "typhoon_flood",
+    "topic": "storm_surge",
+    "lang": "tl",
+    "title": "Babala ng storm surge (pagbaha mula sa dagat)",
+    "severity": "critical",
+    "tags": [
+      "storm surge",
+      "daluyong",
+      "coastal",
+      "tabing dagat",
+      "alon",
+      "evacuate",
+      "dagat",
+      "baha sa dagat",
+      "surge warning",
+      "lumikas"
+    ],
+    "text": "1. Ang storm surge ay tubig-dagat na itinutulak ng bagyo papunta sa pampang — mabilis itong dumarating, may kasamang alon at kalat. Ang babala ng PAGASA ay nangangahulugang lumikas NA sa baybayin at mababang lugar.\n2. Lumikas papunta sa mataas na lugar bago mag-landfall. Dalhin ang go-bag at tulungan ang bata, matanda, at PWD.\n3. Huwag magpaiwan para bantayan ang bahay o bangka. HUWAG pumunta sa dalampasigan para manood ng alon.\n4. Lumayo sa baybayin hangga't walang all-clear ang awtoridad — puwedeng patuloy na tumaas ang tubig habang nagla-landfall ang bagyo.\n5. Pagkatapos ng surge, iwasan ang tubig na may kalat at buhay na kable. Iulat sa barangay ang mga nawawala.",
+    "source": "PAGASA / NDRRMC Storm Surge Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.leptospirosis.exposure.001",
+    "pack": "typhoon_flood",
+    "topic": "leptospirosis",
+    "lang": "en",
+    "title": "Leptospirosis risk after wading in flood",
+    "severity": "urgent",
+    "tags": [
+      "leptospirosis",
+      "lepto",
+      "baha",
+      "lumusong",
+      "wading",
+      "lagnat pagkatapos ng baha",
+      "muscle pain",
+      "sakit ng katawan",
+      "ihi ng daga",
+      "flood disease"
+    ],
+    "text": "1. Leptospirosis spreads through flood water contaminated with animal urine — risk is highest when wading with open wounds. Avoid wading; wear boots if you must.\n2. After any flood exposure, wash skin with soap and clean water and cover all wounds.\n3. Watch for symptoms for up to 30 days: fever, calf muscle pain, red eyes, headache, vomiting, yellow skin, or dark urine.\n4. Seek care early and mention the flood exposure — treatment works best when started early. Ask the health center about preventive medicine.\n5. Do NOT self-medicate with leftover antibiotics.",
+    "source": "DOH Leptospirosis Advisory",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.leptospirosis.exposure.001",
+    "pack": "typhoon_flood",
+    "topic": "leptospirosis",
+    "lang": "tl",
+    "title": "Panganib ng leptospirosis pagkatapos lumusong sa baha",
+    "severity": "urgent",
+    "tags": [
+      "leptospirosis",
+      "lepto",
+      "baha",
+      "lumusong",
+      "wading",
+      "lagnat pagkatapos ng baha",
+      "muscle pain",
+      "sakit ng katawan",
+      "ihi ng daga",
+      "flood disease"
+    ],
+    "text": "1. Kumakalat ang leptospirosis sa baha na kontaminado ng ihi ng hayop — pinakamataas ang panganib kapag lumulusong nang may bukas na sugat. Iwasang lumusong; magsuot ng bota kung kailangan.\n2. Pagkatapos madikit sa baha, maghugas ng sabon at malinis na tubig at takpan ang lahat ng sugat.\n3. Bantayan ang sintomas hanggang 30 araw: lagnat, sakit ng binti (binti), pulang mata, sakit ng ulo, pagsusuka, paninilaw, o maitim na ihi.\n4. Magpatingin agad at sabihin ang pagkalubog sa baha — mas epektibo ang gamutan kapag maaga. Magtanong sa health center tungkol sa pang-iwas na gamot.\n5. HUWAG uminom ng tira-tirang antibiotic nang walang reseta.",
+    "source": "DOH Leptospirosis Advisory",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.brownout.generator.001",
+    "pack": "typhoon_flood",
+    "topic": "brownout_generator",
+    "lang": "en",
+    "title": "Brownout safety — generators and candles",
+    "severity": "urgent",
+    "tags": [
+      "brownout",
+      "generator",
+      "carbon monoxide",
+      "uling",
+      "kandila",
+      "candle",
+      "usok",
+      "blackout",
+      "kuryente",
+      "genset",
+      "pagkalason"
+    ],
+    "text": "1. NEVER run a generator, grill, or charcoal stove indoors, in a garage, or near windows — the invisible gas (carbon monoxide) can kill in minutes. Keep generators outdoors, exhaust facing away.\n2. NEVER use candles near curtains, papers, or where children play. Use flashlights instead.\n3. Unplug appliances to prevent damage from power surges when electricity returns. Keep one light on to know when power is back.\n4. If anyone gets a headache, dizziness, nausea, or confusion around a generator or charcoal fire — move them to fresh air at once and call for emergency help.\n5. Keep refrigerator doors closed to preserve food. Throw away food that smells or has been warm for hours.",
+    "source": "DOH / Bureau of Fire Protection (BFP) Brownout Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.brownout.generator.001",
+    "pack": "typhoon_flood",
+    "topic": "brownout_generator",
+    "lang": "tl",
+    "title": "Kaligtasan sa brownout — generator at kandila",
+    "severity": "urgent",
+    "tags": [
+      "brownout",
+      "generator",
+      "carbon monoxide",
+      "uling",
+      "kandila",
+      "candle",
+      "usok",
+      "blackout",
+      "kuryente",
+      "genset",
+      "pagkalason"
+    ],
+    "text": "1. HUWAG kailanman paandarin ang generator, ihawan, o ulingan sa loob ng bahay, garahe, o malapit sa bintana — nakamamatay sa loob ng ilang minuto ang hindi nakikitang gas (carbon monoxide). Ilagay ang generator sa labas, nakaharap palayo ang tambutso.\n2. HUWAG gumamit ng kandila malapit sa kurtina, papel, o kung saan naglalaro ang bata. Gumamit ng flashlight.\n3. Bunutin ang appliances para hindi masira sa pagbalik ng kuryente. Mag-iwan ng isang ilaw na bukas para malaman kung bumalik na ang kuryente.\n4. Kung may sumakit ang ulo, nahilo, nasuka, o nalito malapit sa generator o ulingan — ilabas agad sa sariwang hangin at humingi ng tulong medikal.\n5. Panatilihing nakasara ang ref para hindi masira ang pagkain. Itapon ang pagkaing mabaho o matagal nang mainit.",
+    "source": "DOH / Bureau of Fire Protection (BFP) Brownout Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.stranded.rooftop.001",
+    "pack": "typhoon_flood",
+    "topic": "stranded_rooftop",
+    "lang": "en",
+    "title": "Stranded on a roof by flood — signal for rescue",
+    "severity": "critical",
+    "tags": [
+      "stranded",
+      "na-trap sa bubong",
+      "bubong",
+      "roof",
+      "baha",
+      "rescue",
+      "sagip",
+      "tulong",
+      "whistle",
+      "pito",
+      "nalubog",
+      "flooded"
+    ],
+    "text": "1. Move to the highest stable point — roof or upper floor — with your go-bag, water, and phone. Bring children, elderly, and PWDs with you.\n2. Signal rescuers: blow a whistle in blasts, wave a bright cloth, flash a light at night. Conserve your phone battery.\n3. Send ONE clear text with your exact address, landmarks, and number of people if there is signal — then stop using the phone.\n4. Do NOT swim or wade through flood water to escape — currents, debris, and hidden holes kill. Wait for trained rescuers.\n5. Stay together, keep warm, and keep shouting or signaling until rescuers reach you.",
+    "source": "NDRRMC Flood Rescue Guidance",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.stranded.rooftop.001",
+    "pack": "typhoon_flood",
+    "topic": "stranded_rooftop",
+    "lang": "tl",
+    "title": "Na-trap sa bubong dahil sa baha — sumenyas para masagip",
+    "severity": "critical",
+    "tags": [
+      "stranded",
+      "na-trap sa bubong",
+      "bubong",
+      "roof",
+      "baha",
+      "rescue",
+      "sagip",
+      "tulong",
+      "whistle",
+      "pito",
+      "nalubog",
+      "flooded"
+    ],
+    "text": "1. Pumunta sa pinakamataas at pinakamatibay na lugar — bubong o itaas na palapag — kasama ang go-bag, tubig, at cellphone. Isama ang bata, matanda, at PWD.\n2. Sumenyas sa rescuer: pumito nang malakas, ikaway ang matingkad na tela, kumislap ng ilaw sa gabi. Tipirin ang baterya ng cellphone.\n3. Magpadala ng ISANG malinaw na text na may eksaktong address, palatandaan, at bilang ng tao kung may signal — saka itigil ang paggamit ng cellphone.\n4. HUWAG lumangoy o lumusong sa baha para tumakas — nakamamatay ang agos, kalat, at nakatagong butas. Hintayin ang sanay na rescuer.\n5. Manatiling magkakasama, panatilihing mainit ang katawan, at patuloy na sumenyas hanggang maabot kayo ng rescuer.",
+    "source": "NDRRMC Flood Rescue Guidance",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.dengue.afterflood.001",
+    "pack": "typhoon_flood",
+    "topic": "dengue_after_flood",
+    "lang": "en",
+    "title": "Dengue risk after floods (mosquitoes)",
+    "severity": "caution",
+    "tags": [
+      "dengue",
+      "lamok",
+      "mosquito",
+      "stagnant water",
+      "naipong tubig",
+      "lagnat",
+      "rashes",
+      "pantal",
+      "fogging",
+      "kagat ng lamok",
+      "pamamaga"
+    ],
+    "text": "1. Floods leave stagnant water where dengue mosquitoes breed. Empty, cover, or throw away anything holding water — tires, cans, gutters, plant saucers.\n2. Cover stored water tightly and change vase water every few days.\n3. Use mosquito nets when sleeping and repellent or long sleeves at dawn and dusk, when dengue mosquitoes bite most.\n4. Watch for dengue signs 4 to 10 days after bites: sudden high fever with headache, eye pain, joint pain, or rash.\n5. Seek care urgently for warning signs: stomach pain, repeated vomiting, bleeding gums or nose, vomiting blood, or extreme tiredness.",
+    "source": "DOH National Dengue Prevention and Control Program",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.dengue.afterflood.001",
+    "pack": "typhoon_flood",
+    "topic": "dengue_after_flood",
+    "lang": "tl",
+    "title": "Panganib ng dengue pagkatapos ng baha (lamok)",
+    "severity": "caution",
+    "tags": [
+      "dengue",
+      "lamok",
+      "mosquito",
+      "stagnant water",
+      "naipong tubig",
+      "lagnat",
+      "rashes",
+      "pantal",
+      "fogging",
+      "kagat ng lamok",
+      "pamamaga"
+    ],
+    "text": "1. Nag-iiwan ang baha ng naipong tubig na pinamumugaran ng lamok na may dengue. Alisin, takpan, o itapon ang lahat ng naiipunan ng tubig — gulong, lata, alulod, sahod ng halaman.\n2. Takpang mabuti ang iniimbak na tubig at palitan ang tubig sa plorera kada ilang araw.\n3. Gumamit ng kulambo sa pagtulog at repellent o mahabang manggas sa madaling-araw at dapit-hapon, kung kailan pinakaaktibo ang lamok ng dengue.\n4. Bantayan ang senyales ng dengue 4 hanggang 10 araw pagkatapos makagat: biglang mataas na lagnat na may sakit ng ulo, sakit sa mata, sakit ng kasukasuan, o pantal.\n5. Magpatingin agad kung may babala: sakit ng tiyan, paulit-ulit na pagsusuka, pagdurugo ng gilagid o ilong, pagsusuka ng dugo, o matinding panghihina.",
+    "source": "DOH National Dengue Prevention and Control Program",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.evaccenter.life.001",
+    "pack": "typhoon_flood",
+    "topic": "evacuation_center",
+    "lang": "en",
+    "title": "Life in an evacuation center",
+    "severity": "caution",
+    "tags": [
+      "evacuation center",
+      "evacuation",
+      "lumikas",
+      "center",
+      "bakwit",
+      "camp",
+      "siksikan",
+      "toilet",
+      "hygiene",
+      "kalinisan",
+      "relief"
+    ],
+    "text": "1. Register with center staff on arrival. Note the exits, toilets, water points, and clinic location.\n2. Keep documents, money, and valuables on your body. Never leave children unattended.\n3. Keep your space clean, use toilets properly, and wash hands often. Report fever, diarrhea, or rashes to the clinic early.\n4. Share supplies fairly and follow staff rules on noise, curfew, and cooking areas.\n5. Help elderly, PWD, and pregnant neighbors. Do NOT return home until officials say it is safe.",
+    "source": "NDRRMC / DSWD Evacuation Center Guidelines",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "household_pregnant",
+      "emergency_contact"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.evaccenter.life.001",
+    "pack": "typhoon_flood",
+    "topic": "evacuation_center",
+    "lang": "tl",
+    "title": "Buhay sa evacuation center",
+    "severity": "caution",
+    "tags": [
+      "evacuation center",
+      "evacuation",
+      "lumikas",
+      "center",
+      "bakwit",
+      "camp",
+      "siksikan",
+      "toilet",
+      "hygiene",
+      "kalinisan",
+      "relief"
+    ],
+    "text": "1. Magparehistro sa staff pagdating. Tandaan ang labasan, banyo, kuhanan ng tubig, at clinic.\n2. Itago sa katawan ang dokumento, pera, at mahahalagang gamit. Huwag iwanang walang bantay ang bata.\n3. Panatilihing malinis ang puwesto, gamitin nang tama ang banyo, at maghugas ng kamay nang madalas. Iulat agad sa clinic ang lagnat, pagtatae, o pantal.\n4. Maging patas sa relief goods at sundin ang patakaran ng staff sa ingay, curfew, at lutuan.\n5. Tulungan ang matanda, PWD, at buntis na kapitbahay. HUWAG bumalik sa bahay hangga't hindi sinasabi ng awtoridad na ligtas na.",
+    "source": "NDRRMC / DSWD Evacuation Center Guidelines",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "household_pregnant",
+      "emergency_contact"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.mold.cleanup.001",
+    "pack": "typhoon_flood",
+    "topic": "mold_cleanup",
+    "lang": "en",
+    "title": "Mold cleanup after flooding",
+    "severity": "caution",
+    "tags": [
+      "mold",
+      "amag",
+      "mildew",
+      "cleanup",
+      "linis",
+      "baha",
+      "amoy kulob",
+      "allergy",
+      "mask",
+      "baho",
+      "pader"
+    ],
+    "text": "1. Ventilate — open all doors and windows. Wear a mask, gloves, and goggles. Keep children, elderly, and people with asthma OUT during cleanup.\n2. Throw away moldy porous items (mattresses, pillows, paper, stuffed toys) — they cannot be saved.\n3. Scrub hard surfaces with soap or detergent and water, then dry fully with fans and sunlight.\n4. NEVER mix bleach with ammonia or other cleaners — it makes poisonous gas. If using bleach, dilute it and keep the room ventilated.\n5. Seek care for breathing trouble, wheezing, or rashes that appear during or after cleanup.",
+    "source": "DOH / WHO Dampness and Mold Health Guidelines",
+    "personalize": [
+      "conditions",
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.mold.cleanup.001",
+    "pack": "typhoon_flood",
+    "topic": "mold_cleanup",
+    "lang": "tl",
+    "title": "Paglilinis ng amag pagkatapos ng baha",
+    "severity": "caution",
+    "tags": [
+      "mold",
+      "amag",
+      "mildew",
+      "cleanup",
+      "linis",
+      "baha",
+      "amoy kulob",
+      "allergy",
+      "mask",
+      "baho",
+      "pader"
+    ],
+    "text": "1. Pahanginan — buksan ang lahat ng pinto at bintana. Magsuot ng mask, guwantes, at salaming proteksyon. Ilayo ang bata, matanda, at may hika habang naglilinis.\n2. Itapon ang inaamag na bagay na sumisipsip (kutson, unan, papel, stuffed toys) — hindi na ito maisasalba.\n3. Kuskusin ang matitigas na parte ng sabon o detergent at tubig, saka patuyuin nang husto sa bentilador at araw.\n4. HUWAG kailanman paghaluin ang bleach at ammonia o ibang panlinis — nakalalason ang gas nito. Kung gagamit ng bleach, tunawin at panatilihing mahangin ang kuwarto.\n5. Magpatingin kung may hirap sa paghinga, huni sa dibdib, o pantal habang o pagkatapos maglinis.",
+    "source": "DOH / WHO Dampness and Mold Health Guidelines",
+    "personalize": [
+      "conditions",
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "typhoon.tornado.ipoipo.001",
+    "pack": "typhoon_flood",
+    "topic": "tornado_ipoipo",
+    "lang": "en",
+    "title": "Tornado / ipo-ipo (buhawi)",
+    "severity": "urgent",
+    "tags": [
+      "tornado",
+      "ipo-ipo",
+      "ipoipo",
+      "buhawi",
+      "alimpuyo",
+      "wind",
+      "hangin",
+      "bubong",
+      "roof",
+      "funnel",
+      "sigaw"
+    ],
+    "text": "1. Go to the lowest, innermost small room with no windows (bathroom, closet, under stairs). Protect your head with your arms, a mattress, or a helmet.\n2. Mobile homes, cars, and open halls are NOT safe — move to the nearest sturdy building. As a last resort outdoors, lie flat in a low ditch covering your head (but beware flash flooding).\n3. NEVER shelter under overpasses or bridges — wind speeds up underneath and debris funnels through.\n4. After it passes: watch for live wires and gas leaks, stay out of rubble, and check on neighbors.",
+    "source": "PAGASA / NDRRMC Tornado Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "typhoon.tornado.ipoipo.001",
+    "pack": "typhoon_flood",
+    "topic": "tornado_ipoipo",
+    "lang": "tl",
+    "title": "Ipo-ipo / buhawi (tornado)",
+    "severity": "urgent",
+    "tags": [
+      "tornado",
+      "ipo-ipo",
+      "ipoipo",
+      "buhawi",
+      "alimpuyo",
+      "wind",
+      "hangin",
+      "bubong",
+      "roof",
+      "funnel",
+      "sigaw"
+    ],
+    "text": "1. Pumunta sa pinakamababa at pinakaloob na maliit na kuwartong walang bintana (banyo, aparador, ilalim ng hagdan). Protektahan ang ulo ng mga braso, kutson, o helmet.\n2. HINDI ligtas ang mobile home, kotse, at bukas na hall — lumipat sa pinakamalapit na matibay na gusali. Kung wala nang mapuntahan sa labas, dumapa sa mababang kanal na tinatakpan ang ulo (pero mag-ingat sa flash flood).\n3. HUWAG sumilong sa ilalim ng overpass o tulay — bumibilis ang hangin sa ilalim at dumadaan doon ang kalat.\n4. Pagkatapos lumipas: mag-ingat sa buhay na kable at tumatagas na gas, huwag pumasok sa guho, at kumustahin ang mga kapitbahay.",
+    "source": "PAGASA / NDRRMC Tornado Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd"
+    ],
     "call_emergency": true
   }
 ]

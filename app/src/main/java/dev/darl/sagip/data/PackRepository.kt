@@ -24,6 +24,9 @@ class PackRepository(val chunks: List<Chunk>) {
             "packs/first_aid.json",
             "packs/typhoon_flood.json",
             "packs/earthquake.json",
+            "packs/fire.json",
+            "packs/volcano.json",
+            "packs/wildlife.json",
         )
 
         /** Load from Android assets (device/app runtime). */

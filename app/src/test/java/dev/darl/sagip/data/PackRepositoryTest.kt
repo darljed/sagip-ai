@@ -23,17 +23,19 @@ class PackRepositoryTest {
             PackRepository.parsePack(f.readText())
         }
 
-    @Test fun allChunksLoad_andCountIs32() {
+    @Test fun allChunksLoad_andCorpusIsNonTrivial() {
         val chunks = loadAll()
-        assertEquals("expected 32 total chunks", 32, chunks.size)
+        // Count is intentionally NOT hardcoded — packs grow. Assert a sane floor and
+        // that every topic ships as an EN+TL pair (so the total is even).
+        assertTrue("expected a non-trivial corpus, got ${chunks.size}", chunks.size >= 32)
+        assertEquals("corpus must be EN/TL paired (even count)", 0, chunks.size % 2)
     }
 
     @Test fun enTlBalanceIsEqual() {
         val chunks = loadAll()
         val en = chunks.count { it.lang == "en" }
         val tl = chunks.count { it.lang == "tl" }
-        assertEquals("EN count", 16, en)
-        assertEquals("TL count", 16, tl)
+        assertEquals("EN and TL chunk counts must match", en, tl)
     }
 
     @Test fun everyEnChunkHasTlTwin_sameIdStem() {
@@ -54,9 +56,11 @@ class PackRepositoryTest {
         }
     }
 
-    @Test fun threePacksPresent() {
+    @Test fun corePacksPresent() {
         val repo = PackRepository(loadAll())
-        assertEquals(setOf("first_aid", "typhoon_flood", "earthquake"), repo.packNames)
+        // The three originals must always be present; extra packs (fire, volcano, …)
+        // are welcome and must not break this.
+        assertTrue(repo.packNames.containsAll(setOf("first_aid", "typhoon_flood", "earthquake")))
     }
 
     @Test fun criticalChunksCallEmergency() {

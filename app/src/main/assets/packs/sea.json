@@ -1,0 +1,162 @@
+[
+  {
+    "id": "sea.ripcurrent.safety.001",
+    "pack": "sea",
+    "topic": "rip_current",
+    "lang": "en",
+    "title": "Rip current (pulled out to sea)",
+    "severity": "critical",
+    "tags": [
+      "rip current",
+      "anod",
+      "tangay",
+      "dagat",
+      "current",
+      "agos",
+      "beach",
+      "swimming",
+      "nalunod",
+      "drowning",
+      "palayo",
+      "surf"
+    ],
+    "text": "1. Spot it early: a channel of choppy, foamy, or discolored water pulling outward, with debris or seaweed moving steadily seaward.\n2. Do NOT fight the current by swimming straight back to shore — you will exhaust yourself and drown. Stay calm and float.\n3. Swim PARALLEL to the shore until free of the pull, then angle back to the beach. If tired, float on your back and wave for help.\n4. If helping: do NOT swim out unless trained — throw a float, rope, or cooler and call the lifeguard or Coast Guard.\n5. After rescue, watch breathing closely — breathing trouble can return later (see drowning).",
+    "source": "Philippine Coast Guard (PCG) Water Safety",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "sea.ripcurrent.safety.001",
+    "pack": "sea",
+    "topic": "rip_current",
+    "lang": "tl",
+    "title": "Rip current (tinatangay palabas ng dagat)",
+    "severity": "critical",
+    "tags": [
+      "rip current",
+      "anod",
+      "tangay",
+      "dagat",
+      "current",
+      "agos",
+      "beach",
+      "swimming",
+      "nalunod",
+      "drowning",
+      "palayo",
+      "surf"
+    ],
+    "text": "1. Kilalanin agad: daanan ng magulo, mabula, o malabong tubig na humihila palabas, na may kalat o damong-dagat na diretso ang galaw padagat.\n2. HUWAG labanan ang agos sa paglangoy nang diretso pabalik — mauubos ang lakas at malulunod. Huminahon at lumutang.\n3. Lumangoy nang PAHALANG sa dalampasigan hanggang makawala sa hila, saka lumangoy pabalik nang patagilid. Kung pagod, lumutang nang nakatihaya at kumaway ng tulong.\n4. Kung tutulong: HUWAG lumangoy palabas kung hindi sanay — ihagis ang lutang na bagay, lubid, o cooler at tumawag ng lifeguard o Coast Guard.\n5. Pagkatapos masagip, bantayang mabuti ang paghinga — puwedeng bumalik ang hirap sa paghinga kalaunan (tingnan ang drowning).",
+    "source": "Philippine Coast Guard (PCG) Water Safety",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "sea.capsize.boat.001",
+    "pack": "sea",
+    "topic": "boat_capsize",
+    "lang": "en",
+    "title": "Boat capsized (tumaob na bangka)",
+    "severity": "critical",
+    "tags": [
+      "capsize",
+      "tumaob",
+      "bangka",
+      "boat",
+      "lumubog",
+      "sinking",
+      "life vest",
+      "salbabida",
+      "dagat",
+      "rescue",
+      "alon",
+      "fishing"
+    ],
+    "text": "1. STAY WITH THE BOAT — even capsized, it floats and is far easier for rescuers to spot than a lone swimmer.\n2. Put on life vests and hold onto the hull. Count heads at once and search for anyone missing.\n3. Do NOT swim for shore unless it is very close and the water is calm — cold and currents exhaust fast.\n4. Signal: wave paddles or bright cloth, blow a whistle in blasts, flash lights at night.\n5. If the boat sinks fully, huddle together to stay warm and keep signaling until rescue comes.",
+    "source": "Philippine Coast Guard (PCG) Sea Survival",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "sea.capsize.boat.001",
+    "pack": "sea",
+    "topic": "boat_capsize",
+    "lang": "tl",
+    "title": "Tumaob na bangka",
+    "severity": "critical",
+    "tags": [
+      "capsize",
+      "tumaob",
+      "bangka",
+      "boat",
+      "lumubog",
+      "sinking",
+      "life vest",
+      "salbabida",
+      "dagat",
+      "rescue",
+      "alon",
+      "fishing"
+    ],
+    "text": "1. MANATILI SA BANGKA — kahit taob, lumulutang ito at mas madaling makita ng rescuer kaysa mag-isang manlalangoy.\n2. Magsuot ng life vest at kumapit sa katawan ng bangka. Bilangin agad ang lahat at hanapin ang nawawala.\n3. HUWAG lumangoy papunta sa pampang maliban kung napakalapit at kalmado ang tubig — mabilis maubos ang lakas sa lamig at agos.\n4. Sumenyas: ikaway ang sagwan o matingkad na tela, pumito nang malakas, kumislap ng ilaw sa gabi.\n5. Kung tuluyang lumubog ang bangka, magdikit-dikit para manatiling mainit at patuloy na sumenyas hanggang dumating ang rescue.",
+    "source": "Philippine Coast Guard (PCG) Sea Survival",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "sea.stranded.engine.001",
+    "pack": "sea",
+    "topic": "stranded_at_sea",
+    "lang": "en",
+    "title": "Stranded at sea (engine failure, no signal)",
+    "severity": "urgent",
+    "tags": [
+      "stranded",
+      "nasiraan",
+      "makina",
+      "engine",
+      "dagat",
+      "no signal",
+      "walang signal",
+      "bangka",
+      "drift",
+      "palutang",
+      "mangingisda",
+      "rescue"
+    ],
+    "text": "1. Slow the drift: drop anchor, or a bucket on a rope as a drift anchor. Note your last position and drift direction.\n2. Conserve water, fuel, and phone battery — ONE text with your position to family or the Coast Guard beats repeated calls.\n3. Signal: fly a bright flag or cloth high, flash a mirror by day and lights at night. Be visible, not camouflaged.\n4. NEVER drink seawater — it dehydrates faster. Ration drinking water and collect rainwater if it rains.\n5. Watch sky and waves and prepare for weather. Stay with the boat until rescue — never abandon it for a swim.",
+    "source": "Philippine Coast Guard (PCG) Sea Survival",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "sea.stranded.engine.001",
+    "pack": "sea",
+    "topic": "stranded_at_sea",
+    "lang": "tl",
+    "title": "Nasiraan sa dagat (sirang makina, walang signal)",
+    "severity": "urgent",
+    "tags": [
+      "stranded",
+      "nasiraan",
+      "makina",
+      "engine",
+      "dagat",
+      "no signal",
+      "walang signal",
+      "bangka",
+      "drift",
+      "palutang",
+      "mangingisda",
+      "rescue"
+    ],
+    "text": "1. Bagalan ang pagkaanod: magbaba ng angkla, o timba na may lubid bilang drift anchor. Tandaan ang huling posisyon at direksyon ng anod.\n2. Tipirin ang tubig, gasolina, at baterya ng cellphone — ISANG text na may posisyon sa pamilya o Coast Guard ang mas epektibo kaysa ulit-ulit na tawag.\n3. Sumenyas: magtaas ng matingkad na bandila o tela, kumislap ng salamin sa araw at ilaw sa gabi. Magpakitang-kita, huwag magtago.\n4. HUWAG kailanman uminom ng tubig-dagat — mas mabilis itong nakaka-dehydrate. Tipirin ang inuming tubig at sumahod ng ulan kung umulan.\n5. Bantayan ang langit at alon at maghanda sa panahon. Manatili sa bangka hanggang ma-rescue — huwag itong iwan para lumangoy.",
+    "source": "Philippine Coast Guard (PCG) Sea Survival",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  }
+]

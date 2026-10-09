@@ -18,7 +18,7 @@ enum class ModelConfig(
     val minFreeGb: Int,
 ) {
     GEMMA3_1B("Gemma 3 1B", "gemma3-1b-it-int4.litertlm", minFreeGb = 2),
-    GEMMA4_E2B("Gemma 4 E2B", "gemma-4-e2b-it-int4.litertlm", minFreeGb = 5);
+    GEMMA3N_E2B("Gemma 3n E2B", "gemma-3n-e2b-it-int4.litertlm", minFreeGb = 6);
 
     val path: String get() = "$LLM_DIR/$fileName"
 
@@ -27,8 +27,10 @@ enum class ModelConfig(
     companion object {
         const val LLM_DIR = "/data/local/tmp/llm"
 
-        /** Preference order: Gemma 3 1B first (demo-stable on 8GB), E2B as secondary. */
-        val PREFERENCE = listOf(GEMMA3_1B, GEMMA4_E2B)
+        /** Preference order: Gemma 3n E2B first (needs mediapipe genai >= 0.10.35 to
+         *  parse its audio-adapter .litertlm; 0.10.27 aborted with "Unknown model type:
+         *  tf_lite_audio_adapter"). Falls back to the stable 1B if E2B isn't present. */
+        val PREFERENCE = listOf(GEMMA3N_E2B, GEMMA3_1B)
 
         /** The model to actually load: first preferred variant present on device, or null. */
         fun resolve(): ModelConfig? = PREFERENCE.firstOrNull { it.exists() }

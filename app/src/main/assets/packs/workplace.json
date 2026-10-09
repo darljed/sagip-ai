@@ -1,0 +1,156 @@
+[
+  {
+    "id": "work.office.quake.001",
+    "pack": "workplace",
+    "topic": "office_earthquake",
+    "lang": "en",
+    "title": "Earthquake in an office building",
+    "severity": "urgent",
+    "tags": [
+      "office",
+      "opisina",
+      "building",
+      "gusali",
+      "earthquake",
+      "lindol",
+      "evacuate",
+      "stairs",
+      "hagdan",
+      "assembly point",
+      "trabaho"
+    ],
+    "text": "1. During shaking, Drop, Cover, and Hold On under a sturdy desk — away from windows and glass partitions (see during_earthquake).\n2. NEVER use elevators during or after a quake. Take the stairs in single file, holding the rail; assist PWD colleagues.\n3. Go to the assembly point when shaking stops or the alarm sounds. Do NOT stop for belongings — bring your phone only if instant.\n4. Report for headcount and tell the marshal about anyone missing or trapped.\n5. Do NOT re-enter until the building safety officer declares it safe. Expect aftershocks (see aftershock).",
+    "source": "PHIVOLCS / DOLE Occupational Safety and Health Standards",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "work.office.quake.001",
+    "pack": "workplace",
+    "topic": "office_earthquake",
+    "lang": "tl",
+    "title": "Lindol sa gusali ng opisina",
+    "severity": "urgent",
+    "tags": [
+      "office",
+      "opisina",
+      "building",
+      "gusali",
+      "earthquake",
+      "lindol",
+      "evacuate",
+      "stairs",
+      "hagdan",
+      "assembly point",
+      "trabaho"
+    ],
+    "text": "1. Habang yumayanig, gawin ang Duck, Cover, Hold sa ilalim ng matibay na mesa — malayo sa bintana at salaming divider (tingnan ang during_earthquake).\n2. HUWAG gumamit ng elevator habang o pagkatapos ng lindol. Gumamit ng hagdan nang isa-isa, kumapit sa rail; tulungan ang PWD na kasamahan.\n3. Pumunta sa assembly point kapag tumigil ang pagyanig o tumunog ang alarm. HUWAG huminto para sa gamit — dalhin lang ang cellphone kung abot-kamay.\n4. Mag-report sa headcount at sabihin sa marshal kung may nawawala o na-trap.\n5. HUWAG bumalik hangga't hindi idinedeklarang ligtas ng safety officer. Asahan ang aftershocks (tingnan ang aftershock).",
+    "source": "PHIVOLCS / DOLE Occupational Safety and Health Standards",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "work.fire.evac.001",
+    "pack": "workplace",
+    "topic": "workplace_fire",
+    "lang": "en",
+    "title": "Fire in the workplace — evacuate",
+    "severity": "critical",
+    "tags": [
+      "office fire",
+      "sunog sa opisina",
+      "fire",
+      "apoy",
+      "evacuate",
+      "alarm",
+      "extinguisher",
+      "assembly point",
+      "trabaho",
+      "gusali",
+      "usok"
+    ],
+    "text": "1. Raise the alarm and call the fire station or 911 — give the building name, floor, and exact address.\n2. Leave by the stairs at once — never the elevator. Stay low under smoke and close (do not lock) doors behind you to slow the fire.\n3. Use a fire extinguisher (PASS method) ONLY if trained, the fire is small, and your exit is behind you — otherwise just evacuate.\n4. Go to the assembly point and report for headcount. Tell the marshal about missing persons.\n5. Never re-enter. If trapped, seal door gaps with wet cloth and signal at a window (see house_fire).",
+    "source": "Bureau of Fire Protection (BFP) / DOLE Occupational Safety and Health Standards",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "work.fire.evac.001",
+    "pack": "workplace",
+    "topic": "workplace_fire",
+    "lang": "tl",
+    "title": "Sunog sa pinagtatrabahuhan — lumikas",
+    "severity": "critical",
+    "tags": [
+      "office fire",
+      "sunog sa opisina",
+      "fire",
+      "apoy",
+      "evacuate",
+      "alarm",
+      "extinguisher",
+      "assembly point",
+      "trabaho",
+      "gusali",
+      "usok"
+    ],
+    "text": "1. Mag-alarm at tumawag sa bombero o 911 — ibigay ang pangalan ng gusali, palapag, at eksaktong address.\n2. Lumabas agad sa hagdan — huwag sa elevator. Yumuko sa ilalim ng usok at isara (huwag i-lock) ang pinto sa likuran para bumagal ang apoy.\n3. Gumamit ng fire extinguisher (PASS method) KUNG sanay lang, maliit ang apoy, at nasa likuran ang labasan — kung hindi, lumikas na lang.\n4. Pumunta sa assembly point at mag-report sa headcount. Sabihin sa marshal ang mga nawawala.\n5. Huwag kailanman bumalik. Kung na-trap, takpan ng basang tela ang siwang ng pinto at sumenyas sa bintana (tingnan ang house_fire).",
+    "source": "Bureau of Fire Protection (BFP) / DOLE Occupational Safety and Health Standards",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "work.injury.site.001",
+    "pack": "workplace",
+    "topic": "worksite_injury",
+    "lang": "en",
+    "title": "Injury at a worksite (shop, factory, construction)",
+    "severity": "urgent",
+    "tags": [
+      "worksite",
+      "aksidente sa trabaho",
+      "construction",
+      "pabrika",
+      "machine",
+      "makina",
+      "injury",
+      "sugat",
+      "safety officer",
+      "trabaho",
+      "nadisgrasya"
+    ],
+    "text": "1. Stop the machine or equipment with the emergency switch if safe — do NOT become a second victim.\n2. Call for help and report to the safety officer or supervisor at once.\n3. Give first aid for the injury (bleeding → firm pressure; see the matching first-aid topic). Do NOT move the person unless in danger.\n4. Note the time, witnesses, and machine or substance involved — the clinic needs this for the report.\n5. Go to the clinic or hospital even for 'small' injuries like eye splashes or deep cuts — chemical and tetanus risks hide.",
+    "source": "DOLE Occupational Safety and Health Standards / Philippine Red Cross",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "work.injury.site.001",
+    "pack": "workplace",
+    "topic": "worksite_injury",
+    "lang": "tl",
+    "title": "Nadisgrasya sa pinagtatrabahuhan (shop, pabrika, construction)",
+    "severity": "urgent",
+    "tags": [
+      "worksite",
+      "aksidente sa trabaho",
+      "construction",
+      "pabrika",
+      "machine",
+      "makina",
+      "injury",
+      "sugat",
+      "safety officer",
+      "trabaho",
+      "nadisgrasya"
+    ],
+    "text": "1. Patayin ang makina o kagamitan gamit ang emergency switch kung ligtas — HUWAG maging pangalawang biktima.\n2. Tumawag ng tulong at iulat agad sa safety officer o supervisor.\n3. Magbigay ng first aid sa sugat (pagdurugo → mariing diin; tingnan ang angkop na first-aid topic). HUWAG igalaw ang tao maliban kung nasa panganib.\n4. Tandaan ang oras, mga saksi, at makinang o kemikal na sangkot — kailangan ito ng clinic sa report.\n5. Magpatingin sa clinic o ospital kahit sa 'maliit' na sugat tulad ng talsik sa mata o malalim na hiwa — nagtatago ang panganib ng kemikal at tetanus.",
+    "source": "DOLE Occupational Safety and Health Standards / Philippine Red Cross",
+    "personalize": [],
+    "call_emergency": true
+  }
+]

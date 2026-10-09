@@ -186,5 +186,165 @@
       "emergency_contact"
     ],
     "call_emergency": true
+  },
+  {
+    "id": "earthquake.tsunami.warning.001",
+    "pack": "earthquake",
+    "topic": "tsunami_warning",
+    "lang": "en",
+    "title": "Tsunami warning (coastal areas)",
+    "severity": "critical",
+    "tags": [
+      "tsunami",
+      "tidal wave",
+      "daluyong",
+      "alon",
+      "coastal",
+      "dagat",
+      "tabing dagat",
+      "earthquake",
+      "lindol",
+      "evacuate",
+      "inland"
+    ],
+    "text": "1. If you are on the coast and feel shaking lasting over 20 seconds, or see the sea suddenly recede or rise strangely, do NOT wait for an official warning — move immediately.\n2. Go inland to high ground on foot at once. Take your go-bag and help children, elderly, and PWDs. Do NOT drive into traffic or stop to collect belongings.\n3. Stay away from beaches, river mouths, and shores — the first wave is often not the biggest and danger lasts for hours.\n4. Follow PHIVOLCS, NDRRMC, and LGU alerts on radio or phone.\n5. Do NOT return until authorities give the all-clear. Never go to watch the wave.",
+    "source": "PHIVOLCS / NDRRMC Tsunami Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "earthquake.tsunami.warning.001",
+    "pack": "earthquake",
+    "topic": "tsunami_warning",
+    "lang": "tl",
+    "title": "Babala ng tsunami (mga lugar sa baybayin)",
+    "severity": "critical",
+    "tags": [
+      "tsunami",
+      "tidal wave",
+      "daluyong",
+      "alon",
+      "coastal",
+      "dagat",
+      "tabing dagat",
+      "earthquake",
+      "lindol",
+      "evacuate",
+      "inland"
+    ],
+    "text": "1. Kung nasa baybayin ka at nakaramdam ng pagyanig na higit 20 segundo, o biglang umatras o tumaas nang kakaiba ang dagat, HUWAG nang hintayin ang opisyal na babala — lumikas agad.\n2. Pumunta agad sa mataas na lugar sa looban nang naglalakad. Dalhin ang go-bag at tulungan ang bata, matanda, at PWD. HUWAG magkotse sa trapik o huminto para maghakot ng gamit.\n3. Lumayo sa dalampasigan, bukana ng ilog, at baybayin — kadalasan hindi pinakamalaki ang unang alon at tumatagal nang ilang oras ang panganib.\n4. Sundin ang abiso ng PHIVOLCS, NDRRMC, at LGU sa radyo o cellphone.\n5. HUWAG bumalik hangga't walang all-clear ang awtoridad. Huwag kailanman manood ng alon.",
+    "source": "PHIVOLCS / NDRRMC Tsunami Safety",
+    "personalize": [
+      "household_infant",
+      "household_elderly",
+      "household_pwd",
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "earthquake.aftershock.safety.001",
+    "pack": "earthquake",
+    "topic": "aftershock",
+    "lang": "en",
+    "title": "Aftershocks — stay ready",
+    "severity": "urgent",
+    "tags": [
+      "aftershock",
+      "lindol ulit",
+      "pagyanig",
+      "replica",
+      "yanig",
+      "muling pagyanig",
+      "after shock",
+      "lindol",
+      "tremor"
+    ],
+    "text": "1. Expect aftershocks for days or weeks after a strong quake — some can be nearly as strong. Stay alert.\n2. During each aftershock, Drop, Cover, and Hold On again — even if you are already outside, watch for falling debris.\n3. Do NOT enter damaged buildings. Aftershocks can collapse weakened structures.\n4. After each strong aftershock, re-check for injuries, gas leaks, fires, and new damage before settling.\n5. Keep your go-bag, shoes, flashlight, and whistle beside you until officials say the sequence has eased.",
+    "source": "PHIVOLCS / NDRRMC Aftershock Safety",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "earthquake.aftershock.safety.001",
+    "pack": "earthquake",
+    "topic": "aftershock",
+    "lang": "tl",
+    "title": "Aftershocks — manatiling handa",
+    "severity": "urgent",
+    "tags": [
+      "aftershock",
+      "lindol ulit",
+      "pagyanig",
+      "replica",
+      "yanig",
+      "muling pagyanig",
+      "after shock",
+      "lindol",
+      "tremor"
+    ],
+    "text": "1. Asahan ang aftershocks sa loob ng ilang araw o linggo pagkatapos ng malakas na lindol — puwedeng halos kasing-lakas ang iba. Manatiling alerto.\n2. Sa bawat aftershock, gawin ulit ang Duck, Cover, Hold — kahit nasa labas ka na, mag-ingat sa nahuhulog na kalat.\n3. HUWAG pumasok sa sirang gusali. Puwedeng paguhuin ng aftershocks ang huminang istraktura.\n4. Pagkatapos ng bawat malakas na aftershock, suriin ulit kung may sugat, tumatagas na gas, apoy, at bagong pinsala bago pumirmi.\n5. Itabi ang go-bag, sapatos, flashlight, at pito hangga't hindi sinasabi ng awtoridad na humupa na ang pagyanig.",
+    "source": "PHIVOLCS / NDRRMC Aftershock Safety",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "earthquake.elevator.trapped.001",
+    "pack": "earthquake",
+    "topic": "elevator_trapped",
+    "lang": "en",
+    "title": "Trapped in an elevator",
+    "severity": "urgent",
+    "tags": [
+      "elevator",
+      "na-trap sa elevator",
+      "lift",
+      "stuck",
+      "brownout",
+      "lindol",
+      "pindutan",
+      "alarm",
+      "naipit",
+      "elevator rescue"
+    ],
+    "text": "1. Stay calm — an elevator will not run out of air and will not fall. Sit down to wait safely.\n2. Press the alarm or emergency call button. Call the building guard or fire station on your phone and give the building name and floor if known.\n3. Do NOT force the doors open or try to climb out — the car may move suddenly and gaps can be deadly.\n4. If it is hot, loosen clothing and sip water if you have it. Bang on the walls in rhythm so rescuers can hear you.\n5. Wait for trained rescuers. If someone with you has a medical emergency, say so clearly when calling.",
+    "source": "Bureau of Fire Protection (BFP) Elevator Rescue Guidance",
+    "personalize": [
+      "household_elderly",
+      "household_pwd"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "earthquake.elevator.trapped.001",
+    "pack": "earthquake",
+    "topic": "elevator_trapped",
+    "lang": "tl",
+    "title": "Na-trap sa elevator",
+    "severity": "urgent",
+    "tags": [
+      "elevator",
+      "na-trap sa elevator",
+      "lift",
+      "stuck",
+      "brownout",
+      "lindol",
+      "pindutan",
+      "alarm",
+      "naipit",
+      "elevator rescue"
+    ],
+    "text": "1. Huminahon — hindi mauubusan ng hangin ang elevator at hindi ito babagsak. Umupo habang naghihintay.\n2. Pindutin ang alarm o emergency call button. Tawagan ang guwardya o bombero sa cellphone at ibigay ang pangalan ng gusali at palapag kung alam.\n3. HUWAG piliting buksan ang pinto o subukang umakyat palabas — puwedeng biglang gumalaw ang elevator at nakamamatay ang siwang.\n4. Kung mainit, luwagan ang damit at uminom ng tubig kung mayroon. Kumatok sa dingding nang pantay na ritmo para marinig ka ng rescuer.\n5. Hintayin ang sanay na rescuer. Kung may kasama kang may medical emergency, sabihin ito nang malinaw sa pagtawag.",
+    "source": "Bureau of Fire Protection (BFP) Elevator Rescue Guidance",
+    "personalize": [
+      "household_elderly",
+      "household_pwd"
+    ],
+    "call_emergency": false
   }
 ]

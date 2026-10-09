@@ -45,4 +45,41 @@ class RepetitionGuardTest {
         val clean = "1. Apply pressure. 2. Raise the limb. 3. Keep warm."
         assertEquals(clean.trimEnd(), trimRepetitionTail(clean))
     }
+
+    @Test fun catchesRepeatedPhrase() {
+        // The real 1B failure: a clause repeated several times.
+        val loop = "Diinan ang sugat gamit ang tela. ".repeat(4) + "Tapos itaas."
+        assertTrue(looksRepetitive(loop))
+        assertTrue(looksPhraseRepetitive(loop))
+    }
+
+    @Test fun catchesLowUniqueWordRatio() {
+        val loop = ("mag ingat mag ingat mag ingat mag ingat mag ingat mag ingat")
+        assertTrue(looksPhraseRepetitive(loop))
+    }
+
+    @Test fun phraseGuardAllowsDiverseProse() {
+        val tl = "Mahalagang pag-aalala! May matinding pagdurugo ang taong ito. " +
+            "Manatiling kalmado at kumilos agad habang hinihintay ang tulong."
+        assertFalse(looksPhraseRepetitive(tl))
+    }
+
+    @Test fun trimDropsDuplicateSentences() {
+        val doubled = "Itaas ang katawan. Itaas ang katawan. Panatilihing mainit."
+        val trimmed = trimRepetitionTail(doubled)
+        // Only one copy of the duplicated sentence should remain.
+        assertEquals(1, Regex("Itaas ang katawan").findAll(trimmed).count())
+    }
+
+    @Test fun stripsControlTokens() {
+        assertEquals("", stripControlTokens("<end_of_turn><end_of_turn><end_of_turn>"))
+        assertEquals("Hello", stripControlTokens("<start_of_turn>model\nHello<end_of_turn>").removePrefix("model").trim())
+    }
+
+    @Test fun cleanAnswerCutsFakeSecondTurn() {
+        val raw = "Kalmado lang po. Narito ang gagawin:\n1. Humiga.\n2. Magpahinga.\nResponse:\nOkay, uulitin ko"
+        val c = cleanAnswer(raw)
+        assertFalse(c.contains("Response"))
+        assertTrue(c.contains("2. Magpahinga."))
+    }
 }

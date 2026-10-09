@@ -1,0 +1,224 @@
+[
+  {
+    "id": "home.elderly.fall.001",
+    "pack": "home",
+    "topic": "elderly_fall_home",
+    "lang": "en",
+    "title": "Elderly fall at home (slip in bathroom)",
+    "severity": "urgent",
+    "tags": [
+      "fall",
+      "nahulog",
+      "nadulas",
+      "elderly",
+      "matanda",
+      "lolo",
+      "lola",
+      "bathroom",
+      "banyo",
+      "slip",
+      "hip",
+      "balakang"
+    ],
+    "text": "1. Do NOT rush to lift them — check response first and ask where it hurts.\n2. If they hit their head, blacked out, or cannot move a limb — keep them still and call for emergency help.\n3. If bleeding, press gently with a clean cloth. Keep them warm and comfortable where they lie.\n4. Watch for hip-fracture signs: cannot stand, or a leg looks shortened or turned outward — do NOT force them up; call for help and wait for a stretcher.\n5. Prevent the next fall: dry floors always, grab bars in the bathroom, night lights, non-slip mats, walker or cane within reach.",
+    "source": "DOH / WHO Falls Prevention and Home Safety",
+    "personalize": [
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "home.elderly.fall.001",
+    "pack": "home",
+    "topic": "elderly_fall_home",
+    "lang": "tl",
+    "title": "Nadulas ang matanda sa bahay (dulas sa banyo)",
+    "severity": "urgent",
+    "tags": [
+      "fall",
+      "nahulog",
+      "nadulas",
+      "elderly",
+      "matanda",
+      "lolo",
+      "lola",
+      "bathroom",
+      "banyo",
+      "slip",
+      "hip",
+      "balakang"
+    ],
+    "text": "1. HUWAG madaliing buhatin — tingnan muna kung may malay at tanungin kung saan masakit.\n2. Kung nauntog ang ulo, nawalan ng malay, o hindi maigalaw ang isang parte — huwag igalaw at humingi ng tulong medikal.\n3. Kung dumudugo, marahang diinan ng malinis na tela. Panatilihing mainit at komportable kung saan nakahiga.\n4. Bantayan ang senyales ng bali sa balakang: hindi makatayo, o mukhang umikli o pumaling ang binti — HUWAG piliting patayuin; humingi ng tulong at maghintay ng stretcher.\n5. Iwasan ang susunod na pagkahulog: laging tuyo ang sahig, grab bars sa banyo, night light, non-slip mats, walker o tungkod na abot-kamay.",
+    "source": "DOH / WHO Falls Prevention and Home Safety",
+    "personalize": [
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "home.scald.child.001",
+    "pack": "home",
+    "topic": "scald_child",
+    "lang": "en",
+    "title": "Scald in a child (hot water or food)",
+    "severity": "urgent",
+    "tags": [
+      "scald",
+      "napaso",
+      "paso",
+      "bata",
+      "mainit na tubig",
+      "hot water",
+      "sabaw",
+      "soup",
+      "burn",
+      "kettle",
+      "takure",
+      "child"
+    ],
+    "text": "1. Cool at once under clean running water for at least 20 minutes. Act fast — scalds deepen quickly in children.\n2. Remove clothing and diapers near the burn UNLESS stuck to the skin.\n3. Do NOT apply toothpaste, oil, butter, ice, or soy sauce.\n4. Cover loosely with a clean non-stick cloth. Keep the child warm otherwise — cool only the burn itself.\n5. Seek care for scalds on the face, hands, feet, or joints, larger than the child's palm, or any blistering burn in an infant.",
+    "source": "DOH / Philippine Red Cross Burn Care Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "home.scald.child.001",
+    "pack": "home",
+    "topic": "scald_child",
+    "lang": "tl",
+    "title": "Napaso ang bata (mainit na tubig o pagkain)",
+    "severity": "urgent",
+    "tags": [
+      "scald",
+      "napaso",
+      "paso",
+      "bata",
+      "mainit na tubig",
+      "hot water",
+      "sabaw",
+      "soup",
+      "burn",
+      "kettle",
+      "takure",
+      "child"
+    ],
+    "text": "1. Palamigin agad sa malinis na tumatakbong tubig nang hindi bababa sa 20 minuto. Kumilos nang mabilis — mabilis lumalim ang paso sa bata.\n2. Alisin ang damit at lampin malapit sa paso MALIBAN kung nakadikit na sa balat.\n3. HUWAG lagyan ng toothpaste, langis, mantikilya, yelo, o toyo.\n4. Takpan nang maluwag ng malinis na telang hindi dumidikit. Panatilihing mainit ang bata sa ibang parte — palamigin lang ang paso.\n5. Magpatingin kung ang paso ay nasa mukha, kamay, paa, o kasukasuan, mas malaki sa palad ng bata, o anumang nagpaltos na paso sa sanggol.",
+    "source": "DOH / Philippine Red Cross Burn Care Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "home.hotcar.child.001",
+    "pack": "home",
+    "topic": "child_in_hot_car",
+    "lang": "en",
+    "title": "Child left in a hot car",
+    "severity": "critical",
+    "tags": [
+      "hot car",
+      "naiwan sa kotse",
+      "bata",
+      "kotse",
+      "car",
+      "heat",
+      "init",
+      "locked",
+      "nakakandado",
+      "heat stroke",
+      "suffocation"
+    ],
+    "text": "1. A parked car turns deadly in minutes — NEVER leave a child alone inside, even with windows open or 'just for a minute'.\n2. If you see a child locked in a hot car, call the fire station or 911 at once and find the parents, driver, or guards.\n3. If the child is limp, vomiting, or unresponsive — break the window farthest from the child and get them out.\n4. Move to shade, cool with wet cloths and fanning, and give small sips of water if conscious.\n5. Call for emergency help and stay until it arrives — heat injury worsens fast.",
+    "source": "DOH / Bureau of Fire Protection (BFP) Child Heat Safety",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "home.hotcar.child.001",
+    "pack": "home",
+    "topic": "child_in_hot_car",
+    "lang": "tl",
+    "title": "Batang naiwan sa mainit na kotse",
+    "severity": "critical",
+    "tags": [
+      "hot car",
+      "naiwan sa kotse",
+      "bata",
+      "kotse",
+      "car",
+      "heat",
+      "init",
+      "locked",
+      "nakakandado",
+      "heat stroke",
+      "suffocation"
+    ],
+    "text": "1. Nakamamatay sa loob ng ilang minuto ang nakaparadang kotse — HUWAG kailanman iwanang mag-isa ang bata sa loob, kahit bukas ang bintana o 'sandali lang'.\n2. Kung may makitang batang nakakandado sa mainit na kotse, tumawag agad sa bombero o 911 at hanapin ang magulang, driver, o guwardya.\n3. Kung nanghihina, nagsusuka, o walang malay ang bata — basagin ang salaming pinakamalayo sa bata at ilabas siya.\n4. Ilipat sa lilim, palamigin ng basang tela at paypay, at bigyan ng maliliit na lagok ng tubig kung gising.\n5. Humingi ng tulong medikal at samahan hanggang dumating ito — mabilis lumala ang pinsala sa init.",
+    "source": "DOH / Bureau of Fire Protection (BFP) Child Heat Safety",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "home.bucket.drown.001",
+    "pack": "home",
+    "topic": "bucket_drowning",
+    "lang": "en",
+    "title": "Toddler drowning (bucket, drum, tub)",
+    "severity": "critical",
+    "tags": [
+      "bucket",
+      "timba",
+      "drum",
+      "batya",
+      "drowning",
+      "nalunod",
+      "bata",
+      "toddler",
+      "tub",
+      "banyo",
+      "container",
+      "sanggol"
+    ],
+    "text": "1. Toddlers drown silently in buckets, drums, tubs, and toilets — it takes only minutes and little water.\n2. NEVER leave a young child alone near any water container. Empty buckets and basins right after use; cover drums and wells.\n3. Always supervise bath time — if you must step away, take the child with you.\n4. Keep toilet lids closed and bathroom doors shut against crawling babies.\n5. If found unresponsive in water: lift out, check breathing, start infant or child CPR at once, and call for emergency help.",
+    "source": "DOH / WHO Child Drowning Prevention",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "home.bucket.drown.001",
+    "pack": "home",
+    "topic": "bucket_drowning",
+    "lang": "tl",
+    "title": "Nalunod na paslit (timba, drum, batya)",
+    "severity": "critical",
+    "tags": [
+      "bucket",
+      "timba",
+      "drum",
+      "batya",
+      "drowning",
+      "nalunod",
+      "bata",
+      "toddler",
+      "tub",
+      "banyo",
+      "container",
+      "sanggol"
+    ],
+    "text": "1. Tahimik na nalulunod ang paslit sa timba, drum, batya, at inidoro — ilang minuto lang at konting tubig ay sapat na.\n2. HUWAG kailanman iwanang mag-isa ang maliit na bata malapit sa lalagyan ng tubig. Ibuhos agad ang timba at palanggana pagkatapos gamitin; takpan ang drum at balon.\n3. Laging bantayan ang pagpapaligo — kung kailangang umalis, isama ang bata.\n4. Panatilihing nakasara ang inidoro at pinto ng banyo laban sa gumagapang na sanggol.\n5. Kung natagpuang walang malay sa tubig: iahon, tingnan ang paghinga, simulan agad ang infant o child CPR, at humingi ng tulong medikal.",
+    "source": "DOH / WHO Child Drowning Prevention",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  }
+]

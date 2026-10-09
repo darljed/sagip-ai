@@ -204,6 +204,34 @@ private fun ChatApp(profile: UserProfile, activity: MainActivity) {
     }
     val state by vm.state.collectAsState()
 
+    // DEBUG-ONLY headless test hook (compiled in, active only on debuggable builds):
+    //   adb shell am broadcast -a dev.darl.sagip.DEBUG_ASK --es q "<query>" -p dev.darl.sagip
+    // Drives the REAL ChatViewModel (retrieve -> prompt -> engine -> watchdog) with no UI
+    // taps and logs the final answer under tag SagipTest.
+    val debuggable = (context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0
+    if (debuggable) {
+        androidx.compose.runtime.DisposableEffect(vm) {
+            val r = object : android.content.BroadcastReceiver() {
+                override fun onReceive(c: android.content.Context?, i: android.content.Intent?) {
+                    val q = i?.getStringExtra("q") ?: return
+                    android.util.Log.i("SagipTest", "ASK: $q")
+                    vm.send(q)
+                }
+            }
+            androidx.core.content.ContextCompat.registerReceiver(
+                context, r, android.content.IntentFilter("dev.darl.sagip.DEBUG_ASK"),
+                androidx.core.content.ContextCompat.RECEIVER_EXPORTED,
+            )
+            onDispose { runCatching { context.unregisterReceiver(r) } }
+        }
+        androidx.compose.runtime.LaunchedEffect(state.busy, state.messages.size) {
+            val last = state.messages.lastOrNull()
+            if (!state.busy && last != null && last.role == dev.darl.sagip.chat.Role.ASSISTANT && !last.streaming) {
+                android.util.Log.i("SagipTest", "DONE model=${state.modelName} status=${state.modelStatus} sev=${last.severity} src=${last.sources}\n>>>\n${last.text}\n<<<")
+            }
+        }
+    }
+
     var input by remember { mutableStateOf("") }
     var listening by remember { mutableStateOf(false) }
     var voiceHint by remember { mutableStateOf<String?>(null) }

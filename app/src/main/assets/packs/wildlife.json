@@ -1,0 +1,48 @@
+[
+  {
+    "id": "firstaid.snake.encounter.001",
+    "pack": "wildlife",
+    "topic": "snake_encounter",
+    "lang": "en",
+    "title": "Seeing a snake (not bitten)",
+    "severity": "caution",
+    "tags": [
+      "snake",
+      "ahas",
+      "may ahas",
+      "nakakita",
+      "nakita",
+      "ahas sa bahay",
+      "snake sighting",
+      "saw a snake",
+      "see a snake"
+    ],
+    "text": "1. Stay calm and keep still, then slowly step back. Do not run or make sudden movements.\n2. Give the snake plenty of space. Do not touch, poke, corner, catch, or try to kill it.\n3. Keep children and pets away from the snake.\n4. If the snake is inside your home, leave the room, close the door, and ask your barangay or local authorities for help.\n5. If anyone is bitten, treat it as a snakebite emergency: keep the person calm and still and get to a hospital immediately.",
+    "source": "DOH Philippines / WHO Snakebite Management",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.snake.encounter.001",
+    "pack": "wildlife",
+    "topic": "snake_encounter",
+    "lang": "tl",
+    "title": "Nakakita ng ahas (hindi nakagat)",
+    "severity": "caution",
+    "tags": [
+      "snake",
+      "ahas",
+      "may ahas",
+      "nakakita",
+      "nakita",
+      "ahas sa bahay",
+      "snake sighting",
+      "saw a snake",
+      "see a snake"
+    ],
+    "text": "1. Manatiling kalmado at huwag gumalaw, saka dahan-dahang umatras. Huwag tumakbo o gumawa ng biglaang galaw.\n2. Bigyan ng malawak na espasyo ang ahas. Huwag hawakan, tusukin, sukulin, hulihin, o patayin ito.\n3. Ilayo ang mga bata at alagang hayop sa ahas.\n4. Kung nasa loob ng bahay ang ahas, lumabas ng silid, isara ang pinto, at humingi ng tulong sa barangay o lokal na awtoridad.\n5. Kung may nakagat, ituring itong emergency na kagat ng ahas: panatilihing kalmado at hindi gumagalaw ang tao at dalhin agad sa ospital.",
+    "source": "DOH Philippines / WHO Snakebite Management",
+    "personalize": [],
+    "call_emergency": false
+  }
+]

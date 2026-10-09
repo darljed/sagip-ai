@@ -32,6 +32,17 @@ class LlmEngine private constructor(
     private val topP: Float,
 ) {
 
+    /**
+     * The session most recently started. Lock-free on purpose: holding a monitor
+     * while calling cancelGenerateResponseAsync() (which waits for the native worker)
+     * deadlocked against the worker's own done-callback. Never hold a lock across a
+     * native call, and never close a session from inside its own callback.
+     */
+    private val active = java.util.concurrent.atomic.AtomicReference<LlmInferenceSession?>(null)
+
+    /** True once the active session delivered done=true (so it must NOT be cancelled). */
+    private val activeDone = java.util.concurrent.atomic.AtomicBoolean(true)
+
     /** Blocking single-shot generation (creates a one-off session). */
     fun generate(prompt: String): String {
         newSession().use { session ->
@@ -42,18 +53,34 @@ class LlmEngine private constructor(
 
     /**
      * Streaming generation. [onPartial] receives each incremental chunk; the
-     * second arg is `done`. Runs on MediaPipe's worker; callers should marshal
-     * UI updates back to the main thread. Repetition-collapse handling lives in
-     * the caller (ViewModel), which owns the accumulated text.
+     * second arg is `done`. Runs on MediaPipe's worker; callers marshal UI updates.
+     *
+     * MediaPipe 0.10.35 rejects a new generateResponseAsync while a previous one is
+     * still running, so any prior session is retired (cancel + close) first. A session
+     * that finished naturally stays referenced until the next call/cancel retires it.
      */
     fun generateAsync(prompt: String, onPartial: (String, Boolean) -> Unit) {
+        retire(active.getAndSet(null))
         val session = newSession()
-        session.addQueryChunk(prompt)
-        val listener = ProgressListener<String> { partial, done ->
+        activeDone.set(false)
+        active.set(session)
+        session.addQueryChunk(gemmaTurn(prompt))
+        session.generateResponseAsync(ProgressListener<String> { partial, done ->
+            if (done) activeDone.set(true)
             onPartial(partial, done)
-            if (done) runCatching { session.close() }
-        }
-        session.generateResponseAsync(listener)
+        })
+    }
+
+    /** Cancel + close the in-flight session. Safe to call when nothing is running. */
+    fun cancel() = retire(active.getAndSet(null))
+
+    private fun retire(s: LlmInferenceSession?) {
+        s ?: return
+        // Cancelling a session that already finished naturally can corrupt native
+        // (GPU) state and produced garbage on later queries — only cancel live ones.
+        if (!activeDone.get()) runCatching { s.cancelGenerateResponseAsync() }
+        runCatching { s.close() }
+        activeDone.set(true)
     }
 
     private fun newSession(): LlmInferenceSession {
@@ -68,6 +95,14 @@ class LlmEngine private constructor(
     fun close() = engine.close()
 
     companion object {
+        /**
+         * Wrap a prompt in the Gemma chat template. Without turn markers the model
+         * treats our trailing "Answer:" as mid-turn text and emits <end_of_turn>
+         * immediately or echoes the prompt (seen on-device). Pure fn → unit-testable.
+         */
+        fun gemmaTurn(prompt: String): String =
+            "<start_of_turn>user\n${prompt.trim()}<end_of_turn>\n<start_of_turn>model\n"
+
         const val DEFAULT_MODEL_PATH = "/data/local/tmp/llm/gemma3-1b-it-int4.task"
 
         /** True if ANY configured model variant is present on the device. */
@@ -91,7 +126,7 @@ class LlmEngine private constructor(
         fun create(
             context: Context,
             modelPath: String? = null,
-            maxTokens: Int = 1024,
+            maxTokens: Int = 4096,
             topK: Int = 40,
             topP: Float = 0.9f,
             temperature: Float = 0.7f,
@@ -102,10 +137,14 @@ class LlmEngine private constructor(
             check(File(resolvedPath).exists()) {
                 "Model not found at $resolvedPath. Push it with: adb push <file> $resolvedPath"
             }
+            // Experiment switch: `touch /data/local/tmp/llm/use_gpu` to request the GPU
+            // backend (CPU-only E2B takes 20-40s/answer). Absent = default (CPU).
+            val useGpu = File("${ModelConfig.LLM_DIR}/use_gpu").exists()
             val engineOptions = LlmInferenceOptions.builder()
                 .setModelPath(resolvedPath)
                 .setMaxTokens(maxTokens)
                 .setMaxTopK(topK)
+                .apply { if (useGpu) setPreferredBackend(LlmInference.Backend.GPU) }
                 .build()
             val engine = LlmInference.createFromOptions(context, engineOptions)
             return LlmEngine(engine, temperature, topK, topP)

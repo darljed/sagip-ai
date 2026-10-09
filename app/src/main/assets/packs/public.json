@@ -1,0 +1,162 @@
+[
+  {
+    "id": "public.crowd.crush.001",
+    "pack": "public",
+    "topic": "crowd_crush",
+    "lang": "en",
+    "title": "Crowd crush (stampede, siksikan)",
+    "severity": "critical",
+    "tags": [
+      "crowd",
+      "siksikan",
+      "stampede",
+      "crush",
+      "dagsa",
+      "concert",
+      "fiesta",
+      "mall",
+      "crowded",
+      "naipit",
+      "stampede",
+      "piesta"
+    ],
+    "text": "1. If the crowd surges, stay on your feet at all costs — keep your stance wide and keep moving with small steps.\n2. Raise your arms like a boxer to protect your chest so you can keep breathing.\n3. Move DIAGONALLY with the flow toward the edge — never push straight against the crush. Avoid walls, fences, and narrow exits where pressure peaks.\n4. If you fall: curl into a ball, cover your head and neck, and get up the instant there is a gap.\n5. Pull others up fast if they fall near you — a pile-up kills. After escaping, move far from exits and call emergency for the injured.",
+    "source": "PNP / NDRRMC Crowd Safety Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "public.crowd.crush.001",
+    "pack": "public",
+    "topic": "crowd_crush",
+    "lang": "tl",
+    "title": "Siksikan ng tao (stampede)",
+    "severity": "critical",
+    "tags": [
+      "crowd",
+      "siksikan",
+      "stampede",
+      "crush",
+      "dagsa",
+      "concert",
+      "fiesta",
+      "mall",
+      "crowded",
+      "naipit",
+      "stampede",
+      "piesta"
+    ],
+    "text": "1. Kung dumagsa ang tao, manatiling nakatayo kahit ano — ibuka ang tayo at gumalaw nang maliliit na hakbang.\n2. Itaas ang mga braso na parang boksingero para protektahan ang dibdib at makahinga.\n3. Gumalaw nang PATAGILID kasabay ng agos papunta sa gilid — huwag sumalungat sa dagsa. Iwasan ang pader, bakod, at makikipot na labasan kung saan pinakamalakas ang diin.\n4. Kung matumba: mamilipit na parang bola, takpan ang ulo at leeg, at tumayo sa sandaling magkaroon ng puwang.\n5. Hilahin agad patayo ang natumba malapit sa iyo — nakamamatay ang patong-patong. Pagkatapos makalabas, lumayo sa labasan at tumawag ng tulong para sa nasaktan.",
+    "source": "PNP / NDRRMC Crowd Safety Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "public.lostchild.mall.001",
+    "pack": "public",
+    "topic": "lost_child_public",
+    "lang": "en",
+    "title": "Lost child in a mall or market",
+    "severity": "urgent",
+    "tags": [
+      "lost child",
+      "nawalang bata",
+      "mall",
+      "palengke",
+      "market",
+      "nawawala",
+      "bata",
+      "missing",
+      "guard",
+      "guwardya",
+      "sanggol"
+    ],
+    "text": "1. Act in the first minutes — tell the nearest guard or staff at once with the child's name, age, clothing, and a photo.\n2. Ask staff to watch the exits and announce on the PA system. Check toilets, play areas, and nearby stores fast.\n3. Teach children beforehand: if lost, STAY PUT, approach a uniformed guard or a mother with children, and never leave with strangers.\n4. Agree on a meeting point for every outing — one place everyone knows.\n5. Once found, comfort first and update the guards so the search stops.",
+    "source": "PNP / DSWD Child Safety Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "public.lostchild.mall.001",
+    "pack": "public",
+    "topic": "lost_child_public",
+    "lang": "tl",
+    "title": "Nawalang bata sa mall o palengke",
+    "severity": "urgent",
+    "tags": [
+      "lost child",
+      "nawalang bata",
+      "mall",
+      "palengke",
+      "market",
+      "nawawala",
+      "bata",
+      "missing",
+      "guard",
+      "guwardya",
+      "sanggol"
+    ],
+    "text": "1. Kumilos sa mga unang minuto — sabihin agad sa pinakamalapit na guwardya o staff ang pangalan, edad, damit, at litrato ng bata.\n2. Hilingin sa staff na bantayan ang labasan at mag-anunsyo sa PA system. Bilisang tingnan ang banyo, palaruan, at kalapit na tindahan.\n3. Turuan ang bata nang maaga: kung maligaw, MANATILI sa puwesto, lumapit sa naka-unipormeng guwardya o nanay na may kasamang bata, at huwag sumama sa estranghero.\n4. Magkasundo sa tagpuan sa bawat lakad — isang lugar na alam ng lahat.\n5. Kapag nahanap na, patahanin muna at i-update ang mga guwardya para tumigil ang paghahanap.",
+    "source": "PNP / DSWD Child Safety Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "public.robbery.holdup.001",
+    "pack": "public",
+    "topic": "robbery_response",
+    "lang": "en",
+    "title": "Robbery / holdup — how to respond",
+    "severity": "urgent",
+    "tags": [
+      "robbery",
+      "holdap",
+      "holdup",
+      "nakawan",
+      "magnanakaw",
+      "snatcher",
+      "akyat-bahay",
+      "tulisan",
+      "pulis",
+      "holdaper",
+      "ninakaw"
+    ],
+    "text": "1. If robbed: do NOT resist — your life is worth more than any belonging. Stay calm and follow instructions.\n2. Observe without staring: faces, clothes, height, plate number, getaway direction, time, and place.\n3. Do NOT chase or fight back, even after they leave. Go somewhere safe and call the PNP or 911 at once.\n4. Preserve the scene: touch as little as possible until police arrive. Write down details while they are fresh.\n5. In home invasions: comply, avoid sudden moves, and get out to call for help the moment it is safe. Fear and shaking afterward are normal — talk to someone you trust or your barangay.",
+    "source": "PNP Crime Prevention Tips",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "public.robbery.holdup.001",
+    "pack": "public",
+    "topic": "robbery_response",
+    "lang": "tl",
+    "title": "Holdap / nakawan — paano rumesponde",
+    "severity": "urgent",
+    "tags": [
+      "robbery",
+      "holdap",
+      "holdup",
+      "nakawan",
+      "magnanakaw",
+      "snatcher",
+      "akyat-bahay",
+      "tulisan",
+      "pulis",
+      "holdaper",
+      "ninakaw"
+    ],
+    "text": "1. Kung hinoholdap: HUWAG lumaban — mas mahalaga ang buhay kaysa anumang gamit. Huminahon at sundin ang sinasabi.\n2. Magmasid nang hindi tumititig: mukha, damit, tangkad, plate number, direksyon ng pagtakas, oras, at lugar.\n3. HUWAG humabol o gumanti, kahit nakaalis na sila. Pumunta sa ligtas na lugar at tumawag agad sa PNP o 911.\n4. Panatilihin ang crime scene: huwag hawakan hangga't maaari hanggang dumating ang pulis. Isulat ang detalye habang sariwa pa.\n5. Sa akyat-bahay: sumunod, iwasan ang biglaang galaw, at lumabas para humingi ng tulong sa sandaling ligtas na. Normal ang takot at panginginig pagkatapos — makipag-usap sa pinagkakatiwalaan o sa barangay.",
+    "source": "PNP Crime Prevention Tips",
+    "personalize": [
+      "emergency_contact"
+    ],
+    "call_emergency": true
+  }
+]

@@ -11,6 +11,7 @@ import dev.darl.sagip.llm.LlmEngine
 import dev.darl.sagip.llm.ModelConfig
 import dev.darl.sagip.llm.looksRepetitive
 import dev.darl.sagip.llm.trimRepetitionTail
+import dev.darl.sagip.llm.cleanAnswer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -90,6 +91,26 @@ class ChatViewModel(
         )
 
         val chunks = retriever.retrieve(userText, lang, k = 2)
+
+        // No genuine pack match → do NOT run the model on empty guidance (it would
+        // hallucinate). Show a safe, honest fallback that directs to 911. This is the
+        // correct behavior for an emergency app: never a confidently-wrong answer.
+        if (chunks.isEmpty()) {
+            val msg = if (lang == dev.darl.sagip.data.Lang.TL)
+                "Wala akong tiyak na gabay para dito na available offline. Kung ito ay emergency, tumawag agad sa 911 o sa pinakamalapit na awtoridad."
+            else
+                "I don't have specific offline guidance for that. If this is an emergency, call 911 or your nearest authority immediately."
+            _state.value = _state.value.copy(
+                messages = _state.value.messages + Message(
+                    role = Role.ASSISTANT, text = msg, severity = Severity.URGENT,
+                    sources = emptyList(), callContact = null, callNumber = null,
+                    showCallActions = true, streaming = false,
+                ),
+                busy = false,
+            )
+            return
+        }
+
         val prompt = PromptBuilder.build(userText, profile, chunks)
 
         val severity = chunks.maxByOrNull { it.severity.ordinal }?.severity
@@ -114,30 +135,102 @@ class ChatViewModel(
         viewModelScope.launch {
             val sb = StringBuilder()
             val eng = engine
+            // Pack steps are the EMERGENCY FALLBACK only — used if the model loops,
+            // stalls, or produces nothing. In the normal path the model's own grounded
+            // answer is shown (it may adapt the guidance to the actual situation).
+            val fallback = fallbackFromChunks(chunks, lang)
             try {
                 if (eng != null) {
-                    var stopped = false
-                    withContext(Dispatchers.IO) {
-                        eng.generateAsync(prompt) { partial, done ->
-                            if (stopped) return@generateAsync
-                            sb.append(partial)
-                            val raw = sb.toString()
-                            if (!done && looksRepetitive(raw)) {
-                                // Repetition collapse — show the cleaned prefix and finish.
-                                stopped = true
-                                val cleaned = trimRepetitionTail(raw)
-                                viewModelScope.launch(Dispatchers.Main) {
-                                    updateAssistant(assistantIndex, cleaned, streaming = false)
-                                    setBusy(false)
+                    var finalText = fallback
+                    for (attempt in 0..1) {
+                        sb.setLength(0)
+                        var stopped = false
+                        val retryable = java.util.concurrent.atomic.AtomicBoolean(false)
+                        val finished = kotlinx.coroutines.CompletableDeferred<String>()
+                        // Watchdog: track the last time the model emitted anything. E2B on
+                        // CPU can hang (no done, no partials). If it stalls, we abort to the
+                        // pack fallback so the UI NEVER freezes on "typing...".
+                        val lastProgress = java.util.concurrent.atomic.AtomicLong(System.currentTimeMillis())
+                        val t0 = System.currentTimeMillis()
+                        val gotFirstToken = java.util.concurrent.atomic.AtomicBoolean(false)
+
+                        fun finish(text: String, natural: Boolean = false) {
+                            if (stopped) return
+                            stopped = true
+                            // Natural completion: leave the session alone (engine retires it on next call).
+                            if (!natural) viewModelScope.launch(Dispatchers.IO) { runCatching { eng.cancel() } }
+                            if (!finished.isCompleted) finished.complete(text)
+                        }
+
+                        // Launch generation DETACHED: if the native call ever blocks, the
+                        // watchdog below must still run and release the UI.
+                        viewModelScope.launch(Dispatchers.IO) {
+                            runCatching {
+                            eng.generateAsync(prompt) { partial, done ->
+                                if (stopped) return@generateAsync
+                                lastProgress.set(System.currentTimeMillis())
+                                if (gotFirstToken.compareAndSet(false, true)) {
+                                    android.util.Log.i("SagipGen", "TTFT ${System.currentTimeMillis() - t0}ms promptChars=${prompt.length}")
                                 }
-                                return@generateAsync
+                                sb.append(partial)
+                                val raw = cleanAnswer(sb.toString())
+                                // Loop guard: if the model degenerates, trim to the clean
+                                // prefix; if that leaves too little, use the pack fallback.
+                                if (!done && looksRepetitive(raw)) {
+                                    val trimmed = trimRepetitionTail(raw).trim()
+                                    finish(if (trimmed.length < 40) fallback else trimmed)
+                                    return@generateAsync
+                                }
+                                // Safety cap so a runaway generation can't stream forever.
+                                if (!done && raw.length > 1600) {
+                                    finish(trimRepetitionTail(raw).trim().ifBlank { fallback })
+                                    return@generateAsync
+                                }
+                                if (done) {
+                                    android.util.Log.i("SagipGen", "TOTAL ${System.currentTimeMillis() - t0}ms answerChars=${raw.length}")
+                                    val ans = raw.trim()
+                                    if (ans.length < 20 && attempt == 0) {
+                                        // Model stopped immediately / emitted only control tokens.
+                                        // Retry once (cheap on GPU) before using the pack text.
+                                        android.util.Log.w("SagipGen", "empty answer, retrying once")
+                                        retryable.set(true)
+                                        finish("", natural = true)
+                                    } else finish(if (ans.length < 20) fallback else ans, natural = true)
+                                } else {
+                                    viewModelScope.launch(Dispatchers.Main) {
+                                        if (!stopped) updateAssistant(assistantIndex, raw, streaming = true)
+                                    }
+                                }
                             }
-                            viewModelScope.launch(Dispatchers.Main) {
-                                updateAssistant(assistantIndex, raw, streaming = !done)
-                                if (done) setBusy(false)
+                            }.onFailure {
+                                android.util.Log.e("SagipGen", "generateAsync failed: ${it.message}")
+                                finish(fallback)
                             }
                         }
+
+                        // Watchdog loop (runs independently of the generation call): abort
+                        // if no progress for STALL_MS, or total time exceeds HARD_CAP_MS.
+                        // Falls back to whatever clean text exists, else the pack steps.
+                        val start = System.currentTimeMillis()
+                        while (!finished.isCompleted) {
+                            kotlinx.coroutines.delay(500)
+                            val now = System.currentTimeMillis()
+                            // Before the first token the CPU is still prefilling the prompt, which
+                            // legitimately takes a while on E2B — use a longer window then.
+                            val stallLimit = if (gotFirstToken.get()) STALL_MS else PREFILL_MS
+                            if (now - lastProgress.get() > stallLimit || now - start > HARD_CAP_MS) {
+                                android.util.Log.w("SagipGen", "watchdog abort: stalled/over-cap")
+                                val sofar = trimRepetitionTail(cleanAnswer(sb.toString())).trim()
+                                finish(if (sofar.length < 40) fallback else sofar)
+                                break
+                            }
+                        }
+
+                        finalText = finished.await()
+                        if (!retryable.get()) break
                     }
+                    updateAssistant(assistantIndex, finalText, streaming = false)
+                    setBusy(false)
                 } else {
                     // Mock: compose from retrieved guidance so the UI/pipeline works pre-model.
                     val canned = buildMock(prompt)
@@ -164,6 +257,16 @@ class ChatViewModel(
         return "[mock — model not loaded]\nBased on trusted guidance:\n$steps"
     }
 
+    /**
+     * Pack steps rendered verbatim from the retrieved chunks (already in the user's
+     * language via the TL/EN twin). Used as the EMERGENCY FALLBACK when the model
+     * loops, stalls, or produces nothing — guarantees the user still gets correct
+     * guidance. The normal path shows the model's own grounded answer.
+     */
+    private fun fallbackFromChunks(chunks: List<dev.darl.sagip.data.Chunk>, lang: dev.darl.sagip.data.Lang): String {
+        return chunks.joinToString("\n\n") { it.text.trim() }
+    }
+
     private fun updateAssistant(index: Int, text: String, streaming: Boolean) {
         val msgs = _state.value.messages.toMutableList()
         if (index in msgs.indices) {
@@ -177,5 +280,14 @@ class ChatViewModel(
     override fun onCleared() {
         engine?.close()
         engine = null
+    }
+
+    companion object {
+        /** Abort if the model emits nothing new for this long (hang detection). */
+        private const val STALL_MS = 12_000L
+        /** Max wait for the FIRST token (CPU prompt prefill on E2B). */
+        private const val PREFILL_MS = 45_000L
+        /** Absolute cap on one generation; E2B on CPU is slow but must not run forever. */
+        private const val HARD_CAP_MS = 90_000L
     }
 }

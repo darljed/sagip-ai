@@ -28,8 +28,10 @@ object PromptBuilder {
         profile.comprehensionHint()?.let { sb.appendLine(it) }
         sb.appendLine()
 
-        // 2. The guidance FIRST and prominent — this is what we want it to output.
-        sb.appendLine("Use ONLY these official steps to answer:")
+        // 2. The guidance as REFERENCE context. The model composes the answer FROM
+        //    this, but may adapt it to the person's actual situation (grounded
+        //    generation — not verbatim copy).
+        sb.appendLine("Reference guidance from trusted sources:")
         chunks.forEach { c ->
             sb.appendLine()
             sb.appendLine("### ${c.title} (source: ${c.source})")
@@ -40,38 +42,49 @@ object PromptBuilder {
         // 3. Personalization — concrete facts to weave in, not abstract rules.
         val personalLines = personalNotes(profile, relevantKeys, chunks)
         if (personalLines.isNotEmpty()) {
-            sb.appendLine("Personalise for this person:")
+            sb.appendLine("Personal facts about this person (mention ONLY if the reference guidance")
+            sb.appendLine("above directly involves them; never invent a connection):")
             personalLines.forEach { sb.appendLine("- $it") }
             sb.appendLine()
         }
 
-        // 4. Output shape — tell it exactly what to produce. Minimal, concrete.
-        sb.appendLine("Rewrite the steps above as a clear numbered list the person can follow now.")
-        sb.appendLine("Copy the actual instructions from the steps — do NOT shorten them to keywords")
-        sb.appendLine("or slogans, and do NOT repeat a line. Each step must be a full instruction.")
+        // 4. Output shape — grounded generation. The model answers the ACTUAL question
+        //    using the reference guidance, adapting it when the situation differs
+        //    (e.g. "I saw a snake" ≠ "I was bitten" → say how to stay safe, then what
+        //    to do IF bitten). This fixes rigid verbatim-pack answers.
+        sb.appendLine("Answer the person's actual question: \"$query\"")
+        sb.appendLine("Base your answer on the reference guidance above. First check: does the")
+        sb.appendLine("person's situation actually match the guidance? If they say something has")
+        sb.appendLine("NOT happened (for example 'not bitten', 'not hurt'), do NOT give the treatment")
+        sb.appendLine("steps for it. Instead reassure them in one sentence, give only the safety")
+        sb.appendLine("steps that still apply, and say when to get help. Do not invent medical facts")
+        sb.appendLine("beyond the guidance. Give clear, short numbered steps they can follow now.")
         if (hasCritical) {
-            val leadIn = if (lang == Lang.TL)
-                "Start with one short line warning that this is a life-threatening emergency (in Tagalog)."
-            else
-                "Start with one short line: this is an emergency, get help fast."
-            sb.appendLine(leadIn)
+            sb.appendLine(
+                if (lang == Lang.TL)
+                    "If this is life-threatening, start with one short warning line (in Tagalog)."
+                else
+                    "If this is life-threatening, start with one short warning line."
+            )
         }
-        sb.appendLine("If something is not covered, say you don't have that info.")
+        sb.appendLine("Do not repeat any line. Keep it concise.")
 
-        // 5. Language instruction LAST (recency) — strongest placement for a 1B model.
+        // 5. Language instruction LAST (recency).
         sb.appendLine()
         if (lang == Lang.TL) {
-            sb.appendLine("IMPORTANT: Write your entire answer in $langName. Do not use English.")
+            sb.appendLine("IMPORTANT: Write your entire answer in $langName only. Do not use English.")
         } else {
             sb.appendLine("Write your entire answer in $langName.")
         }
-        sb.append("Answer:")
-        return sb.toString()
+        return sb.toString().trimEnd()
     }
 
     /** Concrete, weave-in personalization notes (not abstract rules the model echoes). */
     private fun personalNotes(p: UserProfile, keys: Set<String>, chunks: List<Chunk>): List<String> = buildList {
-        if ("allergies" in keys && p.allergies.isNotEmpty())
+        // Only surface allergies when the guidance itself involves medicine/food/etc.
+        // Otherwise a small model invents irrelevant links (e.g. "seafood" in a snake answer).
+        val medRelevant = Regex("allerg|aspirin|medic|gamot|drug|antibiotic|ointment|cream|food|drink|pagkain|inumin", RegexOption.IGNORE_CASE)
+        if ("allergies" in keys && p.allergies.isNotEmpty() && chunks.any { medRelevant.containsMatchIn(it.text) })
             add("Allergic to ${p.allergies.joinToString(", ")} — warn if any step risks this.")
         if ("blood_type" in keys && p.bloodType.isNotBlank())
             add("Blood type ${p.bloodType}.")

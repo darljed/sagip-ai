@@ -6,10 +6,22 @@
     "lang": "en",
     "title": "Severe bleeding (hemorrhage)",
     "severity": "critical",
-    "tags": ["bleeding","wound","blood","hemorrhage","cut","dugo","sugat","dumudugo"],
+    "tags": [
+      "bleeding",
+      "wound",
+      "blood",
+      "hemorrhage",
+      "cut",
+      "dugo",
+      "sugat",
+      "dumudugo"
+    ],
     "text": "1. Apply firm, direct pressure on the wound with a clean cloth or your hand.\n2. Keep pressing continuously — do not lift to check. Add more cloth on top if it soaks through.\n3. If possible, raise the injured area above the level of the heart.\n4. Lay the person down and keep them warm to prevent shock.\n5. Keep pressing until bleeding stops or help arrives. Do not remove any object stuck in the wound — press around it.",
     "source": "Philippine Red Cross / WHO First Aid Guidelines",
-    "personalize": ["blood_type","allergies"],
+    "personalize": [
+      "blood_type",
+      "allergies"
+    ],
     "call_emergency": true
   },
   {
@@ -19,10 +31,22 @@
     "lang": "tl",
     "title": "Matinding pagdurugo (hemorrhage)",
     "severity": "critical",
-    "tags": ["bleeding","wound","blood","hemorrhage","cut","dugo","sugat","dumudugo"],
+    "tags": [
+      "bleeding",
+      "wound",
+      "blood",
+      "hemorrhage",
+      "cut",
+      "dugo",
+      "sugat",
+      "dumudugo"
+    ],
     "text": "1. Diinan nang mabuti ang sugat gamit ang malinis na tela o ang iyong kamay.\n2. Patuloy na diinan — huwag alisin para tingnan. Dagdagan ng tela sa ibabaw kung tumagos ang dugo.\n3. Kung kaya, itaas ang nasugatan na bahagi nang mas mataas sa puso.\n4. Ihiga ang tao at panatilihing mainit ang katawan para maiwasan ang shock.\n5. Patuloy na diinan hanggang tumigil ang dugo o may dumating na tulong. Huwag alisin ang anumang bagay na nakabaon sa sugat — diinan sa paligid nito.",
     "source": "Philippine Red Cross / WHO First Aid Guidelines",
-    "personalize": ["blood_type","allergies"],
+    "personalize": [
+      "blood_type",
+      "allergies"
+    ],
     "call_emergency": true
   },
   {
@@ -32,7 +56,17 @@
     "lang": "en",
     "title": "CPR for an adult (not breathing)",
     "severity": "critical",
-    "tags": ["cpr","not breathing","no pulse","collapse","cardiac","heart","resuscitation","hindi humihinga","wala sa malay"],
+    "tags": [
+      "cpr",
+      "not breathing",
+      "no pulse",
+      "collapse",
+      "cardiac",
+      "heart",
+      "resuscitation",
+      "hindi humihinga",
+      "wala sa malay"
+    ],
     "text": "1. Check response — tap and shout. If no response and not breathing normally, start CPR.\n2. Place the heel of one hand in the center of the chest, other hand on top, fingers interlocked.\n3. Push HARD and FAST: at least 5 cm deep, 100–120 pushes per minute. Let the chest rise fully between pushes.\n4. If trained, give 30 compressions then 2 rescue breaths. If untrained, do hands-only compressions nonstop.\n5. Do not stop until the person breathes, help takes over, or you cannot continue.",
     "source": "Philippine Red Cross / American Heart Association CPR Guidelines",
     "personalize": [],
@@ -45,7 +79,17 @@
     "lang": "tl",
     "title": "CPR para sa nasa hustong gulang (hindi humihinga)",
     "severity": "critical",
-    "tags": ["cpr","not breathing","no pulse","collapse","cardiac","heart","resuscitation","hindi humihinga","wala sa malay"],
+    "tags": [
+      "cpr",
+      "not breathing",
+      "no pulse",
+      "collapse",
+      "cardiac",
+      "heart",
+      "resuscitation",
+      "hindi humihinga",
+      "wala sa malay"
+    ],
     "text": "1. Tingnan kung may reaksyon — tapikin at sigawan. Kung walang reaksyon at hindi humihinga nang normal, simulan ang CPR.\n2. Ilagay ang sakong ng isang kamay sa gitna ng dibdib, ang kabilang kamay sa ibabaw, magkadikit ang mga daliri.\n3. Diinan nang MALAKAS at MABILIS: hindi bababa sa 5 cm ang lalim, 100–120 diin kada minuto. Hayaang bumalik nang buo ang dibdib bawat diin.\n4. Kung sanay, bigyan ng 30 diin tapos 2 hinga. Kung hindi sanay, tuloy-tuloy na diin lang gamit ang kamay.\n5. Huwag huminto hanggang huminga ang tao, may pumalit, o hindi mo na kaya.",
     "source": "Philippine Red Cross / American Heart Association CPR Guidelines",
     "personalize": [],
@@ -58,7 +102,15 @@
     "lang": "en",
     "title": "Choking (adult or child over 1 year)",
     "severity": "urgent",
-    "tags": ["choking","can't breathe","heimlich","obstruction","nabulunan","naninikip","nasamid"],
+    "tags": [
+      "choking",
+      "can't breathe",
+      "heimlich",
+      "obstruction",
+      "nabulunan",
+      "naninikip",
+      "nasamid"
+    ],
     "text": "1. Ask \"Are you choking?\" If they cannot speak, cough, or breathe, act now.\n2. Give 5 back blows: bend them forward, strike firmly between the shoulder blades with the heel of your hand.\n3. If still blocked, give 5 abdominal thrusts (Heimlich): stand behind, fist above the navel, grasp with other hand, thrust inward and upward.\n4. Alternate 5 back blows and 5 thrusts until the object comes out or they can breathe.\n5. If they become unconscious, lower them safely and start CPR.",
     "source": "Philippine Red Cross First Aid Guidelines",
     "personalize": [],
@@ -71,7 +123,15 @@
     "lang": "tl",
     "title": "Nabulunan (adulto o batang higit 1 taon)",
     "severity": "urgent",
-    "tags": ["choking","can't breathe","heimlich","obstruction","nabulunan","naninikip","nasamid"],
+    "tags": [
+      "choking",
+      "can't breathe",
+      "heimlich",
+      "obstruction",
+      "nabulunan",
+      "naninikip",
+      "nasamid"
+    ],
     "text": "1. Tanungin \"Nabulunan ka ba?\" Kung hindi makapagsalita, makaubo, o makahinga, kumilos agad.\n2. Bigyan ng 5 palo sa likod: iyuko siya, paluin nang mabuti sa pagitan ng mga balikat gamit ang sakong ng kamay.\n3. Kung bara pa rin, bigyan ng 5 diin sa tiyan (Heimlich): tumayo sa likod, kamao sa itaas ng pusod, hawakan ng kabilang kamay, idiin paloob at pataas.\n4. Salitan ang 5 palo sa likod at 5 diin hanggang lumabas ang bara o makahinga siya.\n5. Kung mawalan ng malay, ibaba nang maingat at simulan ang CPR.",
     "source": "Philippine Red Cross First Aid Guidelines",
     "personalize": [],
@@ -84,7 +144,16 @@
     "lang": "en",
     "title": "Burns (heat, fire, scald)",
     "severity": "urgent",
-    "tags": ["burn","scald","fire","hot","paso","napaso","sunog","init"],
+    "tags": [
+      "burn",
+      "scald",
+      "fire",
+      "hot",
+      "paso",
+      "napaso",
+      "sunog",
+      "init"
+    ],
     "text": "1. Cool the burn under clean running water for at least 20 minutes. Do NOT use ice.\n2. Remove rings, watches, or tight clothing near the burn before it swells — unless stuck to the skin.\n3. Do not pop blisters. Do not apply toothpaste, oil, butter, or soy sauce.\n4. Cover loosely with a clean, non-stick cloth or cling film.\n5. Seek medical help for burns larger than the person's palm, on the face, hands, feet, or genitals, or if the skin is white/charred.",
     "source": "WHO / Philippine Red Cross Burn Care Guidelines",
     "personalize": [],
@@ -97,7 +166,16 @@
     "lang": "tl",
     "title": "Paso (init, apoy, banlik)",
     "severity": "urgent",
-    "tags": ["burn","scald","fire","hot","paso","napaso","sunog","init"],
+    "tags": [
+      "burn",
+      "scald",
+      "fire",
+      "hot",
+      "paso",
+      "napaso",
+      "sunog",
+      "init"
+    ],
     "text": "1. Palamigin ang paso sa ilalim ng malinis na tumatakbong tubig nang hindi bababa sa 20 minuto. HUWAG gumamit ng yelo.\n2. Alisin ang singsing, relo, o masikip na damit malapit sa paso bago mamaga — maliban kung nakadikit na sa balat.\n3. Huwag putukin ang paltos. Huwag lagyan ng toothpaste, langis, mantikilya, o toyo.\n4. Takpan nang maluwag ng malinis na telang hindi dumidikit o cling film.\n5. Humingi ng tulong medikal kung mas malaki ang paso kaysa palad, nasa mukha, kamay, paa, o ari, o kung puti/nasunog na ang balat.",
     "source": "WHO / Philippine Red Cross Burn Care Guidelines",
     "personalize": [],
@@ -110,7 +188,16 @@
     "lang": "en",
     "title": "Suspected broken bone (fracture)",
     "severity": "urgent",
-    "tags": ["fracture","broken bone","sprain","splint","bali","nabali","pilay","buto"],
+    "tags": [
+      "fracture",
+      "broken bone",
+      "sprain",
+      "splint",
+      "bali",
+      "nabali",
+      "pilay",
+      "buto"
+    ],
     "text": "1. Keep the injured limb still — do not try to straighten it or push a bone back.\n2. Support the limb in the position found using a splint (rolled newspaper, board) and padding.\n3. Apply a cold pack wrapped in cloth to reduce swelling.\n4. If there is an open wound with the bone, cover with a clean cloth and apply gentle pressure around it to control bleeding.\n5. Do not give food or drink in case surgery is needed. Get the person to medical care.",
     "source": "Philippine Red Cross First Aid Guidelines",
     "personalize": [],
@@ -123,7 +210,16 @@
     "lang": "tl",
     "title": "Pinaghihinalaang bali ng buto (fracture)",
     "severity": "urgent",
-    "tags": ["fracture","broken bone","sprain","splint","bali","nabali","pilay","buto"],
+    "tags": [
+      "fracture",
+      "broken bone",
+      "sprain",
+      "splint",
+      "bali",
+      "nabali",
+      "pilay",
+      "buto"
+    ],
     "text": "1. Panatilihing hindi gumagalaw ang nasugatang bahagi — huwag subukang ituwid o ibalik ang buto.\n2. Suportahan ang bahagi sa posisyong nakita gamit ang splint (nirolyong dyaryo, tabla) at padding.\n3. Lagyan ng malamig na compress na nakabalot sa tela para mabawasan ang pamamaga.\n4. Kung may bukas na sugat na may lumabas na buto, takpan ng malinis na tela at marahang diinan sa paligid para pigilan ang dugo.\n5. Huwag bigyan ng pagkain o inumin dahil baka kailanganin ang operasyon. Dalhin ang tao sa ospital.",
     "source": "Philippine Red Cross First Aid Guidelines",
     "personalize": [],
@@ -136,10 +232,21 @@
     "lang": "en",
     "title": "Snakebite",
     "severity": "critical",
-    "tags": ["snakebite","snake","venom","bite","ahas","kagat","kinagat ng ahas","nakagat"],
+    "tags": [
+      "snakebite",
+      "snake",
+      "venom",
+      "bite",
+      "ahas",
+      "kagat",
+      "kinagat ng ahas",
+      "nakagat"
+    ],
     "text": "1. Keep the person calm and still — movement spreads venom faster.\n2. Keep the bitten limb BELOW heart level and immobilize it like a fracture.\n3. Remove rings, watches, and tight clothing near the bite before swelling.\n4. Do NOT cut the wound, suck out venom, apply a tourniquet, or use ice.\n5. Note the time of the bite and the snake's appearance if safe. Get to a hospital with antivenom immediately.",
     "source": "WHO Snakebite Management / DOH Philippines",
-    "personalize": ["allergies"],
+    "personalize": [
+      "allergies"
+    ],
     "call_emergency": true
   },
   {
@@ -149,10 +256,21 @@
     "lang": "tl",
     "title": "Kagat ng ahas",
     "severity": "critical",
-    "tags": ["snakebite","snake","venom","bite","ahas","kagat","kinagat ng ahas","nakagat"],
+    "tags": [
+      "snakebite",
+      "snake",
+      "venom",
+      "bite",
+      "ahas",
+      "kagat",
+      "kinagat ng ahas",
+      "nakagat"
+    ],
     "text": "1. Panatilihing kalmado at hindi gumagalaw ang tao — ang paggalaw ay mas nagpapabilis ng pagkalat ng kamandag.\n2. Panatilihing MAS MABABA sa puso ang nakagat na bahagi at huwag paggalawin tulad ng bali.\n3. Alisin ang singsing, relo, at masikip na damit malapit sa kagat bago mamaga.\n4. HUWAG hiwain ang sugat, supsupin ang kamandag, lagyan ng tourniquet, o gamitan ng yelo.\n5. Tandaan ang oras ng kagat at itsura ng ahas kung ligtas. Dalhin agad sa ospital na may antivenom.",
     "source": "WHO Snakebite Management / DOH Philippines",
-    "personalize": ["allergies"],
+    "personalize": [
+      "allergies"
+    ],
     "call_emergency": true
   },
   {
@@ -162,10 +280,23 @@
     "lang": "en",
     "title": "Shock (pale, cold, weak, confused)",
     "severity": "critical",
-    "tags": ["shock","pale","cold sweat","weak pulse","fainting","dizzy","hinimatay","malamig","namumutla"],
+    "tags": [
+      "shock",
+      "pale",
+      "cold sweat",
+      "weak pulse",
+      "fainting",
+      "dizzy",
+      "hinimatay",
+      "malamig",
+      "namumutla"
+    ],
     "text": "1. Lay the person down and raise their legs about 30 cm if no leg/spine injury.\n2. Keep them warm with a blanket or jacket. Loosen tight clothing.\n3. Do NOT give food or drink.\n4. Reassure them and keep them still. Turn onto their side if they may vomit or are unconscious but breathing.\n5. Monitor breathing. Be ready to start CPR if breathing stops. Get medical help urgently.",
     "source": "Philippine Red Cross First Aid Guidelines",
-    "personalize": ["conditions","medications"],
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
     "call_emergency": true
   },
   {
@@ -175,10 +306,2031 @@
     "lang": "tl",
     "title": "Shock (maputla, malamig, mahina, nalilito)",
     "severity": "critical",
-    "tags": ["shock","pale","cold sweat","weak pulse","fainting","dizzy","hinimatay","malamig","namumutla"],
+    "tags": [
+      "shock",
+      "pale",
+      "cold sweat",
+      "weak pulse",
+      "fainting",
+      "dizzy",
+      "hinimatay",
+      "malamig",
+      "namumutla"
+    ],
     "text": "1. Ihiga ang tao at itaas ang mga binti ng mga 30 cm kung walang sugat sa binti/gulugod.\n2. Panatilihing mainit gamit ang kumot o jacket. Luwagan ang masikip na damit.\n3. HUWAG bigyan ng pagkain o inumin.\n4. Patahimikin at huwag paggalawin. Ihiga sa tagiliran kung posibleng magsuka o walang malay ngunit humihinga.\n5. Bantayan ang paghinga. Maging handa sa CPR kung tumigil ang paghinga. Humingi agad ng tulong medikal.",
     "source": "Philippine Red Cross First Aid Guidelines",
-    "personalize": ["conditions","medications"],
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.heart_attack.recognize.001",
+    "pack": "first_aid",
+    "topic": "heart_attack",
+    "lang": "en",
+    "title": "Heart attack (chest pain)",
+    "severity": "critical",
+    "tags": [
+      "heart attack",
+      "chest pain",
+      "dibdib",
+      "atake sa puso",
+      "sakit sa dibdib",
+      "heart",
+      "hirap huminga",
+      "shortness of breath",
+      "sweating",
+      "pawis",
+      "arm pain",
+      "sakit sa braso"
+    ],
+    "text": "1. Have the person sit down, rest, and stay calm. Loosen tight clothing.\n2. Call for emergency help immediately — this is time-critical.\n3. If they are not allergic to aspirin and it is available, have them chew one adult aspirin.\n4. If they have prescribed heart medicine (like nitroglycerin), help them take it.\n5. If they become unresponsive and are not breathing normally, start CPR and send for an AED.",
+    "source": "American Heart Association (AHA) / Philippine Red Cross",
+    "personalize": [
+      "conditions",
+      "medications",
+      "allergies"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.heart_attack.recognize.001",
+    "pack": "first_aid",
+    "topic": "heart_attack",
+    "lang": "tl",
+    "title": "Atake sa puso (sakit sa dibdib)",
+    "severity": "critical",
+    "tags": [
+      "heart attack",
+      "chest pain",
+      "dibdib",
+      "atake sa puso",
+      "sakit sa dibdib",
+      "heart",
+      "hirap huminga",
+      "shortness of breath",
+      "sweating",
+      "pawis",
+      "arm pain",
+      "sakit sa braso"
+    ],
+    "text": "1. Paupuin ang tao, pahingahin, at panatilihing kalmado. Luwagan ang masikip na damit.\n2. Humingi agad ng tulong medikal — mahalaga ang oras.\n3. Kung hindi siya allergic sa aspirin at may available, panguyain siya ng isang adult aspirin.\n4. Kung may reseta siyang gamot sa puso (tulad ng nitroglycerin), tulungan siyang inumin ito.\n5. Kung mawalan siya ng malay at hindi humihinga nang normal, simulan ang CPR at ipakuha ang AED.",
+    "source": "American Heart Association (AHA) / Philippine Red Cross",
+    "personalize": [
+      "conditions",
+      "medications",
+      "allergies"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.stroke.fast.001",
+    "pack": "first_aid",
+    "topic": "stroke",
+    "lang": "en",
+    "title": "Stroke (FAST check)",
+    "severity": "critical",
+    "tags": [
+      "stroke",
+      "fast",
+      "face drooping",
+      "arm weakness",
+      "speech",
+      "stroke signs",
+      "atake sa utak",
+      "ngiwi",
+      "nanghina",
+      "nabubulol",
+      "manhid"
+    ],
+    "text": "1. Check FAST: Face — is one side drooping? Arms — can they raise both? Speech — is it slurred or strange? Time — note the exact time symptoms started.\n2. Call for emergency help immediately. Tell them the time symptoms started.\n3. Keep the person still and lying on their side if unconscious but breathing.\n4. Do NOT give food, drink, or any medicine.\n5. Reassure them and monitor breathing. Be ready to start CPR if breathing stops.",
+    "source": "American Heart Association (AHA) / Philippine Red Cross",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.stroke.fast.001",
+    "pack": "first_aid",
+    "topic": "stroke",
+    "lang": "tl",
+    "title": "Stroke (pagsusuri gamit ang FAST)",
+    "severity": "critical",
+    "tags": [
+      "stroke",
+      "fast",
+      "face drooping",
+      "arm weakness",
+      "speech",
+      "stroke signs",
+      "atake sa utak",
+      "ngiwi",
+      "nanghina",
+      "nabubulol",
+      "manhid"
+    ],
+    "text": "1. Suriin ang FAST: Face — tabingi ba ang isang bahagi ng mukha? Arms — maitaas ba parehong kamay? Speech — nabubulol o kakaiba ba magsalita? Time — tandaan ang eksaktong oras ng simula ng sintomas.\n2. Humingi agad ng tulong medikal. Sabihin kung anong oras nagsimula ang sintomas.\n3. Huwag paggalawin ang tao; ihiga sa tagiliran kung walang malay pero humihinga.\n4. HUWAG bigyan ng pagkain, inumin, o anumang gamot.\n5. Patahanin siya at bantayan ang paghinga. Maging handa sa CPR kung tumigil ang paghinga.",
+    "source": "American Heart Association (AHA) / Philippine Red Cross",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.allergy.anaphylaxis.001",
+    "pack": "first_aid",
+    "topic": "allergic_reaction",
+    "lang": "en",
+    "title": "Severe allergy (anaphylaxis)",
+    "severity": "critical",
+    "tags": [
+      "allergy",
+      "anaphylaxis",
+      "epipen",
+      "swelling",
+      "hives",
+      "allergic",
+      "namamaga",
+      "rashes",
+      "pantal",
+      "kati",
+      "namantal",
+      "hirap huminga"
+    ],
+    "text": "1. Look for danger signs: swelling of face, lips, or tongue, hives, trouble breathing, dizziness, or collapse after food, medicine, or a sting.\n2. Call for emergency help immediately.\n3. If they have a prescribed epinephrine auto-injector, help them use it right away on the outer thigh.\n4. Lay them down with legs raised. If vomiting, turn onto their side. If breathing is hard, let them sit up.\n5. Do NOT give food or drink. Monitor breathing and be ready to start CPR if breathing stops.",
+    "source": "Philippine Red Cross / WHO First Aid Guidelines",
+    "personalize": [
+      "allergies",
+      "medications"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.allergy.anaphylaxis.001",
+    "pack": "first_aid",
+    "topic": "allergic_reaction",
+    "lang": "tl",
+    "title": "Matinding allergy (anaphylaxis)",
+    "severity": "critical",
+    "tags": [
+      "allergy",
+      "anaphylaxis",
+      "epipen",
+      "swelling",
+      "hives",
+      "allergic",
+      "namamaga",
+      "rashes",
+      "pantal",
+      "kati",
+      "namantal",
+      "hirap huminga"
+    ],
+    "text": "1. Tingnan ang mga delikadong senyales: pamamaga ng mukha, labi, o dila, pantal, hirap huminga, pagkahilo, o pagbagsak pagkatapos kumain, uminom ng gamot, o matusok ng insekto.\n2. Humingi agad ng tulong medikal.\n3. Kung may reseta siyang epinephrine auto-injector, tulungan siyang gamitin ito agad sa tagiliran ng hita.\n4. Ihiga siya nang nakataas ang mga binti. Kung nagsusuka, ihiga sa tagiliran. Kung hirap huminga, hayaang makaupo.\n5. HUWAG bigyan ng pagkain o inumin. Bantayan ang paghinga at maging handa sa CPR kung tumigil ito.",
+    "source": "Philippine Red Cross / WHO First Aid Guidelines",
+    "personalize": [
+      "allergies",
+      "medications"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.seizure.care.001",
+    "pack": "first_aid",
+    "topic": "seizure",
+    "lang": "en",
+    "title": "Seizure (convulsion)",
+    "severity": "urgent",
+    "tags": [
+      "seizure",
+      "convulsion",
+      "epilepsy",
+      "kumbulsyon",
+      "nangingisay",
+      "epilepsi",
+      "hilok",
+      "kumikibot"
+    ],
+    "text": "1. Stay calm, note the time, and clear hard or sharp objects away from the person.\n2. Gently turn them onto their side to keep the airway clear. Place something soft under the head.\n3. Do NOT hold them down, put anything in the mouth, or give food, drink, or medicine.\n4. Stay until they are fully awake and confused-free. Speak calmly as they recover.\n5. Call for emergency help if the seizure lasts over 5 minutes, repeats, breathing is difficult, they are injured, pregnant, or it is their first seizure.",
+    "source": "Philippine Red Cross / WHO First Aid Guidelines",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.seizure.care.001",
+    "pack": "first_aid",
+    "topic": "seizure",
+    "lang": "tl",
+    "title": "Kumbulsyon (seizure)",
+    "severity": "urgent",
+    "tags": [
+      "seizure",
+      "convulsion",
+      "epilepsy",
+      "kumbulsyon",
+      "nangingisay",
+      "epilepsi",
+      "hilok",
+      "kumikibot"
+    ],
+    "text": "1. Huminahon, tandaan ang oras, at ilayo ang matitigas o matatalim na bagay sa tao.\n2. Dahan-dahang ihiga siya sa tagiliran para manatiling bukas ang daanan ng hangin. Lagyan ng malambot na bagay ang ilalim ng ulo.\n3. HUWAG pigilan ang paggalaw niya, HUWAG maglagay ng kahit ano sa bibig, at HUWAG bigyan ng pagkain, inumin, o gamot.\n4. Samahan hanggang magising nang lubos. Kausapin nang mahinahon habang nagpapahinga siya.\n5. Humingi ng tulong medikal kung higit 5 minuto ang kumbulsyon, umulit, hirap huminga, nasaktan, buntis, o unang beses ito nangyari.",
+    "source": "Philippine Red Cross / WHO First Aid Guidelines",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.fainting.care.001",
+    "pack": "first_aid",
+    "topic": "fainting",
+    "lang": "en",
+    "title": "Fainting (brief collapse)",
+    "severity": "caution",
+    "tags": [
+      "fainting",
+      "faint",
+      "syncope",
+      "collapse",
+      "dizzy",
+      "nahimatay",
+      "hinimatay",
+      "nahihilo",
+      "nawalan ng malay"
+    ],
+    "text": "1. Lay the person flat on their back and raise the legs about 30 cm.\n2. Loosen tight clothing and let in fresh air. Keep bystanders back.\n3. Check breathing. If not waking within 1 minute, treat as an emergency and call for help.\n4. When awake, keep them lying down a few more minutes, then sit up slowly.\n5. Do NOT give food or drink until fully awake. Seek care if fainting repeats, or comes with chest pain, head injury, or paleness that persists.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.fainting.care.001",
+    "pack": "first_aid",
+    "topic": "fainting",
+    "lang": "tl",
+    "title": "Pagkahimatay (panandaliang pagbagsak)",
+    "severity": "caution",
+    "tags": [
+      "fainting",
+      "faint",
+      "syncope",
+      "collapse",
+      "dizzy",
+      "nahimatay",
+      "hinimatay",
+      "nahihilo",
+      "nawalan ng malay"
+    ],
+    "text": "1. Ihiga ang tao nang nakatihaya at itaas ang mga binti ng mga 30 cm.\n2. Luwagan ang masikip na damit at papasukin ang sariwang hangin. Ilayo ang mga nakapaligid.\n3. Tingnan ang paghinga. Kung hindi magising sa loob ng 1 minuto, ituring na emergency at humingi ng tulong.\n4. Kapag gising na, manatiling nakahiga nang ilang minuto, saka dahan-dahang umupo.\n5. HUWAG bigyan ng pagkain o inumin hangga't hindi lubusang gising. Magpatingin kung umulit ang himatay, o may kasamang sakit sa dibdib, sugat sa ulo, o matagal na pamumutla.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.heatstroke.care.001",
+    "pack": "first_aid",
+    "topic": "heat_stroke",
+    "lang": "en",
+    "title": "Heat stroke (overheating)",
+    "severity": "urgent",
+    "tags": [
+      "heat stroke",
+      "heatstroke",
+      "heat exhaustion",
+      "heat",
+      "init",
+      "sobrang init",
+      "nahilo sa init",
+      "dehydration",
+      "uhaw",
+      "pawis"
+    ],
+    "text": "1. Move the person to shade or a cool place and call for emergency help — heat stroke is time-critical.\n2. Remove excess clothing. Fan them and apply cool wet cloths or ice packs to the neck, armpits, and groin.\n3. If conscious and able to swallow, give small sips of cool water. Do NOT give alcohol or coffee.\n4. Do NOT give any medicine to lower fever. Do NOT use ice-cold baths that cause shivering.\n5. Monitor temperature and breathing until help arrives. If they collapse or stop sweating with hot dry skin, treat as an emergency.",
+    "source": "DOH / Philippine Red Cross Heat Emergency Guidelines",
+    "personalize": [
+      "conditions",
+      "medications",
+      "household_elderly"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.heatstroke.care.001",
+    "pack": "first_aid",
+    "topic": "heat_stroke",
+    "lang": "tl",
+    "title": "Heat stroke (sobrang init ng katawan)",
+    "severity": "urgent",
+    "tags": [
+      "heat stroke",
+      "heatstroke",
+      "heat exhaustion",
+      "heat",
+      "init",
+      "sobrang init",
+      "nahilo sa init",
+      "dehydration",
+      "uhaw",
+      "pawis"
+    ],
+    "text": "1. Ilipat ang tao sa lilim o malamig na lugar at humingi ng tulong medikal — mahalaga ang oras sa heat stroke.\n2. Alisin ang sobrang damit. Paypayan at lagyan ng malamig na basang tela o ice pack ang leeg, kilikili, at singit.\n3. Kung gising at nakakalunok, bigyan ng maliliit na lagok ng malamig na tubig. HUWAG bigyan ng alak o kape.\n4. HUWAG bigyan ng gamot pambaba ng lagnat. HUWAG paliguan ng sobrang lamig na magpapanginig.\n5. Bantayan ang init ng katawan at paghinga hanggang dumating ang tulong. Kung bumagsak o mainit at tuyo ang balat na hindi pinapawisan, ituring na emergency.",
+    "source": "DOH / Philippine Red Cross Heat Emergency Guidelines",
+    "personalize": [
+      "conditions",
+      "medications",
+      "household_elderly"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.drowning.rescue.001",
+    "pack": "first_aid",
+    "topic": "drowning",
+    "lang": "en",
+    "title": "Drowning (rescue and aftercare)",
+    "severity": "critical",
+    "tags": [
+      "drowning",
+      "nalunod",
+      "lunod",
+      "water rescue",
+      "swimming",
+      "hindi humihinga sa tubig",
+      "lifeguard",
+      "nalunod sa dagat"
+    ],
+    "text": "1. Call for help first. Do NOT enter dangerous water unless trained — Reach or Throw, Don't Go: extend a stick, rope, or float.\n2. Remove the person from the water as quickly and safely as possible.\n3. Check response and breathing. If not breathing normally, start CPR immediately and send for an AED.\n4. If breathing, lay them on their side, keep them warm, and watch closely — breathing trouble can return minutes or hours later.\n5. Get medical help for every drowning case, even if the person seems recovered.",
+    "source": "Philippine Red Cross / WHO Drowning Prevention and Rescue",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.drowning.rescue.001",
+    "pack": "first_aid",
+    "topic": "drowning",
+    "lang": "tl",
+    "title": "Pagkalunod (pagsagip at pag-aalaga)",
+    "severity": "critical",
+    "tags": [
+      "drowning",
+      "nalunod",
+      "lunod",
+      "water rescue",
+      "swimming",
+      "hindi humihinga sa tubig",
+      "lifeguard",
+      "nalunod sa dagat"
+    ],
+    "text": "1. Humingi muna ng tulong. HUWAG lumusong sa delikadong tubig kung hindi sanay — iabot ang patpat, lubid, o lutang na bagay, huwag ikaw ang lumangoy.\n2. Iahon ang tao mula sa tubig nang mabilis at ligtas hangga't kaya.\n3. Tingnan kung may malay at paghinga. Kung hindi humihinga nang normal, simulan agad ang CPR at ipakuha ang AED.\n4. Kung humihinga, ihiga sa tagiliran, panatilihing mainit, at bantayang mabuti — puwedeng bumalik ang hirap sa paghinga makalipas ang ilang minuto o oras.\n5. Magpatingin sa doktor sa bawat kaso ng pagkalunod, kahit mukhang maayos na ang tao.",
+    "source": "Philippine Red Cross / WHO Drowning Prevention and Rescue",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.electricshock.care.001",
+    "pack": "first_aid",
+    "topic": "electric_shock",
+    "lang": "en",
+    "title": "Electric shock (person electrocuted)",
+    "severity": "critical",
+    "tags": [
+      "electric shock",
+      "electrocuted",
+      "kuryente",
+      "nakuryente",
+      "wire",
+      "kable",
+      "grounded",
+      "shock"
+    ],
+    "text": "1. Do NOT touch the person while they are still in contact with electricity. Turn off the power or unplug the source first.\n2. If you cannot cut the power, stand on dry material and push the person away from the source using dry wood, plastic, or cardboard — never bare hands or metal.\n3. Call for emergency help immediately.\n4. Check breathing. If not breathing normally, start CPR.\n5. Treat any burns with cool running water and a loose clean cover. Keep the person still and warm until help arrives.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.electricshock.care.001",
+    "pack": "first_aid",
+    "topic": "electric_shock",
+    "lang": "tl",
+    "title": "Nakuryente (taong nakuryente)",
+    "severity": "critical",
+    "tags": [
+      "electric shock",
+      "electrocuted",
+      "kuryente",
+      "nakuryente",
+      "wire",
+      "kable",
+      "grounded",
+      "shock"
+    ],
+    "text": "1. HUWAG hawakan ang tao habang nakadikit pa siya sa kuryente. Patayin muna ang kuryente o bunutin ang saksakan.\n2. Kung hindi mapatay ang kuryente, tumayo sa tuyong bagay at itulak ang tao palayo gamit ang tuyong kahoy, plastik, o karton — huwag kamay o metal.\n3. Humingi agad ng tulong medikal.\n4. Tingnan ang paghinga. Kung hindi humihinga nang normal, simulan ang CPR.\n5. Palamigin ang paso sa tumatakbong tubig at takpan nang maluwag ng malinis na tela. Panatilihing hindi gumagalaw at mainit ang tao hanggang dumating ang tulong.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.nosebleed.care.001",
+    "pack": "first_aid",
+    "topic": "nosebleed",
+    "lang": "en",
+    "title": "Nosebleed",
+    "severity": "caution",
+    "tags": [
+      "nosebleed",
+      "nose bleed",
+      "nose",
+      "bleeding nose",
+      "balinguyngoy",
+      "dugo sa ilong",
+      "duguan ang ilong",
+      "ilong"
+    ],
+    "text": "1. Sit upright and lean slightly forward. Breathe through the mouth and spit out any blood.\n2. Pinch the soft lower part of the nose shut and hold without checking for 10 to 15 minutes.\n3. Do NOT blow the nose, pick it, bend over, or lie flat for several hours after.\n4. Apply a cool cloth to the nose if available.\n5. Seek medical help if bleeding lasts over 20 minutes, is heavy, follows a head injury, or happens often or while on blood-thinning medicine.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.nosebleed.care.001",
+    "pack": "first_aid",
+    "topic": "nosebleed",
+    "lang": "tl",
+    "title": "Pagdurugo ng ilong (balinguyngoy)",
+    "severity": "caution",
+    "tags": [
+      "nosebleed",
+      "nose bleed",
+      "nose",
+      "bleeding nose",
+      "balinguyngoy",
+      "dugo sa ilong",
+      "duguan ang ilong",
+      "ilong"
+    ],
+    "text": "1. Umupo nang tuwid at yumuko nang bahagya pasulong. Huminga sa bibig at iluwa ang anumang dugo.\n2. Pisilin ang malambot na ibabang bahagi ng ilong at huwag bitawan nang 10 hanggang 15 minuto.\n3. HUWAG suminga, mangalkal ng ilong, yumuko, o humiga nang patag sa loob ng ilang oras.\n4. Lagyan ng malamig na tela ang ilong kung may available.\n5. Magpatingin kung higit 20 minuto ang pagdurugo, malakas, pagkatapos mauntog ang ulo, o madalas o habang umiinom ng pampalabnaw ng dugo.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.poisoning.ingestion.001",
+    "pack": "first_aid",
+    "topic": "poisoning",
+    "lang": "en",
+    "title": "Poisoning (swallowed poison)",
+    "severity": "critical",
+    "tags": [
+      "poisoning",
+      "poison",
+      "nalason",
+      "lason",
+      "overdose",
+      "bleach",
+      "pesticide",
+      "kinain na lason",
+      "gamot overdose",
+      "gaas",
+      "kerosene",
+      "gasolina"
+    ],
+    "text": "1. Check response and breathing. If not breathing normally, start CPR and call for emergency help.\n2. Call for emergency help immediately. Keep the poison container or label to tell responders exactly what was taken and when.\n3. Do NOT induce vomiting. Do NOT give food, drink, milk, or oil unless a medical professional tells you to.\n4. If unconscious but breathing, lay the person on their side and monitor breathing.\n5. Do not leave the person alone. Bring the container to the hospital.",
+    "source": "DOH / WHO Poisoning First Aid Guidelines",
+    "personalize": [
+      "allergies",
+      "medications",
+      "conditions"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.poisoning.ingestion.001",
+    "pack": "first_aid",
+    "topic": "poisoning",
+    "lang": "tl",
+    "title": "Pagkalason (nakalunok ng lason)",
+    "severity": "critical",
+    "tags": [
+      "poisoning",
+      "poison",
+      "nalason",
+      "lason",
+      "overdose",
+      "bleach",
+      "pesticide",
+      "kinain na lason",
+      "gamot overdose",
+      "gaas",
+      "kerosene",
+      "gasolina"
+    ],
+    "text": "1. Tingnan kung may malay at paghinga. Kung hindi humihinga nang normal, simulan ang CPR at humingi ng tulong.\n2. Humingi agad ng tulong medikal. Itago ang lalagyan o label ng lason para masabi sa rescuer kung ano ang nainom at kailan.\n3. HUWAG piliting magsuka. HUWAG bigyan ng pagkain, inumin, gatas, o langis maliban kung sinabi ng doktor.\n4. Kung walang malay pero humihinga, ihiga sa tagiliran at bantayan ang paghinga.\n5. Huwag iwanang mag-isa ang tao. Dalhin ang lalagyan sa ospital.",
+    "source": "DOH / WHO Poisoning First Aid Guidelines",
+    "personalize": [
+      "allergies",
+      "medications",
+      "conditions"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.fever.child.001",
+    "pack": "first_aid",
+    "topic": "high_fever_child",
+    "lang": "en",
+    "title": "High fever in a child",
+    "severity": "urgent",
+    "tags": [
+      "fever",
+      "high fever",
+      "child",
+      "baby",
+      "lagnat",
+      "bata",
+      "sanggol",
+      "nilalagnat",
+      "mainit ang bata",
+      "kombulsyon"
+    ],
+    "text": "1. Keep the child hydrated — offer water, breastmilk, or oral rehydration solution often.\n2. Dress the child lightly and keep the room cool. Do NOT over-wrap in blankets.\n3. You may sponge with lukewarm (not cold) water. Do NOT use ice water or rubbing alcohol.\n4. Watch for danger signs: stiff neck, seizure, unusual sleepiness, breathing difficulty, rash, persistent vomiting, or signs of dehydration.\n5. Seek urgent care if the baby is under 3 months with any fever, fever lasts over 2 days, or any danger sign appears. Bring the temperature record.",
+    "source": "DOH / WHO Child Health Guidelines",
+    "personalize": [
+      "household_infant",
+      "medications",
+      "allergies"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.fever.child.001",
+    "pack": "first_aid",
+    "topic": "high_fever_child",
+    "lang": "tl",
+    "title": "Mataas na lagnat sa bata",
+    "severity": "urgent",
+    "tags": [
+      "fever",
+      "high fever",
+      "child",
+      "baby",
+      "lagnat",
+      "bata",
+      "sanggol",
+      "nilalagnat",
+      "mainit ang bata",
+      "kombulsyon"
+    ],
+    "text": "1. Panatilihing hydrated ang bata — bigyan ng tubig, gatas ng ina, o oral rehydration solution nang madalas.\n2. Damitan nang manipis at panatilihing presko ang kuwarto. HUWAG balutin ng makapal na kumot.\n3. Puwedeng punasan ng maligamgam (hindi malamig) na tubig. HUWAG gumamit ng yelo o alcohol.\n4. Bantayan ang delikadong senyales: matigas na leeg, kumbulsyon, sobrang antok, hirap huminga, pantal, paulit-ulit na pagsusuka, o senyales ng dehydration.\n5. Magpatingin agad kung ang sanggol ay wala pang 3 buwan at nilalagnat, higit 2 araw ang lagnat, o may anumang delikadong senyales. Dalhin ang tala ng temperatura.",
+    "source": "DOH / WHO Child Health Guidelines",
+    "personalize": [
+      "household_infant",
+      "medications",
+      "allergies"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.eye.injury.001",
+    "pack": "first_aid",
+    "topic": "eye_injury",
+    "lang": "en",
+    "title": "Eye injury or chemical in the eye",
+    "severity": "urgent",
+    "tags": [
+      "eye",
+      "eye injury",
+      "chemical",
+      "mata",
+      "sakit sa mata",
+      "napuwing",
+      "chemical sa mata",
+      "nabangga ang mata"
+    ],
+    "text": "1. Do NOT rub the eye. Do NOT remove an object stuck in the eye — cover it lightly and keep the person still.\n2. For chemicals, dust, or sand: rinse the eye gently with plenty of clean running water for at least 15 to 20 minutes, from the inner corner outward.\n3. Remove contact lenses only if they come out easily during rinsing.\n4. Cover the eye loosely with a clean shield or cup without pressing. Do NOT apply ointments or medicines.\n5. Seek urgent eye care. Bring the chemical container or label if there is one.",
+    "source": "Philippine Red Cross / WHO First Aid Guidelines",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.eye.injury.001",
+    "pack": "first_aid",
+    "topic": "eye_injury",
+    "lang": "tl",
+    "title": "Sugat sa mata o chemical sa mata",
+    "severity": "urgent",
+    "tags": [
+      "eye",
+      "eye injury",
+      "chemical",
+      "mata",
+      "sakit sa mata",
+      "napuwing",
+      "chemical sa mata",
+      "nabangga ang mata"
+    ],
+    "text": "1. HUWAG kusutin ang mata. HUWAG alisin ang bagay na nakabaon sa mata — takpan nang magaang at huwag paggalawin ang tao.\n2. Para sa chemical, alikabok, o buhangin: banlawang dahan-dahan ng maraming malinis na tumatakbong tubig nang hindi bababa sa 15 hanggang 20 minuto, mula sa panloob na sulok palabas.\n3. Alisin ang contact lens kung kusang matatanggal habang binabanlawan.\n4. Takpan nang maluwag ng malinis na panakip o baso nang hindi diniinan. HUWAG lagyan ng ointment o gamot.\n5. Magpatingin agad sa mata. Dalhin ang lalagyan o label ng chemical kung mayroon.",
+    "source": "Philippine Red Cross / WHO First Aid Guidelines",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.cpr.child.001",
+    "pack": "first_aid",
+    "topic": "cpr_child",
+    "lang": "en",
+    "title": "CPR for a child (1 year to puberty)",
+    "severity": "critical",
+    "tags": [
+      "cpr",
+      "child cpr",
+      "bata",
+      "cpr sa bata",
+      "not breathing",
+      "hindi humihinga",
+      "collapse",
+      "wala sa malay",
+      "resuscitation"
+    ],
+    "text": "1. Check response — tap and shout. If no response and not breathing normally, call for help and start CPR.\n2. Place the heel of one hand (two if needed) on the lower half of the breastbone.\n3. Push HARD and FAST: about 5 cm deep, 100 to 120 pushes per minute. Let the chest rise fully between pushes.\n4. If trained, give 30 compressions then 2 rescue breaths. If untrained, do hands-only compressions nonstop.\n5. Do not stop until the child breathes, help takes over, or you cannot continue.",
+    "source": "Philippine Red Cross / American Heart Association CPR Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.cpr.child.001",
+    "pack": "first_aid",
+    "topic": "cpr_child",
+    "lang": "tl",
+    "title": "CPR para sa bata (1 taon hanggang pagbibinata/pagdadalaga)",
+    "severity": "critical",
+    "tags": [
+      "cpr",
+      "child cpr",
+      "bata",
+      "cpr sa bata",
+      "not breathing",
+      "hindi humihinga",
+      "collapse",
+      "wala sa malay",
+      "resuscitation"
+    ],
+    "text": "1. Tingnan kung may reaksyon — tapikin at sigawan. Kung walang reaksyon at hindi humihinga nang normal, tumawag ng tulong at simulan ang CPR.\n2. Ilagay ang sakong ng isang kamay (dalawa kung kailangan) sa ibabang kalahati ng breastbone.\n3. Diinan nang MALAKAS at MABILIS: mga 5 cm ang lalim, 100 hanggang 120 diin kada minuto. Hayaang bumalik nang buo ang dibdib bawat diin.\n4. Kung sanay, bigyan ng 30 diin tapos 2 hinga. Kung hindi sanay, tuloy-tuloy na diin lang gamit ang kamay.\n5. Huwag huminto hanggang huminga ang bata, may pumalit, o hindi mo na kaya.",
+    "source": "Philippine Red Cross / American Heart Association CPR Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.cpr.infant.001",
+    "pack": "first_aid",
+    "topic": "cpr_infant",
+    "lang": "en",
+    "title": "CPR for an infant (under 1 year)",
+    "severity": "critical",
+    "tags": [
+      "cpr",
+      "infant",
+      "baby",
+      "sanggol",
+      "cpr sa sanggol",
+      "newborn",
+      "not breathing",
+      "hindi humihinga",
+      "wala sa malay"
+    ],
+    "text": "1. Check response — tap the foot and shout. If no response and not breathing normally, call for help and start CPR.\n2. Place 2 fingers on the center of the chest, just below the nipple line.\n3. Push HARD and FAST: about 4 cm deep, 100 to 120 pushes per minute. Let the chest rise fully between pushes.\n4. If trained, give 30 compressions then 2 small rescue breaths covering mouth and nose. If untrained, do compressions nonstop.\n5. Do not stop until the infant breathes, help takes over, or you cannot continue.",
+    "source": "Philippine Red Cross / American Heart Association CPR Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.cpr.infant.001",
+    "pack": "first_aid",
+    "topic": "cpr_infant",
+    "lang": "tl",
+    "title": "CPR para sa sanggol (wala pang 1 taon)",
+    "severity": "critical",
+    "tags": [
+      "cpr",
+      "infant",
+      "baby",
+      "sanggol",
+      "cpr sa sanggol",
+      "newborn",
+      "not breathing",
+      "hindi humihinga",
+      "wala sa malay"
+    ],
+    "text": "1. Tingnan kung may reaksyon — tapikin ang paa at sigawan. Kung walang reaksyon at hindi humihinga nang normal, tumawag ng tulong at simulan ang CPR.\n2. Ilagay ang 2 daliri sa gitna ng dibdib, sa ibaba lang ng linya ng utong.\n3. Diinan nang MALAKAS at MABILIS: mga 4 cm ang lalim, 100 hanggang 120 diin kada minuto. Hayaang bumalik nang buo ang dibdib bawat diin.\n4. Kung sanay, bigyan ng 30 diin tapos 2 maliit na hinga na tinatakpan ang bibig at ilong. Kung hindi sanay, tuloy-tuloy na diin lang.\n5. Huwag huminto hanggang huminga ang sanggol, may pumalit, o hindi mo na kaya.",
+    "source": "Philippine Red Cross / American Heart Association CPR Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.choking.infant.001",
+    "pack": "first_aid",
+    "topic": "choking_infant",
+    "lang": "en",
+    "title": "Choking infant (under 1 year)",
+    "severity": "critical",
+    "tags": [
+      "choking",
+      "infant",
+      "baby",
+      "sanggol",
+      "nabulunan",
+      "nasamid",
+      "can't breathe",
+      "hindi humihinga",
+      "back blows",
+      "blue lips",
+      "nangingitim"
+    ],
+    "text": "1. Confirm severe blockage: baby cannot cry, cough, or breathe, or lips turn blue. If coughing strongly, watch closely — do NOT interfere.\n2. Hold the baby face-down on your forearm with the head lower than the chest. Support the head and jaw with your hand.\n3. Give 5 firm back blows between the shoulder blades with the heel of your hand.\n4. If still blocked, turn face-up on your arm and give 5 quick chest thrusts with 2 fingers on the center of the chest.\n5. Alternate 5 back blows and 5 chest thrusts until the object comes out or the baby breathes. If the baby becomes unconscious, start infant CPR.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.choking.infant.001",
+    "pack": "first_aid",
+    "topic": "choking_infant",
+    "lang": "tl",
+    "title": "Nabulunang sanggol (wala pang 1 taon)",
+    "severity": "critical",
+    "tags": [
+      "choking",
+      "infant",
+      "baby",
+      "sanggol",
+      "nabulunan",
+      "nasamid",
+      "can't breathe",
+      "hindi humihinga",
+      "back blows",
+      "blue lips",
+      "nangingitim"
+    ],
+    "text": "1. Siguraduhing barado nang husto: hindi makaiyak, makaubo, o makahinga ang sanggol, o nangingitim ang labi. Kung malakas ang ubo, bantayan lang — HUWAG makialam.\n2. Ihiga ang sanggol nang nakadapa sa iyong braso nang mas mababa ang ulo kaysa dibdib. Alalayan ang ulo at panga.\n3. Bigyan ng 5 mariing palo sa likod sa pagitan ng mga balikat gamit ang sakong ng kamay.\n4. Kung bara pa rin, itihaya sa braso at bigyan ng 5 mabilis na diin sa dibdib gamit ang 2 daliri sa gitna ng dibdib.\n5. Salitan ang 5 palo sa likod at 5 diin hanggang lumabas ang bara o makahinga ang sanggol. Kung mawalan ng malay, simulan ang infant CPR.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.asthma.attack.001",
+    "pack": "first_aid",
+    "topic": "asthma_attack",
+    "lang": "en",
+    "title": "Asthma attack (difficulty breathing)",
+    "severity": "critical",
+    "tags": [
+      "asthma",
+      "hika",
+      "attack",
+      "inhaler",
+      "hirap huminga",
+      "wheezing",
+      "humuhuni",
+      "nebulizer",
+      "sinumpong ng hika",
+      "shortness of breath"
+    ],
+    "text": "1. Sit the person upright and keep them calm. Do NOT let them lie down.\n2. Help them use their prescribed reliever inhaler as directed (with a spacer if available).\n3. Move them away from triggers like smoke, dust, or strong smells. Keep the air calm and warm.\n4. If there is no improvement, they cannot speak full sentences, breathing is very hard, or lips turn blue — call for emergency help.\n5. Keep monitoring until help arrives. If they collapse and stop breathing normally, start CPR.",
+    "source": "DOH / WHO Asthma Management Guidelines",
+    "personalize": [
+      "conditions",
+      "medications",
+      "allergies"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.asthma.attack.001",
+    "pack": "first_aid",
+    "topic": "asthma_attack",
+    "lang": "tl",
+    "title": "Atake ng hika (hirap huminga)",
+    "severity": "critical",
+    "tags": [
+      "asthma",
+      "hika",
+      "attack",
+      "inhaler",
+      "hirap huminga",
+      "wheezing",
+      "humuhuni",
+      "nebulizer",
+      "sinumpong ng hika",
+      "shortness of breath"
+    ],
+    "text": "1. Paupuin nang tuwid ang tao at panatilihing kalmado. HUWAG pahigain.\n2. Tulungan siyang gamitin ang reseta niyang reliever inhaler ayon sa tagubilin (gamit ang spacer kung mayroon).\n3. Ilayo sa nagti-trigger tulad ng usok, alikabok, o matapang na amoy. Panatilihing kalmado at mainit ang paligid.\n4. Kung walang ginhawa, hindi makabuo ng pangungusap, hirap na hirap huminga, o nangingitim ang labi — humingi ng tulong medikal.\n5. Patuloy na bantayan hanggang dumating ang tulong. Kung bumagsak at tumigil ang normal na paghinga, simulan ang CPR.",
+    "source": "DOH / WHO Asthma Management Guidelines",
+    "personalize": [
+      "conditions",
+      "medications",
+      "allergies"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.animalbite.dog.001",
+    "pack": "first_aid",
+    "topic": "dog_bite",
+    "lang": "en",
+    "title": "Animal bite (dog or cat — rabies risk)",
+    "severity": "urgent",
+    "tags": [
+      "dog bite",
+      "kagat ng aso",
+      "nakagat",
+      "rabies",
+      "aso",
+      "pusa",
+      "cat bite",
+      "unggoy",
+      "monkey",
+      "ulol",
+      "scratch",
+      "kalmot"
+    ],
+    "text": "1. Wash the wound at once with soap and clean running water for 15 minutes. Apply an antiseptic if available.\n2. Do NOT apply garlic, chili, soy sauce, or any folk remedy. Do NOT suck the wound or bandage it tightly.\n3. Note the animal's description and owner if any. Report stray animals to the barangay.\n4. Go to the nearest Animal Bite Treatment Center as soon as possible for rabies vaccine — even for small scratches.\n5. Watch for fever, numbness, or trouble swallowing in the following days and seek care immediately if these appear.",
+    "source": "DOH National Rabies Prevention and Control Program",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.animalbite.dog.001",
+    "pack": "first_aid",
+    "topic": "dog_bite",
+    "lang": "tl",
+    "title": "Kagat ng hayop (aso o pusa — panganib ng rabies)",
+    "severity": "urgent",
+    "tags": [
+      "dog bite",
+      "kagat ng aso",
+      "nakagat",
+      "rabies",
+      "aso",
+      "pusa",
+      "cat bite",
+      "unggoy",
+      "monkey",
+      "ulol",
+      "scratch",
+      "kalmot"
+    ],
+    "text": "1. Hugasan agad ang sugat gamit ang sabon at malinis na tumatakbong tubig nang 15 minuto. Lagyan ng antiseptic kung mayroon.\n2. HUWAG lagyan ng bawang, sili, toyo, o anumang halamang gamot. HUWAG supsupin ang sugat o balutin nang mahigpit.\n3. Tandaan ang itsura ng hayop at kung sino ang may-ari. Iulat ang gumagalang hayop sa barangay.\n4. Pumunta agad sa pinakamalapit na Animal Bite Treatment Center para sa bakuna laban sa rabies — kahit maliit na kalmot lang.\n5. Bantayan ang lagnat, pamamanhid, o hirap sa paglunok sa mga susunod na araw at magpatingin agad kung lumitaw ang mga ito.",
+    "source": "DOH National Rabies Prevention and Control Program",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.headinjury.care.001",
+    "pack": "first_aid",
+    "topic": "head_injury",
+    "lang": "en",
+    "title": "Head injury (fall, blow, or crash)",
+    "severity": "urgent",
+    "tags": [
+      "head injury",
+      "concussion",
+      "ulo",
+      "nauntog",
+      "nabagok",
+      "headache",
+      "sakit ng ulo",
+      "vomiting",
+      "nagsusuka",
+      "blackout",
+      "nahilo"
+    ],
+    "text": "1. Keep the person still. If the injury came from a fall, crash, or sports hit, suspect a spine injury — support the head and neck and do NOT twist or move them.\n2. If bleeding, press gently with a clean cloth. Do NOT press if the skull feels dented, or if clear fluid or blood comes from the nose or ears.\n3. Watch for red flags: vomiting, worsening headache, confusion, unequal pupils, seizure, weakness, or any blackout.\n4. Do NOT give food, drink, or medicine. Do NOT leave the person alone for at least 24 hours.\n5. Call for emergency help or go to the hospital if any red flag appears or symptoms worsen.",
+    "source": "Philippine Red Cross / WHO First Aid Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.headinjury.care.001",
+    "pack": "first_aid",
+    "topic": "head_injury",
+    "lang": "tl",
+    "title": "Sugat sa ulo (pagkahulog, hampas, o aksidente)",
+    "severity": "urgent",
+    "tags": [
+      "head injury",
+      "concussion",
+      "ulo",
+      "nauntog",
+      "nabagok",
+      "headache",
+      "sakit ng ulo",
+      "vomiting",
+      "nagsusuka",
+      "blackout",
+      "nahilo"
+    ],
+    "text": "1. Huwag paggalawin ang tao. Kung galing sa pagkahulog, banggaan, o tama sa sports, pagdudahan ang spine injury — alalayan ang ulo at leeg at HUWAG ipihit o igalaw.\n2. Kung dumudugo, marahang diinan ng malinis na tela. HUWAG diinan kung lubog ang bungo, o may malinaw na likido o dugo mula sa ilong o tainga.\n3. Bantayan ang mga babala: pagsusuka, lumalalang sakit ng ulo, pagkalito, hindi pantay na balintataw, kumbulsyon, panghihina, o panandaliang pagkawala ng malay.\n4. HUWAG bigyan ng pagkain, inumin, o gamot. HUWAG iwanang mag-isa sa loob ng hindi bababa sa 24 oras.\n5. Humingi ng tulong medikal o pumunta sa ospital kung may lumitaw na babala o lumala ang sintomas.",
+    "source": "Philippine Red Cross / WHO First Aid Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.diabetes.lowsugar.001",
+    "pack": "first_aid",
+    "topic": "diabetic_emergency",
+    "lang": "en",
+    "title": "Low blood sugar (diabetic emergency)",
+    "severity": "urgent",
+    "tags": [
+      "diabetes",
+      "low blood sugar",
+      "hypoglycemia",
+      "diyabetes",
+      "nanginginig",
+      "pinagpapawisan",
+      "hilo",
+      "sugar",
+      "insulin",
+      "nanghihina"
+    ],
+    "text": "1. Look for signs: sweating, shaking, fast heartbeat, hunger, paleness, or sudden confusion in a person with diabetes.\n2. If conscious and able to swallow, give fast-acting sugar — fruit juice, regular soda, candy, or sugar dissolved in water.\n3. Wait 15 minutes. If still confused or shaky, give more sugar and call for emergency help.\n4. If unconscious, seizing, or unable to swallow — do NOT give food or drink. Lay them on their side.\n5. Tell responders the person has diabetes and what medicine they take.",
+    "source": "DOH / WHO Diabetes Emergency Guidelines",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.diabetes.lowsugar.001",
+    "pack": "first_aid",
+    "topic": "diabetic_emergency",
+    "lang": "tl",
+    "title": "Mababang blood sugar (emergency sa diabetes)",
+    "severity": "urgent",
+    "tags": [
+      "diabetes",
+      "low blood sugar",
+      "hypoglycemia",
+      "diyabetes",
+      "nanginginig",
+      "pinagpapawisan",
+      "hilo",
+      "sugar",
+      "insulin",
+      "nanghihina"
+    ],
+    "text": "1. Tingnan ang mga senyales: pagpapawis, panginginig, mabilis na tibok ng puso, gutom, pamumutla, o biglang pagkalito sa taong may diabetes.\n2. Kung gising at nakakalunok, bigyan ng mabilis na asukal — fruit juice, regular na soda, kendi, o asukal na tinunaw sa tubig.\n3. Maghintay ng 15 minuto. Kung nalilito o nanginginig pa rin, bigyan pa ng asukal at humingi ng tulong medikal.\n4. Kung walang malay, kinukumbulsyon, o hindi makalunok — HUWAG bigyan ng pagkain o inumin. Ihiga sa tagiliran.\n5. Sabihin sa rescuer na may diabetes ang tao at kung anong gamot ang iniinom niya.",
+    "source": "DOH / WHO Diabetes Emergency Guidelines",
+    "personalize": [
+      "conditions",
+      "medications"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.dehydration.ors.001",
+    "pack": "first_aid",
+    "topic": "dehydration",
+    "lang": "en",
+    "title": "Dehydration (fluid loss)",
+    "severity": "urgent",
+    "tags": [
+      "dehydration",
+      "dehydrated",
+      "ors",
+      "uhaw",
+      "tuyot",
+      "pagtatae",
+      "diarrhea",
+      "suka",
+      "vomiting",
+      "electrolytes",
+      "dry mouth"
+    ],
+    "text": "1. Look for signs: extreme thirst, dry mouth, dark yellow urine, dizziness — in children: sunken eyes, no tears when crying, dry diapers.\n2. Give oral rehydration solution (ORS) or clean water often in small, frequent sips. Continue breastfeeding infants.\n3. Keep giving food as tolerated. Avoid alcohol, coffee, and very sugary drinks.\n4. Seek urgent care if the person cannot drink or keep fluids down, has bloody stool, high fever, confusion, fainting — or an infant with a sunken soft spot on the head.",
+    "source": "DOH / WHO Diarrhoea and Dehydration Guidelines",
+    "personalize": [
+      "household_infant",
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.dehydration.ors.001",
+    "pack": "first_aid",
+    "topic": "dehydration",
+    "lang": "tl",
+    "title": "Dehydration (kakulangan sa tubig ng katawan)",
+    "severity": "urgent",
+    "tags": [
+      "dehydration",
+      "dehydrated",
+      "ors",
+      "uhaw",
+      "tuyot",
+      "pagtatae",
+      "diarrhea",
+      "suka",
+      "vomiting",
+      "electrolytes",
+      "dry mouth"
+    ],
+    "text": "1. Tingnan ang mga senyales: matinding uhaw, tuyong bibig, madilaw na ihi, pagkahilo — sa bata: lumulubog na mata, walang luha sa pag-iyak, tuyong lampin.\n2. Bigyan ng oral rehydration solution (ORS) o malinis na tubig nang madalas sa maliliit na lagok. Ipagpatuloy ang pagpapasuso sa sanggol.\n3. Patuloy na pakainin hangga't kaya. Iwasan ang alak, kape, at sobrang matatamis na inumin.\n4. Magpatingin agad kung hindi makainom o hindi nananatili ang fluids, may dugong dumi, mataas na lagnat, nalilito, hinimatay — o sanggol na lumulubog ang bumbunan.",
+    "source": "DOH / WHO Diarrhoea and Dehydration Guidelines",
+    "personalize": [
+      "household_infant",
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.minorwound.care.001",
+    "pack": "first_aid",
+    "topic": "minor_wound",
+    "lang": "en",
+    "title": "Minor cuts and scrapes",
+    "severity": "caution",
+    "tags": [
+      "wound",
+      "sugat",
+      "hiwa",
+      "cut",
+      "scratch",
+      "gasgas",
+      "minor cut",
+      "bandage",
+      "impeksyon",
+      "infection",
+      "tetanus",
+      "dugo"
+    ],
+    "text": "1. Wash your hands, then rinse the wound under clean running water. Clean around it with soap — keep soap out of the wound itself.\n2. Press gently with a clean cloth to stop minor bleeding.\n3. Cover with a clean bandage. Change it daily and keep the wound clean and dry.\n4. Watch for infection: increasing pain, redness, swelling, warmth, pus, or fever — seek care if any appear.\n5. For dirty, deep, or rusty-metal wounds, ask a clinic about a tetanus shot.",
+    "source": "Philippine Red Cross / WHO Wound Care Guidelines",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.minorwound.care.001",
+    "pack": "first_aid",
+    "topic": "minor_wound",
+    "lang": "tl",
+    "title": "Maliit na hiwa at gasgas",
+    "severity": "caution",
+    "tags": [
+      "wound",
+      "sugat",
+      "hiwa",
+      "cut",
+      "scratch",
+      "gasgas",
+      "minor cut",
+      "bandage",
+      "impeksyon",
+      "infection",
+      "tetanus",
+      "dugo"
+    ],
+    "text": "1. Maghugas ng kamay, saka banlawan ang sugat sa malinis na tumatakbong tubig. Sabunin ang paligid — huwag ipasok ang sabon sa sugat.\n2. Marahang diinan ng malinis na tela para tumigil ang bahagyang pagdurugo.\n3. Takpan ng malinis na bandage. Palitan araw-araw at panatilihing malinis at tuyo ang sugat.\n4. Bantayan ang impeksyon: lumalalang sakit, pamumula, pamamaga, init, nana, o lagnat — magpatingin kung lumitaw ang alinman.\n5. Para sa marumi, malalim, o kalawang na sugat, magtanong sa clinic tungkol sa tetanus shot.",
+    "source": "Philippine Red Cross / WHO Wound Care Guidelines",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.sprain.ankle.001",
+    "pack": "first_aid",
+    "topic": "sprain",
+    "lang": "en",
+    "title": "Sprain (twisted joint)",
+    "severity": "caution",
+    "tags": [
+      "sprain",
+      "pilay",
+      "twisted ankle",
+      "namaga",
+      "swelling",
+      "rice",
+      "yelo",
+      "bukung-bukong",
+      "napilay",
+      "joint",
+      "paikot"
+    ],
+    "text": "1. Rest the joint — stop using it and do not play through the pain.\n2. Apply ice wrapped in cloth for 15 to 20 minutes every few hours for the first 1 to 2 days.\n3. Compress with an elastic bandage — snug but not tight — and elevate the joint above heart level.\n4. Avoid heat, massage, and alcohol for the first 48 to 72 hours.\n5. Seek care if you cannot bear weight, the joint looks bent or deformed, there is numbness, or it is not better in a few days.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.sprain.ankle.001",
+    "pack": "first_aid",
+    "topic": "sprain",
+    "lang": "tl",
+    "title": "Pilay (naikot na kasukasuan)",
+    "severity": "caution",
+    "tags": [
+      "sprain",
+      "pilay",
+      "twisted ankle",
+      "namaga",
+      "swelling",
+      "rice",
+      "yelo",
+      "bukung-bukong",
+      "napilay",
+      "joint",
+      "paikot"
+    ],
+    "text": "1. Ipahinga ang kasukasuan — huwag gamitin at huwag balewalain ang sakit.\n2. Lagyan ng yelong nakabalot sa tela nang 15 hanggang 20 minuto kada ilang oras sa unang 1 hanggang 2 araw.\n3. Balutin ng elastic bandage — mahigpit nang bahagya pero hindi sumasakal — at itaas ang kasukasuan nang mas mataas sa puso.\n4. Iwasan ang init, masahe, at alak sa unang 48 hanggang 72 oras.\n5. Magpatingin kung hindi makatayo sa paa, mukhang baluktot ang kasukasuan, may pamamanhid, o hindi gumagaling sa loob ng ilang araw.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.jellyfish.sting.001",
+    "pack": "first_aid",
+    "topic": "jellyfish_sting",
+    "lang": "en",
+    "title": "Jellyfish sting",
+    "severity": "urgent",
+    "tags": [
+      "jellyfish",
+      "dikya",
+      "sting",
+      "kagat ng dikya",
+      "dagat",
+      "tentacles",
+      "galamay",
+      "vinegar",
+      "suka",
+      "masakit",
+      "beach"
+    ],
+    "text": "1. Get out of the water calmly and call for help. Keep the person still.\n2. Rinse the sting with vinegar for 30 seconds if available. Do NOT rinse with fresh water or rub with sand.\n3. Remove tentacles with tweezers or a stick — never with bare hands. Do NOT apply alcohol or urine.\n4. Soak the area in hot water (hot but not scalding — test first, take extra care with children) for 20 to 40 minutes if available.\n5. Call for emergency help if a box-shaped jellyfish is suspected, or with severe pain, breathing difficulty, chest pain, or stings over a large area or the face.",
+    "source": "DOH / Philippine Red Cross Marine Sting Guidelines",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.jellyfish.sting.001",
+    "pack": "first_aid",
+    "topic": "jellyfish_sting",
+    "lang": "tl",
+    "title": "Kagat ng dikya (jellyfish sting)",
+    "severity": "urgent",
+    "tags": [
+      "jellyfish",
+      "dikya",
+      "sting",
+      "kagat ng dikya",
+      "dagat",
+      "tentacles",
+      "galamay",
+      "vinegar",
+      "suka",
+      "masakit",
+      "beach"
+    ],
+    "text": "1. Lumabas nang kalmado sa tubig at humingi ng tulong. Huwag paggalawin ang tao.\n2. Banlawan ang kagat ng suka (vinegar) nang 30 segundo kung mayroon. HUWAG banlawan ng tabang na tubig o kuskusin ng buhangin.\n3. Alisin ang galamay gamit ang tiyani o patpat — huwag kamay lang. HUWAG lagyan ng alcohol o ihi.\n4. Ibabad sa mainit na tubig (mainit pero hindi nakakapasô — subukan muna, mas maingat sa bata) nang 20 hanggang 40 minuto kung kaya.\n5. Humingi ng tulong medikal kung pinaghihinalaang box jellyfish, o may matinding sakit, hirap huminga, sakit sa dibdib, o malawak o mukhang kagat.",
+    "source": "DOH / Philippine Red Cross Marine Sting Guidelines",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.insectsting.bee.001",
+    "pack": "first_aid",
+    "topic": "insect_sting",
+    "lang": "en",
+    "title": "Bee or wasp sting",
+    "severity": "caution",
+    "tags": [
+      "bee",
+      "bubuyog",
+      "wasp",
+      "putakti",
+      "sting",
+      "kagat",
+      "tusok",
+      "pantal",
+      "namaga",
+      "insect",
+      "insekto",
+      "swelling"
+    ],
+    "text": "1. Move away from the area calmly to avoid more stings.\n2. Scrape the stinger out sideways with a card edge or fingernail. Do NOT squeeze it with fingers.\n3. Wash with soap and water, then apply a cold pack wrapped in cloth to reduce pain and swelling.\n4. Watch for severe allergy signs — face or lip swelling, trouble breathing, dizziness — and call for emergency help if these appear.\n5. Do NOT scratch. Seek care for many stings, stings in the mouth or eye, or signs of infection later.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.insectsting.bee.001",
+    "pack": "first_aid",
+    "topic": "insect_sting",
+    "lang": "tl",
+    "title": "Kagat ng bubuyog o putakti",
+    "severity": "caution",
+    "tags": [
+      "bee",
+      "bubuyog",
+      "wasp",
+      "putakti",
+      "sting",
+      "kagat",
+      "tusok",
+      "pantal",
+      "namaga",
+      "insect",
+      "insekto",
+      "swelling"
+    ],
+    "text": "1. Lumayo nang kalmado sa lugar para hindi na madagdagan ang kagat.\n2. Kayurin palabas nang patagilid ang tibo gamit ang gilid ng card o kuko. HUWAG pisilin ng daliri.\n3. Hugasan ng sabon at tubig, saka lagyan ng malamig na compress na nakabalot sa tela para mabawasan ang sakit at pamamaga.\n4. Bantayan ang senyales ng matinding allergy — pamamaga ng mukha o labi, hirap huminga, pagkahilo — at humingi ng tulong medikal kung lumitaw ang mga ito.\n5. HUWAG kamutin. Magpatingin kung maraming kagat, kagat sa bibig o mata, o may senyales ng impeksyon kalaunan.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.febrile.seizure.001",
+    "pack": "first_aid",
+    "topic": "febrile_seizure",
+    "lang": "en",
+    "title": "Seizure with fever in a child",
+    "severity": "urgent",
+    "tags": [
+      "febrile seizure",
+      "kumbulsyon sa lagnat",
+      "bata",
+      "nangingisay",
+      "lagnat",
+      "kombulsyon",
+      "infant",
+      "sanggol",
+      "child",
+      "fever",
+      "hilok"
+    ],
+    "text": "1. Stay calm, note the time, and lay the child on a soft, safe surface away from hard objects.\n2. Do NOT hold the child down, put anything in the mouth, or give food, drink, or medicine during the seizure.\n3. When the jerking stops, gently turn the child onto their side and check breathing.\n4. Do NOT cool aggressively with ice or cold baths — treat the fever only after full recovery, as the doctor advises.\n5. Seek urgent care after every first febrile seizure, or if it lasts over 5 minutes, repeats, or the child stays drowsy or has trouble breathing.",
+    "source": "DOH / WHO Child Health (IMCI) Guidelines",
+    "personalize": [
+      "household_infant",
+      "medications"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.febrile.seizure.001",
+    "pack": "first_aid",
+    "topic": "febrile_seizure",
+    "lang": "tl",
+    "title": "Kumbulsyon na may lagnat sa bata",
+    "severity": "urgent",
+    "tags": [
+      "febrile seizure",
+      "kumbulsyon sa lagnat",
+      "bata",
+      "nangingisay",
+      "lagnat",
+      "kombulsyon",
+      "infant",
+      "sanggol",
+      "child",
+      "fever",
+      "hilok"
+    ],
+    "text": "1. Huminahon, tandaan ang oras, at ihiga ang bata sa malambot at ligtas na lugar na malayo sa matitigas na bagay.\n2. HUWAG pigilan ang bata, HUWAG maglagay ng kahit ano sa bibig, at HUWAG bigyan ng pagkain, inumin, o gamot habang kinukumbulsyon.\n3. Kapag tumigil ang pangingisay, dahan-dahang ihiga sa tagiliran at tingnan ang paghinga.\n4. HUWAG agresibong palamigin gamit ang yelo o malamig na paligo — gamutin ang lagnat kapag lubusan nang magaling, ayon sa doktor.\n5. Magpatingin agad pagkatapos ng bawat unang kumbulsyon na may lagnat, o kung higit 5 minuto, umulit, o matamlay pa rin o hirap huminga ang bata.",
+    "source": "DOH / WHO Child Health (IMCI) Guidelines",
+    "personalize": [
+      "household_infant",
+      "medications"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.road.crash.001",
+    "pack": "first_aid",
+    "topic": "road_crash",
+    "lang": "en",
+    "title": "Road crash — first on the scene",
+    "severity": "urgent",
+    "tags": [
+      "road accident",
+      "aksidente",
+      "nabangga",
+      "banggaan",
+      "motorsiklo",
+      "kotse",
+      "kalsada",
+      "tricycle",
+      "pedestrian",
+      "nasagasaan",
+      "vehicular"
+    ],
+    "text": "1. Protect the scene first — turn on hazard lights, set a warning triangle if available, and keep bystanders off the road.\n2. Call for emergency help and give the exact location and number of injured people.\n3. Do NOT move injured people unless they are in burning vehicles or in the path of traffic — support the head and neck and wait.\n4. Control severe bleeding with firm direct pressure and treat for shock: lay down, keep warm, no food or drink.\n5. Do NOT remove helmets unless the person is not breathing and you must give CPR.",
+    "source": "Philippine Red Cross / WHO Road Safety First Aid",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.road.crash.001",
+    "pack": "first_aid",
+    "topic": "road_crash",
+    "lang": "tl",
+    "title": "Aksidente sa kalsada — unang rumesponde",
+    "severity": "urgent",
+    "tags": [
+      "road accident",
+      "aksidente",
+      "nabangga",
+      "banggaan",
+      "motorsiklo",
+      "kotse",
+      "kalsada",
+      "tricycle",
+      "pedestrian",
+      "nasagasaan",
+      "vehicular"
+    ],
+    "text": "1. Protektahan muna ang lugar — buksan ang hazard lights, maglagay ng warning triangle kung mayroon, at ilayo sa kalsada ang mga usisero.\n2. Tumawag ng tulong medikal at ibigay ang eksaktong lokasyon at bilang ng nasaktan.\n3. HUWAG igalaw ang nasaktan maliban kung nasa nasusunog na sasakyan o nasa daanan ng trapiko — alalayan ang ulo at leeg at maghintay.\n4. Pigilan ang matinding pagdurugo sa mariing direktang diin at gamutin laban sa shock: ihiga, panatilihing mainit, walang pagkain o inumin.\n5. HUWAG alisin ang helmet maliban kung hindi humihinga ang tao at kailangan nang mag-CPR.",
+    "source": "Philippine Red Cross / WHO Road Safety First Aid",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.lightning.strike.001",
+    "pack": "first_aid",
+    "topic": "lightning_strike",
+    "lang": "en",
+    "title": "Lightning strike (person struck)",
+    "severity": "critical",
+    "tags": [
+      "lightning",
+      "kidlat",
+      "tinamaan ng kidlat",
+      "thunderstorm",
+      "kulog",
+      "shock",
+      "burn",
+      "bagyo",
+      "ulan",
+      "struck"
+    ],
+    "text": "1. It is safe to touch a lightning victim — the charge does not stay in the body. Go to them at once.\n2. Call for emergency help immediately.\n3. Check breathing and pulse. If not breathing normally, start CPR at once — lightning victims respond well to fast resuscitation.\n4. Treat burns with cool running water and a loose clean cover. Check for fractures from being thrown.\n5. Move everyone to a sturdy shelter — lightning can strike the same area twice. Avoid open fields, lone trees, and metal objects.",
+    "source": "Philippine Red Cross / PAGASA Lightning Safety",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.lightning.strike.001",
+    "pack": "first_aid",
+    "topic": "lightning_strike",
+    "lang": "tl",
+    "title": "Tinamaan ng kidlat",
+    "severity": "critical",
+    "tags": [
+      "lightning",
+      "kidlat",
+      "tinamaan ng kidlat",
+      "thunderstorm",
+      "kulog",
+      "shock",
+      "burn",
+      "bagyo",
+      "ulan",
+      "struck"
+    ],
+    "text": "1. Ligtas hawakan ang tinamaan ng kidlat — hindi nananatili ang kuryente sa katawan. Puntahan siya agad.\n2. Humingi agad ng tulong medikal.\n3. Tingnan ang paghinga at pulso. Kung hindi humihinga nang normal, simulan agad ang CPR — maganda ang tsansang mabuhay ng tinamaan ng kidlat kung mabilis ang CPR.\n4. Palamigin ang paso sa tumatakbong tubig at takpan nang maluwag. Tingnan kung may bali mula sa pagkatilapon.\n5. Ilipat ang lahat sa matibay na silungan — puwedeng tumama ulit ang kidlat sa parehong lugar. Iwasan ang bukas na parang, nag-iisang puno, at metal.",
+    "source": "Philippine Red Cross / PAGASA Lightning Safety",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.chemicalburn.skin.001",
+    "pack": "first_aid",
+    "topic": "chemical_burn",
+    "lang": "en",
+    "title": "Chemical burn on skin",
+    "severity": "urgent",
+    "tags": [
+      "chemical burn",
+      "chemical",
+      "paso sa chemical",
+      "asido",
+      "acid",
+      "bleach",
+      "kemikal",
+      "soda",
+      "cleaning agent",
+      "panlinis"
+    ],
+    "text": "1. Protect yourself first — wear gloves if available and avoid touching the chemical.\n2. Brush off any dry powder or granules from the skin BEFORE rinsing.\n3. Rinse with plenty of clean running water for at least 20 minutes. Remove contaminated clothing and jewelry while rinsing.\n4. Do NOT try to neutralize the chemical with another chemical (like vinegar on alkali).\n5. Cover loosely with a clean cloth and seek medical help. Bring the chemical container or label.",
+    "source": "Philippine Red Cross / WHO Chemical Burn Guidelines",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.chemicalburn.skin.001",
+    "pack": "first_aid",
+    "topic": "chemical_burn",
+    "lang": "tl",
+    "title": "Paso sa kemikal sa balat",
+    "severity": "urgent",
+    "tags": [
+      "chemical burn",
+      "chemical",
+      "paso sa chemical",
+      "asido",
+      "acid",
+      "bleach",
+      "kemikal",
+      "soda",
+      "cleaning agent",
+      "panlinis"
+    ],
+    "text": "1. Protektahan muna ang sarili — magsuot ng guwantes kung mayroon at iwasang mahawakan ang kemikal.\n2. Pagpagin muna ang tuyong pulbos o butil mula sa balat BAGO banlawan.\n3. Banlawan ng maraming malinis na tumatakbong tubig nang hindi bababa sa 20 minuto. Alisin ang kontaminadong damit at alahas habang binabanlawan.\n4. HUWAG subukang i-neutralize ang kemikal gamit ang ibang kemikal (tulad ng suka sa alkali).\n5. Takpan nang maluwag ng malinis na tela at magpatingin. Dalhin ang lalagyan o label ng kemikal.",
+    "source": "Philippine Red Cross / WHO Chemical Burn Guidelines",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.heat.exhaustion.001",
+    "pack": "first_aid",
+    "topic": "heat_exhaustion",
+    "lang": "en",
+    "title": "Heat exhaustion (before heat stroke)",
+    "severity": "caution",
+    "tags": [
+      "heat exhaustion",
+      "heat",
+      "init",
+      "pagod sa init",
+      "nahilo sa init",
+      "dehydration",
+      "uhaw",
+      "pawis",
+      "heat stroke",
+      "dizzy",
+      "nanghihina"
+    ],
+    "text": "1. Move to shade or a cool place at once. Lie down and loosen clothing.\n2. Sip cool water often. Cool the skin with wet cloths and fanning.\n3. Rest until fully recovered — do NOT return to sun or heavy activity while still dizzy or nauseous.\n4. Watch for heat-stroke warning signs: confusion, fainting, hot dry skin, or seizure. If any appear, call for emergency help at once (see heat stroke).",
+    "source": "DOH / Philippine Red Cross Heat Emergency Guidelines",
+    "personalize": [
+      "conditions",
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.heat.exhaustion.001",
+    "pack": "first_aid",
+    "topic": "heat_exhaustion",
+    "lang": "tl",
+    "title": "Pagkapagod sa init (bago mag-heat stroke)",
+    "severity": "caution",
+    "tags": [
+      "heat exhaustion",
+      "heat",
+      "init",
+      "pagod sa init",
+      "nahilo sa init",
+      "dehydration",
+      "uhaw",
+      "pawis",
+      "heat stroke",
+      "dizzy",
+      "nanghihina"
+    ],
+    "text": "1. Pumunta agad sa lilim o malamig na lugar. Humiga at luwagan ang damit.\n2. Uminom ng malamig na tubig nang madalas. Palamigin ang balat ng basang tela at paypay.\n3. Magpahinga hanggang lubusang gumaling — HUWAG bumalik sa araw o mabigat na gawain hangga't nahihilo o nasusuka pa.\n4. Bantayan ang babala ng heat stroke: pagkalito, pagkahimatay, mainit at tuyong balat, o kumbulsyon. Kung lumitaw ang alinman, humingi agad ng tulong medikal (tingnan ang heat stroke).",
+    "source": "DOH / Philippine Red Cross Heat Emergency Guidelines",
+    "personalize": [
+      "conditions",
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.amputation.care.001",
+    "pack": "first_aid",
+    "topic": "amputation",
+    "lang": "en",
+    "title": "Severed finger or limb (amputation)",
+    "severity": "critical",
+    "tags": [
+      "amputation",
+      "severed",
+      "naputol",
+      "putol",
+      "daliri",
+      "finger",
+      "limb",
+      "naputol na daliri",
+      "bleeding",
+      "machine",
+      "naputulan"
+    ],
+    "text": "1. Call for emergency help at once. Control bleeding with firm direct pressure on the stump and raise the limb.\n2. Keep pressing — add more cloth if blood soaks through. Do NOT remove the cloth to check.\n3. Save the severed part: wrap it in a clean cloth or plastic bag, then place the bag on ice or cold water. Do NOT place the part directly on ice and do NOT wash it.\n4. Lay the person down, keep them warm and calm. Give nothing to eat or drink.\n5. Bring the wrapped part to the hospital with the victim and note the exact time of injury.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "blood_type"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.amputation.care.001",
+    "pack": "first_aid",
+    "topic": "amputation",
+    "lang": "tl",
+    "title": "Naputol na daliri o bahagi ng katawan",
+    "severity": "critical",
+    "tags": [
+      "amputation",
+      "severed",
+      "naputol",
+      "putol",
+      "daliri",
+      "finger",
+      "limb",
+      "naputol na daliri",
+      "bleeding",
+      "machine",
+      "naputulan"
+    ],
+    "text": "1. Humingi agad ng tulong medikal. Pigilan ang pagdurugo sa mariing direktang diin sa pinagputulan at itaas ang bahagi.\n2. Patuloy na diinan — dagdagan ng tela kung tumagos ang dugo. HUWAG alisin ang tela para tingnan.\n3. I-save ang naputol na bahagi: balutin ng malinis na tela o plastic bag, saka ilagay ang bag sa yelo o malamig na tubig. HUWAG direktang ilagay sa yelo at HUWAG hugasan.\n4. Ihiga ang tao, panatilihing mainit at kalmado. HUWAG bigyan ng kakainin o iinumin.\n5. Dalhin ang nakabalot na bahagi sa ospital kasama ang biktima at tandaan ang eksaktong oras ng aksidente.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "blood_type"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.marinesting.urchin.001",
+    "pack": "first_aid",
+    "topic": "marine_sting",
+    "lang": "en",
+    "title": "Sea urchin spines or spiny fish sting",
+    "severity": "urgent",
+    "tags": [
+      "sea urchin",
+      "tuyom",
+      "stonefish",
+      "tinik",
+      "spines",
+      "dagat",
+      "natimik",
+      "sting",
+      "swimming",
+      "beach",
+      "masakit",
+      "namaga"
+    ],
+    "text": "1. Get out of the water calmly and call for help. Keep the person still.\n2. Remove visible spines with tweezers. Do NOT squeeze, crush, or dig with bare fingers.\n3. Soak the area in hot water (hot but not scalding — test first) for 30 to 90 minutes if available. This eases venom pain.\n4. Do NOT cover with ice-cold packs as the main treatment. Watch for infection signs (redness, swelling, pus) in the following days.\n5. Call for emergency help if pain is severe, swelling spreads fast, or there is breathing difficulty — a stonefish sting is an emergency.",
+    "source": "DOH / Philippine Red Cross Marine Sting Guidelines",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.marinesting.urchin.001",
+    "pack": "first_aid",
+    "topic": "marine_sting",
+    "lang": "tl",
+    "title": "Tinik ng tuyom o matinik na isda",
+    "severity": "urgent",
+    "tags": [
+      "sea urchin",
+      "tuyom",
+      "stonefish",
+      "tinik",
+      "spines",
+      "dagat",
+      "natimik",
+      "sting",
+      "swimming",
+      "beach",
+      "masakit",
+      "namaga"
+    ],
+    "text": "1. Lumabas nang kalmado sa tubig at humingi ng tulong. Huwag paggalawin ang tao.\n2. Alisin ang nakikitang tinik gamit ang tiyani. HUWAG pisilin, durugin, o hukayin ng daliri.\n3. Ibabad sa mainit na tubig (mainit pero hindi nakakapasô — subukan muna) nang 30 hanggang 90 minuto kung kaya. Nakakabawas ito ng sakit ng kamandag.\n4. HUWAG yelo ang pangunahing gamutan. Bantayan ang senyales ng impeksyon (pamumula, pamamaga, nana) sa mga susunod na araw.\n5. Humingi ng tulong medikal kung matindi ang sakit, mabilis kumalat ang pamamaga, o hirap huminga — emergency ang tusok ng stonefish.",
+    "source": "DOH / Philippine Red Cross Marine Sting Guidelines",
+    "personalize": [
+      "allergies"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.pesticide.exposure.001",
+    "pack": "first_aid",
+    "topic": "pesticide_exposure",
+    "lang": "en",
+    "title": "Pesticide exposure (farm spray poisoning)",
+    "severity": "urgent",
+    "tags": [
+      "pesticide",
+      "pestisidyo",
+      "spray",
+      "lason",
+      "bukid",
+      "farm",
+      "insecticide",
+      "herbicide",
+      "nalason",
+      "magbubukid",
+      "chemical"
+    ],
+    "text": "1. Move the person to fresh air at once and call for emergency help.\n2. Strip off contaminated clothes and seal them in a bag — cut clothes off instead of pulling over the head.\n3. Rinse skin and eyes with plenty of clean running water for 15 to 20 minutes.\n4. If swallowed, do NOT induce vomiting (see poisoning). Save the pesticide label or container for responders.\n5. Watch for warning signs — heavy sweating or drooling, pinpoint pupils, muscle twitching, breathing trouble — and tell responders the exact chemical and exposure time.",
+    "source": "DOH / WHO Pesticide Poisoning Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.pesticide.exposure.001",
+    "pack": "first_aid",
+    "topic": "pesticide_exposure",
+    "lang": "tl",
+    "title": "Nalason sa pestisidyo (spray sa bukid)",
+    "severity": "urgent",
+    "tags": [
+      "pesticide",
+      "pestisidyo",
+      "spray",
+      "lason",
+      "bukid",
+      "farm",
+      "insecticide",
+      "herbicide",
+      "nalason",
+      "magbubukid",
+      "chemical"
+    ],
+    "text": "1. Ilipat agad ang tao sa sariwang hangin at humingi ng tulong medikal.\n2. Alisin ang kontaminadong damit at isilid sa bag — gupitin sa halip na hubarin sa ulo.\n3. Banlawan ang balat at mata ng maraming malinis na tumatakbong tubig nang 15 hanggang 20 minuto.\n4. Kung nalunok, HUWAG piliting magsuka (tingnan ang poisoning). Itago ang label o lalagyan ng pestisidyo para sa rescuer.\n5. Bantayan ang mga babala — matinding pagpapawis o paglalaway, maningkit na balintataw, pagkibot ng kalamnan, hirap huminga — at sabihin sa rescuer ang eksaktong kemikal at tagal ng exposure.",
+    "source": "DOH / WHO Pesticide Poisoning Guidelines",
+    "personalize": [],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.scorpion.sting.001",
+    "pack": "first_aid",
+    "topic": "scorpion_sting",
+    "lang": "en",
+    "title": "Scorpion or centipede sting",
+    "severity": "caution",
+    "tags": [
+      "scorpion",
+      "alakdan",
+      "centipede",
+      "alupihan",
+      "sting",
+      "kagat",
+      "tusok",
+      "masakit",
+      "namaga",
+      "bite",
+      "sakit"
+    ],
+    "text": "1. Move away from the animal and keep the stung limb still and at rest. Do NOT cut, suck, or tie the sting.\n2. Wash with soap and clean water. Remove rings, watches, or tight items before swelling starts.\n3. Apply a cold pack wrapped in cloth to ease pain. Do NOT apply heat, alcohol, or folk remedies.\n4. Watch for severe allergy signs — face swelling, trouble breathing, dizziness (see allergic_reaction) — and call for emergency help if these appear.\n5. Seek care for children, elderly, multiple stings, severe spreading pain or numbness, or infection signs later.",
+    "source": "DOH / Philippine Red Cross Sting Guidelines",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.scorpion.sting.001",
+    "pack": "first_aid",
+    "topic": "scorpion_sting",
+    "lang": "tl",
+    "title": "Tusok ng alakdan o alupihan",
+    "severity": "caution",
+    "tags": [
+      "scorpion",
+      "alakdan",
+      "centipede",
+      "alupihan",
+      "sting",
+      "kagat",
+      "tusok",
+      "masakit",
+      "namaga",
+      "bite",
+      "sakit"
+    ],
+    "text": "1. Lumayo sa hayop at huwag igalaw ang natusok na bahagi. HUWAG hiwain, supsupin, o talian ang tusok.\n2. Hugasan ng sabon at malinis na tubig. Alisin ang singsing, relo, o masikip na gamit bago mamaga.\n3. Lagyan ng malamig na compress na nakabalot sa tela para mabawasan ang sakit. HUWAG lagyan ng init, alcohol, o halamang gamot.\n4. Bantayan ang senyales ng matinding allergy — pamamaga ng mukha, hirap huminga, pagkahilo (tingnan ang allergic_reaction) — at humingi ng tulong medikal kung lumitaw ang mga ito.\n5. Magpatingin kung bata o matanda ang natusok, maraming tusok, matindi at kumakalat ang sakit o pamamanhid, o may senyales ng impeksyon kalaunan.",
+    "source": "DOH / Philippine Red Cross Sting Guidelines",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.foodpoison.suspect.001",
+    "pack": "first_aid",
+    "topic": "food_poisoning",
+    "lang": "en",
+    "title": "Suspected food poisoning",
+    "severity": "caution",
+    "tags": [
+      "food poisoning",
+      "panis",
+      "sira",
+      "pagtatae",
+      "suka",
+      "vomiting",
+      "diarrhea",
+      "stomach ache",
+      "sakit ng tiyan",
+      "spoiled",
+      "kinain"
+    ],
+    "text": "1. Replace fluids first: small frequent sips of ORS or clean water — do not gulp large amounts at once.\n2. Rest the stomach: pause solid food briefly, then return to light foods as tolerated. Avoid alcohol.\n3. Save a sample of the suspect food in a sealed bag and note what and when everyone ate.\n4. Watch for dehydration (see dehydration), especially in children and elderly.\n5. Seek urgent care for bloody vomit or stool, severe stomach pain, high fever, confusion, or inability to keep any fluids down.",
+    "source": "DOH / WHO Foodborne Disease Guidelines",
+    "personalize": [
+      "household_infant",
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.foodpoison.suspect.001",
+    "pack": "first_aid",
+    "topic": "food_poisoning",
+    "lang": "tl",
+    "title": "Pinaghihinalaang food poisoning",
+    "severity": "caution",
+    "tags": [
+      "food poisoning",
+      "panis",
+      "sira",
+      "pagtatae",
+      "suka",
+      "vomiting",
+      "diarrhea",
+      "stomach ache",
+      "sakit ng tiyan",
+      "spoiled",
+      "kinain"
+    ],
+    "text": "1. Palitan muna ang fluids: paunti-unti pero madalas na lagok ng ORS o malinis na tubig — huwag lumagok nang marami nang sabay.\n2. Ipahinga ang tiyan: ihinto muna ang solidong pagkain nang bahagya, saka bumalik sa magaang pagkain hangga't kaya. Iwasan ang alak.\n3. Magtabi ng sample ng pinaghihinalaang pagkain sa saradong bag at tandaan kung ano at kailan kumain ang lahat.\n4. Bantayan ang dehydration (tingnan ang dehydration), lalo na sa bata at matanda.\n5. Magpatingin agad kung may dugong suka o dumi, matinding sakit ng tiyan, mataas na lagnat, pagkalito, o hindi nananatili ang kahit anong fluids.",
+    "source": "DOH / WHO Foodborne Disease Guidelines",
+    "personalize": [
+      "household_infant",
+      "household_elderly"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.tooth.knockedout.001",
+    "pack": "first_aid",
+    "topic": "knocked_out_tooth",
+    "lang": "en",
+    "title": "Knocked-out adult tooth",
+    "severity": "urgent",
+    "tags": [
+      "tooth",
+      "ngipin",
+      "natanggal",
+      "knocked out",
+      "dental",
+      "bibig",
+      "mouth",
+      "natumba",
+      "basketball",
+      "dugo sa bibig",
+      "dentist"
+    ],
+    "text": "1. Act fast — an adult tooth has the best chance if back in place within 60 minutes.\n2. Pick up the tooth by the CROWN (white top), never the root. Rinse briefly with clean water or milk — do NOT scrub or dry it.\n3. Push it gently back into the socket and bite on clean cloth to hold it. If you cannot, store it in cold milk — or inside the cheek (not for small children who may swallow it). NEVER store it dry or in water.\n4. Control gum bleeding with pressure. Do NOT reinsert a baby tooth.\n5. Get to a dentist immediately with the tooth in its container — every minute counts.",
+    "source": "Philippine Dental Association Tooth Avulsion Guidance",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.tooth.knockedout.001",
+    "pack": "first_aid",
+    "topic": "knocked_out_tooth",
+    "lang": "tl",
+    "title": "Natanggal na ngipin (adult)",
+    "severity": "urgent",
+    "tags": [
+      "tooth",
+      "ngipin",
+      "natanggal",
+      "knocked out",
+      "dental",
+      "bibig",
+      "mouth",
+      "natumba",
+      "basketball",
+      "dugo sa bibig",
+      "dentist"
+    ],
+    "text": "1. Kumilos nang mabilis — pinakamaganda ang tsansa ng ngipin kung maibalik sa puwesto sa loob ng 60 minuto.\n2. Pulutin ang ngipin sa CROWN (puting ibabaw), huwag sa ugat. Banlawan nang bahagya ng malinis na tubig o gatas — HUWAG kuskusin o patuyuin.\n3. Dahan-dahang ibalik sa butas at kagatin ang malinis na tela para manatili. Kung hindi kaya, itago sa malamig na gatas — o sa loob ng pisngi (hindi para sa maliit na batang puwedeng makalunok). HUWAG itagong tuyo o sa tubig.\n4. Pigilan ang pagdurugo ng gilagid sa diin. HUWAG ibalik ang ngiping pambata.\n5. Pumunta agad sa dentista dala ang ngipin sa lalagyan — mahalaga ang bawat minuto.",
+    "source": "Philippine Dental Association Tooth Avulsion Guidance",
+    "personalize": [],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.foreignbody.noseear.001",
+    "pack": "first_aid",
+    "topic": "object_in_nose_ear",
+    "lang": "en",
+    "title": "Object stuck in nose or ear (child)",
+    "severity": "caution",
+    "tags": [
+      "nose",
+      "ilong",
+      "ear",
+      "tainga",
+      "bead",
+      "buto",
+      "seed",
+      "nakapasok",
+      "object",
+      "bata",
+      "butil",
+      "barya"
+    ],
+    "text": "1. Stay calm — most objects come out easily if you do NOT push them deeper. NEVER probe with cotton buds, pins, or tweezers unless you can clearly grasp it.\n2. Nose: close the empty nostril and have the child blow hard through the blocked side. A caregiver may give one short puff into the child's mouth while sealing the lips — then seek care if it stays.\n3. Ear: tilt the head to the side and shake gently. Do NOT pour in oil or water — except for a live insect, where a little clean baby oil helps, then seek care.\n4. Seek care for any bleeding, pain, swelling, or hearing change — and urgently for button batteries in the nose or ear (see button_battery): do NOT wait.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.foreignbody.noseear.001",
+    "pack": "first_aid",
+    "topic": "object_in_nose_ear",
+    "lang": "tl",
+    "title": "Bagay na naipit sa ilong o tainga (bata)",
+    "severity": "caution",
+    "tags": [
+      "nose",
+      "ilong",
+      "ear",
+      "tainga",
+      "bead",
+      "buto",
+      "seed",
+      "nakapasok",
+      "object",
+      "bata",
+      "butil",
+      "barya"
+    ],
+    "text": "1. Huminahon — kadalasang madaling lumalabas ang bagay kung HINDI ito itinutulak palalim. HUWAG sundutin ng cotton buds, karayom, o tiyani maliban kung malinaw na mahahawakan.\n2. Ilong: isara ang walang bara na butas at pasingahin nang malakas ang bata sa baradong parte. Puwedeng magbigay ang magulang ng isang maikling ihip sa bibig ng bata habang nakasara ang labi — saka magpatingin kung naiwan pa.\n3. Tainga: ikiling ang ulo patagilid at alugin nang dahan-dahan. HUWAG buhusan ng langis o tubig — maliban sa buhay na insekto, kung saan nakakatulong ang konting baby oil, saka magpatingin.\n4. Magpatingin kung may pagdurugo, sakit, pamamaga, o pagbabago sa pandinig — at agad para sa button battery sa ilong o tainga (tingnan ang button_battery): HUWAG maghintay.",
+    "source": "Philippine Red Cross First Aid Guidelines",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": false
+  },
+  {
+    "id": "firstaid.buttonbattery.swallowed.001",
+    "pack": "first_aid",
+    "topic": "button_battery",
+    "lang": "en",
+    "title": "Swallowed button battery (child emergency)",
+    "severity": "critical",
+    "tags": [
+      "battery",
+      "baterya",
+      "button battery",
+      "bilog",
+      "remote",
+      "laruan",
+      "toy",
+      "nalunok",
+      "swallowed",
+      "relos",
+      "watch",
+      "coin"
+    ],
+    "text": "1. This is a race against time — a lodged button battery burns through tissue within 2 hours. Go to the emergency room at once.\n2. Do NOT induce vomiting and do NOT give food or drink — except: if the child is over 1 year old, can swallow, and help is delayed, small sips of honey may slow the burn. NEVER honey under 1 year old, and NEVER delay the trip for it.\n3. Bring the battery packaging or a matching battery so doctors know the size and type.\n4. Watch for drooling, refusing food, coughing, vomiting blood, or chest pain — and tell the ER team exactly when it was swallowed.",
+    "source": "National Capital Poison Center Button Battery Guideline / DOH",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.buttonbattery.swallowed.001",
+    "pack": "first_aid",
+    "topic": "button_battery",
+    "lang": "tl",
+    "title": "Nakalunok ng button battery (emergency sa bata)",
+    "severity": "critical",
+    "tags": [
+      "battery",
+      "baterya",
+      "button battery",
+      "bilog",
+      "remote",
+      "laruan",
+      "toy",
+      "nalunok",
+      "swallowed",
+      "relos",
+      "watch",
+      "coin"
+    ],
+    "text": "1. Karera ito laban sa oras — sinusunog ng naipit na button battery ang laman sa loob ng 2 oras. Pumunta agad sa emergency room.\n2. HUWAG piliting magsuka at HUWAG bigyan ng pagkain o inumin — maliban: kung mahigit 1 taon ang bata, nakakalunok, at matatagalan ang tulong, puwedeng makabagal sa paso ang paunting honey. HUWAG honey sa wala pang 1 taon, at HUWAG ipagpaliban ang biyahe dahil dito.\n3. Dalhin ang pakete ng baterya o kaparehong baterya para malaman ng doktor ang laki at uri.\n4. Bantayan ang paglalaway, pagtanggi sa pagkain, pag-ubo, pagsusuka ng dugo, o sakit sa dibdib — at sabihin sa ER team kung kailan eksaktong nalunok.",
+    "source": "National Capital Poison Center Button Battery Guideline / DOH",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.firecracker.injury.001",
+    "pack": "first_aid",
+    "topic": "firecracker_injury",
+    "lang": "en",
+    "title": "Firecracker injury (paputok)",
+    "severity": "urgent",
+    "tags": [
+      "firecracker",
+      "paputok",
+      "piccolo",
+      "boga",
+      "watusi",
+      "5-star",
+      "sinturon",
+      "new year",
+      "bagong taon",
+      "blast",
+      "putok"
+    ],
+    "text": "1. Cool burns under clean running water for at least 20 minutes. Do NOT apply toothpaste, oil, or ice.\n2. Control bleeding with firm direct pressure. For severed fingers, save the part wrapped on ice (see amputation) — but never delay the hospital trip to search long.\n3. For eye injuries: cover lightly, do NOT rub or rinse forcefully — get to the ER fast.\n4. Do NOT touch unexploded firecrackers — drown them in water. Report illegal sellers (boga, piccolo, 5-star) to the barangay or PNP.\n5. Prevent the next one: join community fireworks displays instead of lighting at home, and never let children light or hold firecrackers.",
+    "source": "DOH Iwas Paputok Campaign",
+    "personalize": [
+      "household_infant"
+    ],
+    "call_emergency": true
+  },
+  {
+    "id": "firstaid.firecracker.injury.001",
+    "pack": "first_aid",
+    "topic": "firecracker_injury",
+    "lang": "tl",
+    "title": "Sugat sa paputok",
+    "severity": "urgent",
+    "tags": [
+      "firecracker",
+      "paputok",
+      "piccolo",
+      "boga",
+      "watusi",
+      "5-star",
+      "sinturon",
+      "new year",
+      "bagong taon",
+      "blast",
+      "putok"
+    ],
+    "text": "1. Palamigin ang paso sa malinis na tumatakbong tubig nang hindi bababa sa 20 minuto. HUWAG lagyan ng toothpaste, langis, o yelo.\n2. Pigilan ang pagdurugo sa mariing direktang diin. Para sa naputol na daliri, i-save ang bahagi na nakabalot sa yelo (tingnan ang amputation) — pero huwag ipagpaliban ang ospital para maghanap nang matagal.\n3. Para sa sugat sa mata: takpan nang magaang, HUWAG kusutin o banlawang malakas — pumunta agad sa ER.\n4. HUWAG hawakan ang hindi pumutok na paputok — lunurin sa tubig. Iulat ang nagbebenta ng ilegal (boga, piccolo, 5-star) sa barangay o PNP.\n5. Iwasan ang susunod: makisali sa community fireworks display sa halip na magpaputok sa bahay, at huwag hayaang magsindi o humawak ng paputok ang bata.",
+    "source": "DOH Iwas Paputok Campaign",
+    "personalize": [
+      "household_infant"
+    ],
     "call_emergency": true
   }
 ]
