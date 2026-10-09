@@ -61,8 +61,6 @@ fun LoadingScreen(modelName: String, onSos: () -> Unit, onSkip: () -> Unit) {
     var canSkip by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { kotlinx.coroutines.delay(7000); canSkip = true }
 
-    val t = rememberInfiniteTransition(label = "float")
-    val bob by t.animateFloat(-6f, 6f, infiniteRepeatable(tween(1400), RepeatMode.Reverse), label = "bob")
 
     Column(
         Modifier.fillMaxSize().background(SagipColors.Paper).statusBarsPadding().navigationBarsPadding()
@@ -70,8 +68,8 @@ fun LoadingScreen(modelName: String, onSos: () -> Unit, onSkip: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) { SosPill(onSos) }
-        Spacer(Modifier.height(Space.xl.dp))
-        Image(painterResource(R.drawable.sagip_logo), null, Modifier.size(104.dp).clip(RoundedCornerShape(26.dp)))
+        Spacer(Modifier.weight(0.6f))
+        Image(painterResource(R.drawable.sagip_logo), null, Modifier.size(120.dp).clip(RoundedCornerShape(30.dp)))
         Spacer(Modifier.height(Space.lg.dp))
         Text("SAGIP", style = MaterialTheme.typography.displayLarge)
         Spacer(Modifier.height(Space.sm.dp))
@@ -92,12 +90,7 @@ fun LoadingScreen(modelName: String, onSos: () -> Unit, onSkip: () -> Unit) {
             style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted, textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = Space.xs.dp),
         )
-        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-            Image(
-                painterResource(R.drawable.sagip_mascot), null,
-                Modifier.heightIn(max = 300.dp).fillMaxWidth().offset(y = bob.dp), contentScale = ContentScale.Fit,
-            )
-        }
+        Spacer(Modifier.weight(1f))
         Spacer(Modifier.height(Space.lg.dp))
         LinearProgressIndicator(
             modifier = Modifier.fillMaxWidth(0.7f).height(6.dp).clip(CircleShape),

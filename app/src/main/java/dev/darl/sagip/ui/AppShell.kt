@@ -144,6 +144,12 @@ fun MainShell(
     // Chat input + voice state lives here so it survives tab switches.
     var input by remember { mutableStateOf("") }
     var listening by remember { mutableStateOf(false) }
+    val appSettings = remember { dev.darl.sagip.data.SettingsStore(context) }
+    var autoSend by remember { mutableStateOf(appSettings.voiceAutoSend) }
+    val autoSendNow by androidx.compose.runtime.rememberUpdatedState(autoSend)
+    val toggleAutoSend = {
+        autoSend = !autoSend; appSettings.voiceAutoSend = autoSend
+    }
     var voiceHint by remember { mutableStateOf<String?>(null) }
     var voiceNeedsPack by remember { mutableStateOf(false) }
     val langTag = if (lang == dev.darl.sagip.data.Lang.TL) "fil-PH" else "en-PH"
@@ -182,6 +188,7 @@ fun MainShell(
                             modelLine = "${chat.modelName}${if (chat.backend.isNotEmpty()) " · ${chat.backend}" else ""} · offline mode",
                             onBack = { stack.removeAt(stack.lastIndex) },
                             onTheme = onThemeChange,
+                            autoSend = autoSend, onAutoSend = { autoSend = it; appSettings.voiceAutoSend = it },
                             onSave = { profile = it; onProfileChange(it) },
                             onResetChats = { vm.clearHistory() },
                             onPickContact = { cb -> voice.pickContact(cb) },
@@ -218,6 +225,7 @@ fun MainShell(
                                 onOpenTopic = { open(Detail.TopicDetail(it)) },
                                 voiceHint = voiceHint,
                                 onVoiceHintClick = if (voiceNeedsPack) ({ voice.openDownloadSettings() }) else null,
+                                autoSend = autoSend, onToggleAutoSend = toggleAutoSend,
                                 onNewChat = { vm.newChat() },
                                 onOpenSession = { vm.openSession(it) },
                                 onDeleteSession = { vm.deleteSession(it) },
@@ -226,7 +234,13 @@ fun MainShell(
                                     if (listening) { voice.stop(); listening = false } else {
                                         voiceHint = null; voiceNeedsPack = false
                                         voice.start(
-                                            langTag, { input = it }, { input = it; listening = false }, { listening = it },
+                                            langTag, { input = it },
+                                            { text ->
+                                                listening = false
+                                                // Auto-send once the speaker stops; otherwise leave the text to review.
+                                                if (autoSendNow) { vm.send(text); input = "" } else input = text
+                                            },
+                                            { listening = it },
                                             {
                                                 listening = false
                                                 if (it == "NEEDS_PACK") {

@@ -93,8 +93,10 @@ class RetrieverTest {
     }
 
     @Test fun tagalogConjugation_makuryente_matchesElectrical() {
-        val hits = retriever.retrieve("may nabubag na poste ng kuryente baka makuryente", Lang.TL)
-        assertEquals("electrical_hazard", hits.first().topic)
+        // Several electrical guides tie on score here; the downed-line guide must be among them
+        // (which one leads depends on tie-breaks, not on this stemming behaviour).
+        val hits = retriever.retrieve("may nabubag na poste ng kuryente baka makuryente", Lang.TL, k = 4)
+        assertTrue(hits.map { it.topic }.toString(), hits.any { it.topic == "electrical_hazard" })
     }
 
     @Test fun unmatchedTopic_returnsEmpty_notWrongPack() {
@@ -133,5 +135,12 @@ class RetrieverTest {
         // "nahimatay" contains "mata" mid-word; must not route to the eye-injury chunk.
         val hits = retriever.retrieve("may nahimatay", Lang.TL)
         assertTrue("eye chunk must not match", hits.none { it.topic.contains("eye") })
+    }
+
+    @Test fun nakuryente_leadsWithElectricShock_inBothLanguages() {
+        for (lang in listOf(Lang.TL, Lang.EN)) {
+            val hits = retriever.retrieve("may nakuryente", lang, k = 3)
+            assertEquals("lang $lang", "electric_shock", hits.first().topic)
+        }
     }
 }

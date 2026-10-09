@@ -1,5 +1,9 @@
 package dev.darl.sagip.ui.screens
 
+import dev.darl.sagip.ui.components.IconPill
+import androidx.compose.material.icons.outlined.Contacts
+import androidx.compose.material.icons.outlined.PersonAdd
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -107,7 +111,13 @@ fun ContactsScreen(
             if (profile.hasEmergencyContact) CallRow(profile.emergencyContactName, profile.emergencyContactNumber, tr(lang, "Say “call my mom / wife” in Ask", "Sabihin sa Tanong: “tawagan si mama / asawa”"))
             else Text(tr(lang, "None saved yet.", "Wala pang naka-save."), style = MaterialTheme.typography.bodyMedium, color = SagipColors.Muted)
         }
-        item { PillChip(if (profile.hasEmergencyContact) tr(lang, "Edit", "I-edit") else tr(lang, "Add emergency contact", "Magdagdag ng emergency contact"), false, { editing = true }) }
+        item {
+            IconPill(
+                if (profile.hasEmergencyContact) Icons.Outlined.Edit else Icons.Outlined.PersonAdd,
+                if (profile.hasEmergencyContact) tr(lang, "Edit emergency contact", "I-edit ang emergency contact") else tr(lang, "Add emergency contact", "Magdagdag ng emergency contact"),
+                { editing = true },
+            )
+        }
 
         item { Section(tr(lang, "Near you", "Malapit sa iyo")) }
         item {
@@ -137,10 +147,11 @@ fun ContactsScreen(
         }
         if (chosen != null || source != Source.GPS) {
             item {
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    if (chosen != null) PillChip(tr(lang, "Back to my location", "Bumalik sa lokasyon ko"), false, { chosen = null })
-                    if (gpsPlace == null) PillChip(tr(lang, "Use my location", "Gamitin ang lokasyon ko"), false, onLocate)
-                }
+                IconPill(
+                    Icons.Outlined.MyLocation,
+                    if (chosen != null) tr(lang, "Back to my location", "Bumalik sa lokasyon ko") else tr(lang, "Use my location (GPS)", "Gamitin ang lokasyon ko (GPS)"),
+                    { if (chosen != null) chosen = null else onLocate() },
+                )
             }
         }
         if (local.isEmpty()) {
@@ -222,7 +233,7 @@ private fun EditContactDialog(
                     isError = number.isNotBlank() && !validPhone(number),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone), modifier = Modifier.fillMaxWidth(),
                 )
-                PillChip(tr(lang, "Pick from phone contacts", "Pumili sa contacts ng phone"), false, { onPick { n, num -> name = n; number = num } })
+                IconPill(Icons.Outlined.Contacts, tr(lang, "Pick from phone contacts", "Pumili sa contacts ng phone"), { onPick { n, num -> name = n; number = num } })
             }
         },
         confirmButton = { TextButton(onClick = { onSave(name.trim(), number.trim()) }, enabled = ok) { Text(tr(lang, "Save", "I-save")) } },

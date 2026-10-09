@@ -93,6 +93,7 @@ fun ImageSlot(
     label: String? = null,
     contentScale: ContentScale = ContentScale.Crop,
     description: String? = null,
+    letterbox: Color? = null,
 ) {
     val illus = LocalIllustrations.current
     var bmp by remember(path) { mutableStateOf<ImageBitmap?>(null) }
@@ -101,7 +102,9 @@ fun ImageSlot(
     }
     val a11y = if (description != null) Modifier.semantics { contentDescription = description } else Modifier
     val t = if (SagipColors.isDark) tint.copy(alpha = 0.30f) else tint
-    Box(modifier.then(a11y).background(Brush.verticalGradient(listOf(t, t.copy(alpha = if (SagipColors.isDark) 0.16f else 0.55f))))) {
+    val bgModifier = if (letterbox != null && bmp != null) Modifier.background(letterbox)
+        else Modifier.background(Brush.verticalGradient(listOf(t, t.copy(alpha = if (SagipColors.isDark) 0.16f else 0.55f))))
+    Box(modifier.then(a11y).then(bgModifier)) {
         val b = bmp
         if (b != null) {
             Image(b, contentDescription = null, modifier = Modifier.fillMaxSize(), contentScale = contentScale)
@@ -124,6 +127,29 @@ fun ImageSlot(
 }
 
 // ───────────────────────── Chips / tags ─────────────────────────
+
+/** Icon-only round button (48dp touch target). [description] is the TalkBack label. */
+@Composable
+fun IconPill(
+    icon: ImageVector,
+    description: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    selected: Boolean = false,
+    tint: Color? = null,
+    enabled: Boolean = true,
+) {
+    val bg = if (selected) SagipColors.Ink else SagipColors.Card
+    val fg = tint ?: if (selected) SagipColors.OnInk else SagipColors.Ink
+    Box(
+        modifier.size(48.dp).clip(CircleShape).background(bg)
+            .border(BorderStroke(1.dp, if (selected) SagipColors.Ink else SagipColors.Line), CircleShape)
+            .clickable(enabled = enabled, onClick = onClick)
+            .semantics { contentDescription = description },
+        contentAlignment = Alignment.Center,
+    ) { Icon(icon, null, tint = if (enabled) fg else SagipColors.Muted, modifier = Modifier.size(22.dp)) }
+}
+
 
 @Composable
 fun PillChip(text: String, selected: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {

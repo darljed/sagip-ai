@@ -1,5 +1,9 @@
 package dev.darl.sagip.ui.screens
 
+import dev.darl.sagip.ui.components.IconPill
+import androidx.compose.material.icons.outlined.Contacts
+import androidx.compose.material.icons.outlined.MyLocation
+import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -67,6 +71,8 @@ fun SettingsScreen(
     modelLine: String,
     onBack: () -> Unit,
     onTheme: (ThemeMode) -> Unit,
+    autoSend: Boolean,
+    onAutoSend: (Boolean) -> Unit,
     onSave: (UserProfile) -> Unit,
     onResetChats: () -> Unit,
     onPickContact: ((String, String) -> Unit) -> Unit,
@@ -116,11 +122,16 @@ fun SettingsScreen(
             }
         } }
 
+        item { Group(tr(lang, "Voice", "Boses")) {
+            ToggleRow(tr(lang, "Auto-send when I stop talking", "Awtomatikong ipadala kapag tapos na akong magsalita"), autoSend, onAutoSend)
+            Hint(tr(lang, "Off: the transcript stays in the box so you can edit it first.", "Naka-off: mananatili ang teksto sa box para ma-edit mo muna."))
+        } }
+
         item { Group(tr(lang, "About you", "Tungkol sa iyo")) {
             Field(draft.name, { draft = draft.copy(name = it); saved = false }, tr(lang, "Name", "Pangalan"))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Box(Modifier.weight(1f)) { Field(draft.birthday, { draft = draft.copy(birthday = it); saved = false }, tr(lang, "Birthday (yyyy-mm-dd)", "Kaarawan (yyyy-mm-dd)")) }
-                PillChip(tr(lang, "Pick", "Pumili"), false, { onPickDate(draft.birthday) { draft = draft.copy(birthday = it); saved = false } })
+                IconPill(Icons.Outlined.CalendarMonth, tr(lang, "Pick birthday", "Pumili ng kaarawan"), { onPickDate(draft.birthday) { draft = draft.copy(birthday = it); saved = false } })
             }
             Field(draft.bloodType, { draft = draft.copy(bloodType = it); saved = false }, tr(lang, "Blood type (e.g. O+)", "Blood type (hal. O+)"))
         } }
@@ -134,7 +145,7 @@ fun SettingsScreen(
 
         item { Group(tr(lang, "Where you live", "Tirahan")) {
             Field(draft.home, { draft = draft.copy(home = it); saved = false }, tr(lang, "Barangay / city", "Barangay / lungsod"))
-            PillChip(tr(lang, "Use my location", "Gamitin ang lokasyon ko"), false, { onLocate { raw -> dev.darl.sagip.data.placeLabel(raw).let { if (it.isNotBlank()) { draft = draft.copy(home = it); saved = false } } } })
+            IconPill(Icons.Outlined.MyLocation, tr(lang, "Use my location", "Gamitin ang lokasyon ko"), { onLocate { raw -> dev.darl.sagip.data.placeLabel(raw).let { if (it.isNotBlank()) { draft = draft.copy(home = it); saved = false } } } })
         } }
 
         item { Group(tr(lang, "Household", "Sambahayan")) {
@@ -147,7 +158,7 @@ fun SettingsScreen(
         item { Group(tr(lang, "Emergency contact", "Emergency contact")) {
             Field(draft.emergencyContactName, { draft = draft.copy(emergencyContactName = it); saved = false }, tr(lang, "Name (e.g. Mama)", "Pangalan (hal. Mama)"))
             Field(draft.emergencyContactNumber, { draft = draft.copy(emergencyContactNumber = it); saved = false }, tr(lang, "Phone number", "Numero"), phone = true, error = !contactOk)
-            PillChip(tr(lang, "Pick from phone contacts", "Pumili sa contacts ng phone"), false, { onPickContact { n, num -> draft = draft.copy(emergencyContactName = n, emergencyContactNumber = num); saved = false } })
+            IconPill(Icons.Outlined.Contacts, tr(lang, "Pick from phone contacts", "Pumili sa contacts ng phone"), { onPickContact { n, num -> draft = draft.copy(emergencyContactName = n, emergencyContactNumber = num); saved = false } })
         } }
 
         item {
@@ -242,7 +253,7 @@ private fun AboutCard(modelLine: String) {
             .border(1.dp, SagipColors.Line, RoundedCornerShape(22.dp)).padding(Space.lg.dp),
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(Space.sm.dp),
     ) {
-        Image(painterResource(R.drawable.sagip_mascot), null, Modifier.height(150.dp), contentScale = ContentScale.Fit)
+        Image(painterResource(R.drawable.sagip_logo), null, Modifier.size(72.dp).clip(RoundedCornerShape(18.dp)))
         Text("SAGIP", style = MaterialTheme.typography.headlineSmall)
         Text(
             tr(lang, "Smart Aid & Guidance for Immediate Preparedness", "Matalinong Tulong at Gabay para sa Agarang Paghahanda"),

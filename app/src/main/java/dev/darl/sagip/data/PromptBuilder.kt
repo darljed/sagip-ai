@@ -31,6 +31,13 @@ object PromptBuilder {
         sb.appendLine("You are SAGIP, an offline first-aid and disaster guide for the Philippines.")
         sb.appendLine("A person facing an emergency asks: \"$query\"")
         profile.comprehensionHint()?.let { sb.appendLine(it) }
+        val first = profile.name.trim().substringBefore(' ')
+        if (first.isNotBlank()) {
+            sb.appendLine("The person's name is $first. Address them by name ($first) in your first sentence.")
+            sb.appendLine("Never call them 'Mahal', 'dear', 'honey', 'friend', 'kaibigan', 'iho' or any other pet name.")
+        } else {
+            sb.appendLine("Do not use pet names such as 'Mahal', 'dear' or 'honey'.")
+        }
         sb.appendLine()
 
         // 2. The guidance as REFERENCE context. The model composes the answer FROM

@@ -44,7 +44,18 @@ class KeywordRetriever(private val repo: PackRepository) : Retriever {
             val cur = bestByTopic[chunk.topic]
             if (cur == null || sc > cur.second) bestByTopic[chunk.topic] = chunk to sc
         }
-        val ranked = bestByTopic.values.sortedByDescending { it.second }
+        // Tie-breaks: among equal scores prefer the guide whose TITLE is mostly about the query
+        // ("Nakuryente (taong nakuryente)" over a longer title that merely mentions it), then
+        // the more severe guide — an emergency app should lead with the graver reading.
+        fun titleDensity(c: Chunk): Double {
+            val tt = tokenize(c.title)
+            return if (tt.isEmpty()) 0.0 else terms.count { hit(it, tt) }.toDouble() / tt.size
+        }
+        val ranked = bestByTopic.values.sortedWith(
+            compareByDescending<Pair<Chunk, Int>> { it.second }
+                .thenByDescending { titleDensity(it.first) }
+                .thenByDescending { it.first.severity.ordinal }
+        )
 
         // Absolute relevance floor: a real match lands a tag hit (5) or topic hit (4);
         // incidental body-word overlap (e.g. a falling-tree query grazing "puno"/"dapat"

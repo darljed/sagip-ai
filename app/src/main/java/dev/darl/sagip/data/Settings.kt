@@ -7,6 +7,11 @@ import dev.darl.sagip.ui.theme.ThemeMode
 class SettingsStore(context: Context) {
     private val sp = context.getSharedPreferences("sagip_settings", Context.MODE_PRIVATE)
 
+    /** Send a voice message automatically once the speaker stops (default on). */
+    var voiceAutoSend: Boolean
+        get() = sp.getBoolean("voice_autosend", true)
+        set(v) { sp.edit().putBoolean("voice_autosend", v).apply() }
+
     var themeMode: ThemeMode
         get() = ThemeMode.from(sp.getString("theme", null))
         set(v) { sp.edit().putString("theme", v.key).apply() }

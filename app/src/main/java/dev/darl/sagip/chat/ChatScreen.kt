@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,7 +28,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Send
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.AddComment
 import androidx.compose.material.icons.outlined.Call
+import androidx.compose.material.icons.outlined.DeleteSweep
+import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.RecordVoiceOver
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.ui.draw.alpha
 import androidx.compose.material.icons.outlined.Mic
@@ -54,6 +60,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.darl.sagip.ui.components.LocalLang
+import dev.darl.sagip.ui.components.IconPill
+import dev.darl.sagip.ui.components.ImageSlot
+import dev.darl.sagip.ui.components.LocalIllustrations
 import dev.darl.sagip.ui.components.PillChip
 import dev.darl.sagip.ui.components.SeverityTag
 import dev.darl.sagip.ui.components.TypingBubble
@@ -81,6 +90,8 @@ fun ChatScreen(
     voiceHint: String? = null,
     onVoiceHintClick: (() -> Unit)? = null,
     onMic: () -> Unit,
+    autoSend: Boolean = true,
+    onToggleAutoSend: () -> Unit = {},
     onNewChat: () -> Unit = {},
     onOpenSession: (String) -> Unit = {},
     onDeleteSession: (String) -> Unit = {},
@@ -104,6 +115,7 @@ fun ChatScreen(
     Column(Modifier.fillMaxSize()) {
         ChatActions(
             hasHistory = state.sessions.isNotEmpty(), canNew = state.messages.isNotEmpty() && !state.busy,
+            autoSend = autoSend, onToggleAutoSend = onToggleAutoSend,
             onHistory = { showHistory = true }, onNew = onNewChat,
         )
         Box(Modifier.weight(1f).fillMaxWidth()) {
@@ -202,21 +214,59 @@ private fun AssistantBubble(m: Message, onOpenTopic: (String) -> Unit) {
             }
         }
         if (m.related.isNotEmpty() && !m.streaming) {
-            Text(tr(lang, "Related guides", "Mga kaugnay na gabay"), style = MaterialTheme.typography.labelMedium, color = SagipColors.Muted)
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                items(m.related) { g ->
-                    Column(
-                        Modifier.width(230.dp).clip(RoundedCornerShape(20.dp)).background(SagipColors.Card)
-                            .border(1.dp, SagipColors.Line, RoundedCornerShape(20.dp))
-                            .clickable { onOpenTopic(g.topicId) }.padding(Space.lg.dp),
-                        verticalArrangement = Arrangement.spacedBy(Space.sm.dp),
-                    ) {
-                        SeverityTag(g.severity)
-                        Text(g.title, style = MaterialTheme.typography.titleSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                        Text(tr(lang, "Open guide →", "Buksan ang gabay →"), style = MaterialTheme.typography.labelMedium, color = SagipColors.Blue)
+            val illus = LocalIllustrations.current
+            val lead = m.related.first()
+            val leadHero = illus?.heroPath(lead.topicId.substringAfter(':'))
+            // The best-matching guide's art, inline and tappable (only when art exists for it).
+            if (leadHero != null) InlineGuideImage(lead, leadHero) { onOpenTopic(lead.topicId) }
+            val others = if (leadHero != null) m.related.drop(1) else m.related
+            if (others.isNotEmpty()) {
+                Text(tr(lang, "Related guides", "Mga kaugnay na gabay"), style = MaterialTheme.typography.labelMedium, color = SagipColors.Muted)
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    items(others) { g ->
+                        val hero = illus?.heroPath(g.topicId.substringAfter(':'))
+                        Row(
+                            Modifier.width(300.dp).clip(RoundedCornerShape(20.dp)).background(SagipColors.Card)
+                                .border(1.dp, SagipColors.Line, RoundedCornerShape(20.dp))
+                                .clickable { onOpenTopic(g.topicId) }.padding(12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            if (hero != null) {
+                                ImageSlot(hero, SagipColors.Line, Icons.Outlined.Call, Modifier.size(84.dp).clip(RoundedCornerShape(14.dp)), letterbox = ArtNavy)
+                            }
+                            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(Space.sm.dp)) {
+                                SeverityTag(g.severity)
+                                Text(g.title, style = MaterialTheme.typography.titleSmall, maxLines = 3, overflow = TextOverflow.Ellipsis)
+                                Text(tr(lang, "Open guide →", "Buksan ang gabay →"), style = MaterialTheme.typography.labelMedium, color = SagipColors.Blue)
+                            }
+                        }
                     }
                 }
             }
+        }
+    }
+}
+
+private val ArtNavy = Color(0xFF0A0A18)
+
+/** Big tappable image of the matched guide with its title along the bottom. */
+@Composable
+private fun InlineGuideImage(g: RelatedGuide, path: String, onClick: () -> Unit) {
+    val lang = LocalLang.current
+    Box(
+        Modifier.fillMaxWidth().height(230.dp).clip(RoundedCornerShape(22.dp)).border(1.dp, SagipColors.Line, RoundedCornerShape(22.dp))
+            .clickable(onClick = onClick),
+    ) {
+        ImageSlot(path, SagipColors.Line, Icons.Outlined.Call, Modifier.fillMaxSize(), contentScale = androidx.compose.ui.layout.ContentScale.Fit, letterbox = ArtNavy, description = g.title)
+        Row(
+            Modifier.align(Alignment.BottomStart).fillMaxWidth()
+                .background(androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color.Transparent, Color(0xCC000000))))
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(g.title, style = MaterialTheme.typography.titleSmall, color = Color.White, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+            Spacer(Modifier.width(10.dp))
+            Text(tr(lang, "Open →", "Buksan →"), style = MaterialTheme.typography.labelMedium, color = SagipColors.Acid)
         }
     }
 }
@@ -282,14 +332,23 @@ private fun InputBar(
 }
 
 @Composable
-private fun ChatActions(hasHistory: Boolean, canNew: Boolean, onHistory: () -> Unit, onNew: () -> Unit) {
+private fun ChatActions(
+    hasHistory: Boolean, canNew: Boolean, autoSend: Boolean,
+    onToggleAutoSend: () -> Unit, onHistory: () -> Unit, onNew: () -> Unit,
+) {
     val lang = LocalLang.current
     Row(
         Modifier.fillMaxWidth().padding(horizontal = G, vertical = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.End), verticalAlignment = Alignment.CenterVertically,
     ) {
-        PillChip(tr(lang, "History", "Kasaysayan"), selected = false, onClick = onHistory, modifier = Modifier.then(if (hasHistory) Modifier else Modifier.alpha(0.45f)))
-        PillChip(tr(lang, "+ New chat", "+ Bagong chat"), selected = false, onClick = { if (canNew) onNew() }, modifier = Modifier.then(if (canNew) Modifier else Modifier.alpha(0.45f)))
+        IconPill(
+            Icons.Outlined.RecordVoiceOver,
+            if (autoSend) tr(lang, "Voice auto-send is on — tap to turn off", "Naka-on ang auto-send ng boses — i-tap para i-off")
+            else tr(lang, "Voice auto-send is off — tap to turn on", "Naka-off ang auto-send ng boses — i-tap para i-on"),
+            onToggleAutoSend, selected = autoSend,
+        )
+        IconPill(Icons.Outlined.History, tr(lang, "History", "Kasaysayan"), onHistory, enabled = hasHistory)
+        IconPill(Icons.Outlined.AddComment, tr(lang, "New chat", "Bagong chat"), onNew, enabled = canNew)
     }
 }
 
@@ -306,8 +365,10 @@ private fun HistoryScreen(
     val fmt = remember { java.text.SimpleDateFormat("MMM d · h:mm a", java.util.Locale.getDefault()) }
     Column(Modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = G, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            IconPill(Icons.AutoMirrored.Outlined.ArrowBack, tr(lang, "Back to chat", "Bumalik sa chat"), onBack)
+            Spacer(Modifier.width(12.dp))
             Text(tr(lang, "History", "Kasaysayan"), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
-            PillChip(tr(lang, "Back to chat", "Bumalik"), false, onBack)
+            if (state.sessions.isNotEmpty()) IconPill(Icons.Outlined.DeleteSweep, tr(lang, "Delete all history", "Burahin ang lahat ng kasaysayan"), { confirmClear = true }, tint = SagipColors.SeverityCritical)
         }
         Text(
             tr(lang, "Saved only on this phone.", "Naka-save lang sa phone na ito."),
@@ -340,9 +401,6 @@ private fun HistoryScreen(
                             contentAlignment = Alignment.Center,
                         ) { Icon(Icons.Outlined.DeleteOutline, null, tint = SagipColors.Muted) }
                     }
-                }
-                item {
-                    PillChip(tr(lang, "Clear all history", "Burahin ang lahat"), false, { confirmClear = true })
                 }
             }
         }

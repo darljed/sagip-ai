@@ -107,4 +107,11 @@ class PromptBuilderTest {
         assertFalse(p.contains("Personal facts about this person"))
         assertTrue(p.contains("Reference guidance from trusted sources"))
     }
+
+    @Test fun addressesPersonByFirstName_noPetNames() {
+        val p = PromptBuilder.build("bleeding", UserProfile(name = "Juan Dela Cruz"), listOf(bleedingCritical))
+        assertTrue(p.contains("name is Juan"))
+        assertTrue(p.contains("Never call them 'Mahal'"))
+        assertFalse(p.contains("Dela Cruz"))
+    }
 }
