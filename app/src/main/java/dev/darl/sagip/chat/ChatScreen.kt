@@ -15,9 +15,12 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -73,9 +76,11 @@ fun ChatScreen(state: ChatState, onSend: (String) -> Unit) {
         Column(
             Modifier
                 .fillMaxSize()
-                // Consolidated insets: safeDrawing already unions status bar, nav bar
-                // and the IME, so the input sits right above the keyboard with no gap.
-                .windowInsetsPadding(WindowInsets.safeDrawing)
+                .statusBarsPadding()
+                // Bottom padding = max(keyboard, nav bar), NOT their sum. union() gives
+                // the max, so when the keyboard is up the input sits right on it (nav bar
+                // is behind the keyboard) and when it's down the input clears the nav bar.
+                .windowInsetsPadding(WindowInsets.ime.union(WindowInsets.navigationBars))
         ) {
             Header(state)
 
